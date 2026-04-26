@@ -7,9 +7,9 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useHeroColor } from "@/components/HeroColorContext";
 
 const links = [
-  { href: "/films", label: "Films" },
-  { href: "/docs", label: "Docs" },
+  { href: "/projects", label: "Projects" },
   { href: "/about", label: "About" },
+  { href: "/news", label: "News" },
   { href: "/contact", label: "Get in Touch" },
 ];
 
@@ -122,6 +122,14 @@ export default function Nav() {
               </Link>
             );
           })}
+          <a
+            href="https://aequo-landing.vercel.app"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-xs tracking-widest uppercase px-3 py-1.5 rounded-full border border-white/10 text-white/50 hover:text-white hover:border-white/25 transition-all duration-300"
+          >
+            Aequo
+          </a>
         </div>
 
         {/* Mobile hamburger */}
@@ -181,6 +189,22 @@ export default function Nav() {
                 </Link>
               </motion.div>
             ))}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 20 }}
+              transition={{ delay: links.length * 0.05, type: "spring", stiffness: 200, damping: 20 }}
+            >
+              <a
+                href="https://aequo-landing.vercel.app"
+                target="_blank"
+                rel="noopener noreferrer"
+                onClick={() => setMenuOpen(false)}
+                className="text-lg tracking-[0.2em] uppercase text-white/40 hover:text-white transition-colors"
+              >
+                Aequo
+              </a>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>

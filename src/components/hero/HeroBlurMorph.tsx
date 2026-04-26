@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { projects } from "@/data/projects";
@@ -12,13 +12,21 @@ export default function HeroBlurMorph() {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [feedback, setFeedback] = useState<FeedbackSide>(null);
   const { setHeroColor } = useHeroColor();
+  // Guard against rapid duplicate calls (e.g. Next.js dev-mode multi-HMR firing)
+  const lastClickRef = useRef(0);
 
   const advance = useCallback(() => {
+    const now = Date.now();
+    if (now - lastClickRef.current < 250) return;
+    lastClickRef.current = now;
     setCurrentIndex((prev) => (prev + 1) % projects.length);
     setFeedback("right");
   }, []);
 
   const goBack = useCallback(() => {
+    const now = Date.now();
+    if (now - lastClickRef.current < 250) return;
+    lastClickRef.current = now;
     setCurrentIndex((prev) => (prev - 1 + projects.length) % projects.length);
     setFeedback("left");
   }, []);
@@ -64,19 +72,15 @@ export default function HeroBlurMorph() {
             opacity: { duration: 0.8 },
           }}
         >
-          {/* Photo */}
-          <img
-            src={project.image}
-            alt={project.title}
-            className="absolute inset-0 w-full h-full object-cover"
-          />
-          {/* Color overlay to tint the image */}
+          {/* Gradient cover */}
           <div
-            className="absolute inset-0 opacity-40 mix-blend-multiply"
+            className="absolute inset-0"
             style={{ background: project.gradient }}
           />
+          {/* Film grain texture */}
+          <div className="absolute inset-0 opacity-[0.05] mix-blend-overlay bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJhIiB4PSIwIiB5PSIwIj48ZmVUdXJidWxlbmNlIGJhc2VGcmVxdWVuY3k9Ii43NSIgc3RpdGNoVGlsZXM9InN0aXRjaCIgdHlwZT0iZnJhY3RhbE5vaXNlIi8+PGZlQ29sb3JNYXRyaXggdHlwZT0ic2F0dXJhdGUiIHZhbHVlcz0iMCIvPjwvZmlsdGVyPjxyZWN0IHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIiBmaWx0ZXI9InVybCgjYSkiIG9wYWNpdHk9IjEiLz48L3N2Zz4=')]" />
           {/* Dark gradient for text readability */}
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/30 to-[#0a0a0a]/10" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/40 to-transparent" />
         </motion.div>
       </AnimatePresence>
 
@@ -145,10 +149,10 @@ export default function HeroBlurMorph() {
             transition={{ type: "spring", stiffness: 100, damping: 20, delay: 0.1 }}
           >
             <p className="text-xs tracking-[0.3em] uppercase text-white/40 mb-3">
-              {project.type === "film" ? "Film" : "Documentary"}
+              {project.formatLabel}
             </p>
             <Link
-              href={`/films/${project.slug}`}
+              href={`/projects/${project.slug}`}
               className="group inline-flex items-end gap-4 pointer-events-auto"
             >
               <h1 className="text-4xl md:text-6xl lg:text-7xl font-light tracking-tight group-hover:text-white/80 transition-colors">
@@ -161,7 +165,7 @@ export default function HeroBlurMorph() {
               </span>
             </Link>
             <p className="text-sm md:text-base text-white/50 tracking-wide mt-3">
-              {project.director} &middot; {project.year}
+              {project.directors.join(", ")}
             </p>
           </motion.div>
         </AnimatePresence>

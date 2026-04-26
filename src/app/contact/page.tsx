@@ -3,11 +3,10 @@
 import { motion } from "framer-motion";
 import Footer from "@/components/Footer";
 import PageWithHero from "@/components/PageWithHero";
-import { projects } from "@/data/projects";
 
 export default function ContactPage() {
   return (
-    <PageWithHero image={projects[0]?.image}>
+    <PageWithHero>
       <main className="pt-24 pb-16">
         <div className="max-w-3xl mx-auto px-6 md:px-12">
           <motion.div
@@ -77,12 +76,12 @@ export default function ContactPage() {
                 </div>
                 <div>
                   <p className="text-xs tracking-[0.3em] uppercase text-white/20 mb-2">
-                    Address
+                    Studios
                   </p>
                   <p className="text-white/50">
-                    Via del Corso, 18
+                    Rome
                     <br />
-                    00186 Roma, Italia
+                    London
                   </p>
                 </div>
               </div>
