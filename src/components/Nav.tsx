@@ -4,7 +4,6 @@ import Link from "next/link";
 import { useState, useEffect, useCallback } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { useHeroColor } from "@/components/HeroColorContext";
 
 const links = [
   { href: "/projects", label: "Projects" },
@@ -16,7 +15,6 @@ const links = [
 export default function Nav() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const { heroColor } = useHeroColor();
   const pathname = usePathname();
   const router = useRouter();
   const isHome = pathname === "/";
@@ -72,22 +70,6 @@ export default function Nav() {
           borderBottom: scrolled ? "1px solid rgba(255, 255, 255, 0.05)" : "1px solid transparent",
         }}
       />
-
-      {/* Gradient accent bar — visible on inner pages */}
-      {!isHome && (
-        <motion.div
-          className="absolute inset-0 overflow-hidden"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.6 }}
-        >
-          <div
-            className="absolute inset-0 opacity-40"
-            style={{ background: heroColor.gradient }}
-          />
-          <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[#0a0a0a]/60 to-[#0a0a0a]" />
-        </motion.div>
-      )}
 
       <div className="relative flex items-center justify-between px-6 md:px-12 py-5">
         <a
