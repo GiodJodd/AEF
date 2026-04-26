@@ -124,10 +124,10 @@ export default function MediaCarousel({ items }: { items: MediaItem[] }) {
           <button
             key={i}
             onClick={() => navigate(i)}
-            className={`relative flex-shrink-0 w-16 h-10 rounded-sm overflow-hidden transition-all duration-300 ${
+            className={`relative flex-shrink-0 w-16 h-10 rounded-sm overflow-hidden transition-colors duration-300 border ${
               i === currentIndex
-                ? "ring-1 ring-white/40 opacity-100"
-                : "opacity-30 hover:opacity-60"
+                ? "border-white/70"
+                : "border-transparent hover:border-white/20"
             }`}
           >
             <div
