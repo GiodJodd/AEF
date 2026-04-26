@@ -28,27 +28,33 @@ body {
   color: white;
 }
 
-/* Scroll snap for homepage */
+/* Scroll snap for homepage — only first two sections snap, rest free-scroll */
 .scroll-snap-container {
-  scroll-snap-type: y mandatory;
+  scroll-snap-type: y proximity;
   overflow-y: scroll;
   overflow-x: hidden;
   height: 100dvh;
   scrollbar-width: none;
-  /* No scroll-padding needed — hero snaps to top,
-     other sections have centered content that accounts for nav */
 }
 
 .scroll-snap-container::-webkit-scrollbar {
   display: none;
 }
 
+/* Snapping section (full viewport height, snaps into place) */
 .scroll-snap-section {
   scroll-snap-align: start;
+  scroll-snap-stop: always;
   height: 100dvh;
   min-height: 100dvh;
   position: relative;
   overflow: hidden;
   isolation: isolate;
   contain: paint;
+}
+
+/* Free-scroll section (natural height, no snap) */
+.scroll-free-section {
+  scroll-snap-align: none;
+  position: relative;
 }

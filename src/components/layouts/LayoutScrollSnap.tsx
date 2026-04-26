@@ -56,10 +56,10 @@ export default function LayoutScrollSnap() {
         </FadeInSection>
       </div>
 
-      {/* Section 3: Selected Projects */}
-      <div className="scroll-snap-section flex flex-col items-center justify-center px-8 pt-20 pb-8 bg-[#0a0a0a] z-10">
+      {/* Section 3: Selected Projects — free scroll */}
+      <div className="scroll-free-section flex flex-col items-center px-8 py-32 md:py-40 bg-[#0a0a0a] z-10">
         <FadeInSection className="w-full max-w-5xl">
-          <p className="text-xs tracking-[0.4em] uppercase text-white/30 mb-8 text-center">
+          <p className="text-xs tracking-[0.4em] uppercase text-white/30 mb-12 text-center">
             Selected Projects
           </p>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-5">
@@ -69,7 +69,7 @@ export default function LayoutScrollSnap() {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ delay: i * 0.08, type: "spring", stiffness: 100, damping: 20 }}
-                viewport={{ once: false }}
+                viewport={{ once: true, amount: 0.2 }}
               >
                 <Link
                   href={`/projects/${project.slug}`}
@@ -97,13 +97,13 @@ export default function LayoutScrollSnap() {
         </FadeInSection>
       </div>
 
-      {/* Section 4: Contact + Footer */}
-      <div className="scroll-snap-section flex flex-col items-center justify-center px-8 bg-[#0a0a0a] z-10">
-        <FadeInSection className="text-center mb-24">
+      {/* Section 4: Contact CTA — free scroll */}
+      <div className="scroll-free-section flex flex-col items-center px-8 py-32 md:py-40 bg-[#0a0a0a] z-10">
+        <FadeInSection className="text-center">
           <p className="text-xs tracking-[0.4em] uppercase text-white/30 mb-8">
             Get in Touch
           </p>
-          <p className="text-xl md:text-2xl font-extralight text-white/50 mb-6">
+          <p className="text-xl md:text-2xl font-extralight text-white/50 mb-8">
             Have a story to tell?
           </p>
           <Link
@@ -113,9 +113,11 @@ export default function LayoutScrollSnap() {
             Contact Us
           </Link>
         </FadeInSection>
-        <div className="absolute bottom-0 left-0 right-0">
-          <Footer />
-        </div>
+      </div>
+
+      {/* Footer — free scroll */}
+      <div className="scroll-free-section bg-[#0a0a0a] z-10">
+        <Footer />
       </div>
     </div>
   );
