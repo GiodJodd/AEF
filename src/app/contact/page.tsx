@@ -2,12 +2,10 @@
 
 import { motion } from "framer-motion";
 import Footer from "@/components/Footer";
-import PageWithHero from "@/components/PageWithHero";
 
 export default function ContactPage() {
   return (
-    <PageWithHero>
-      <main className="pt-24 pb-16">
+    <main className="pt-24 pb-16 bg-[#0a0a0a] min-h-screen">
         <div className="max-w-3xl mx-auto px-6 md:px-12">
           <motion.div
             initial={{ opacity: 0, y: 30 }}
@@ -92,6 +90,5 @@ export default function ContactPage() {
           <Footer />
         </div>
       </main>
-    </PageWithHero>
   );
 }

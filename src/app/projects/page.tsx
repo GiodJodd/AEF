@@ -5,7 +5,6 @@ import { motion, AnimatePresence } from "framer-motion";
 import { projects, FORMAT_FILTERS, type ProjectFormat } from "@/data/projects";
 import ProjectCard from "@/components/FilmCard";
 import Footer from "@/components/Footer";
-import PageWithHero from "@/components/PageWithHero";
 
 type Filter = ProjectFormat | "all";
 
@@ -18,8 +17,7 @@ export default function ProjectsPage() {
   }, [activeFilter]);
 
   return (
-    <PageWithHero>
-      <main className="pt-24 pb-16">
+    <main className="pt-24 pb-16 bg-[#0a0a0a] min-h-screen">
         <div className="max-w-6xl mx-auto px-6 md:px-12">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -78,6 +76,5 @@ export default function ProjectsPage() {
           <Footer />
         </div>
       </main>
-    </PageWithHero>
   );
 }
