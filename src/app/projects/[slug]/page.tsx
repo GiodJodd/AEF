@@ -1,13 +1,13 @@
 "use client";
 
-import { use } from "react";
+import { use, useEffect } from "react";
 import { notFound } from "next/navigation";
 import { motion } from "framer-motion";
 import Link from "next/link";
 import { getProject } from "@/data/projects";
 import Footer from "@/components/Footer";
-import PageWithHero from "@/components/PageWithHero";
 import MediaCarousel from "@/components/MediaCarousel";
+import { useHeroColor } from "@/components/HeroColorContext";
 
 export default function ProjectDetailPage({
   params,
@@ -17,11 +17,22 @@ export default function ProjectDetailPage({
   const { slug } = use(params);
   const project = getProject(slug);
 
+  // Sync nav accent color with this project even though we don't use PageWithHero
+  const { setHeroColor } = useHeroColor();
+  useEffect(() => {
+    if (project) {
+      setHeroColor({
+        gradient: project.gradient,
+        accentColor: project.accentColor,
+        title: project.title,
+      });
+    }
+  }, [project, setHeroColor]);
+
   if (!project) notFound();
 
   return (
-    <PageWithHero>
-      <main className="min-h-screen">
+    <main className="min-h-screen bg-[#0a0a0a]">
         {/* Hero */}
         <div className="relative h-[70vh] overflow-hidden">
           <motion.div
@@ -145,6 +156,5 @@ export default function ProjectDetailPage({
 
         <Footer />
       </main>
-    </PageWithHero>
   );
 }
