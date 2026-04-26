@@ -1,16 +1,11 @@
 import type { Metadata } from "next";
-import { Inter } from "next/font/google";
 import "./globals.css";
 import ClientProviders from "@/components/ClientProviders";
 
-const inter = Inter({
-  subsets: ["latin"],
-  variable: "--font-sans",
-});
-
 export const metadata: Metadata = {
-  title: "AEF — Roma",
-  description: "Film & documentary production house based in Rome.",
+  title: "AEF — Independent Film Production",
+  description:
+    "AEF is an independent film production company between Rome and London, founded in 2022 by Matteo Severini and Riccardo Rizzi.",
 };
 
 export default function RootLayout({
@@ -19,7 +14,11 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={inter.variable}>
+    <html lang="en">
+      <head>
+        <link rel="preconnect" href="https://api.fontshare.com" />
+        <link rel="preconnect" href="https://cdn.fontshare.com" crossOrigin="anonymous" />
+      </head>
       <body className="bg-[#0a0a0a] text-[#f5f5f5] antialiased">
         <ClientProviders>
           {children}
