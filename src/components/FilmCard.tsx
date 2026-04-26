@@ -37,19 +37,19 @@ export default function ProjectCard({
           <div className="absolute inset-0 opacity-[0.04] mix-blend-overlay bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJhIiB4PSIwIiB5PSIwIj48ZmVUdXJidWxlbmNlIGJhc2VGcmVxdWVuY3k9Ii43NSIgc3RpdGNoVGlsZXM9InN0aXRjaCIgdHlwZT0iZnJhY3RhbE5vaXNlIi8+PGZlQ29sb3JNYXRyaXggdHlwZT0ic2F0dXJhdGUiIHZhbHVlcz0iMCIvPjwvZmlsdGVyPjxyZWN0IHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIiBmaWx0ZXI9InVybCgjYSkiIG9wYWNpdHk9IjEiLz48L3N2Zz4=')]" />
           <div className="absolute inset-0 bg-black/0 group-hover:bg-black/20 transition-colors duration-500" />
 
-          {/* Title overlaid on cover */}
-          <div className="absolute inset-0 flex items-end p-5">
-            <h3 className="text-xl md:text-2xl font-light tracking-tight text-white/90 group-hover:text-white transition-colors leading-tight">
+          {/* Title overlaid on cover — hidden on hover so synopsis can take its place */}
+          <div className="absolute inset-0 flex items-end p-5 opacity-100 group-hover:opacity-0 transition-opacity duration-300">
+            <h3 className="text-xl md:text-2xl font-light tracking-tight text-white/90 leading-tight">
               {project.title}
             </h3>
           </div>
 
           {/* Hover overlay with synopsis */}
-          <div className="absolute inset-0 flex flex-col justify-end p-5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 bg-gradient-to-t from-black/70 via-black/30 to-transparent">
+          <div className="absolute inset-0 flex flex-col justify-end p-5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-t from-black/70 via-black/30 to-transparent">
             <p className="text-xs tracking-[0.3em] uppercase text-white/60 mb-2">
               {project.formatLabel}
             </p>
-            <p className="text-sm text-white/80 line-clamp-3">
+            <p className="text-sm text-white/80 line-clamp-4">
               {project.synopsis.split("\n")[0]}
             </p>
           </div>
