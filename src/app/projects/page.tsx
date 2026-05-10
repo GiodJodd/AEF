@@ -131,17 +131,26 @@ export default function ProjectsPage() {
                 >
                   <Link
                     href={`/projects/${project.slug}`}
-                    className="group flex items-baseline justify-between gap-6 py-6 md:py-8 outline-none"
+                    className="group flex items-baseline justify-between gap-3 md:gap-8 py-6 md:py-8 outline-none"
                   >
-                    <h2
-                      className={`text-3xl md:text-5xl lg:text-6xl font-extralight tracking-tight transition-all duration-500 ${
-                        someoneElseHovered
-                          ? "text-white/25"
-                          : "text-white/85 group-hover:text-white"
-                      }`}
-                    >
-                      {project.title}
-                    </h2>
+                    <div className="flex items-baseline gap-3 md:gap-8 min-w-0 flex-1">
+                      <span
+                        className={`shrink-0 md:w-14 text-[10px] md:text-xs tracking-[0.2em] tabular-nums transition-colors duration-500 ${
+                          someoneElseHovered ? "text-white/15" : "text-white/40"
+                        }`}
+                      >
+                        {project.year}
+                      </span>
+                      <h2
+                        className={`min-w-0 text-3xl md:text-5xl lg:text-6xl font-extralight tracking-tight transition-all duration-500 ${
+                          someoneElseHovered
+                            ? "text-white/25"
+                            : "text-white/85 group-hover:text-white"
+                        }`}
+                      >
+                        {project.title}
+                      </h2>
+                    </div>
                     <span
                       className={`shrink-0 text-[10px] md:text-xs tracking-[0.25em] uppercase transition-colors duration-500 ${
                         someoneElseHovered ? "text-white/15" : "text-white/40"

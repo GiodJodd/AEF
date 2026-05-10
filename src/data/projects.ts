@@ -5,6 +5,7 @@ export type ProjectFormat = "feature" | "documentary" | "short" | "development";
 export interface Project {
   slug: string;
   title: string;
+  year: number;
   format: ProjectFormat;
   formatLabel: string;
   directors: string[];
@@ -26,6 +27,7 @@ export const projects: Project[] = [
   {
     slug: "cuirdange",
     title: "CUIRDANGE",
+    year: 2025,
     format: "feature",
     formatLabel: "Feature Film",
     directors: ["Riccardo Rizzi"],
@@ -40,6 +42,7 @@ export const projects: Project[] = [
   {
     slug: "jail-time-records",
     title: "JAIL TIME RECORDS",
+    year: 2026,
     format: "documentary",
     formatLabel: "Feature Documentary",
     directors: ["Dione Roach", "Steve Happi"],
@@ -66,6 +69,7 @@ export const projects: Project[] = [
   {
     slug: "la-tempesta",
     title: "LA TEMPESTA",
+    year: 2023,
     format: "short",
     formatLabel: "Short Fiction",
     directors: ["Riccardo Rizzi"],
@@ -80,6 +84,7 @@ export const projects: Project[] = [
   {
     slug: "noia",
     title: "NOIA",
+    year: 2022,
     format: "short",
     formatLabel: "Short Fiction",
     directors: ["Francesco Branca"],
@@ -95,6 +100,7 @@ export const projects: Project[] = [
   {
     slug: "maree",
     title: "MAREE",
+    year: 2022,
     format: "short",
     formatLabel: "Short Fiction",
     directors: ["Asia Maria Sbrugnera"],
@@ -107,8 +113,23 @@ export const projects: Project[] = [
     coverPosition: "right center",
   },
   {
+    slug: "faceboom",
+    title: "FACEBOOM",
+    year: 2022,
+    format: "short",
+    formatLabel: "Short Fiction",
+    directors: ["Massimo Fanelli"],
+    producers: ["Massimo Fanelli", "Paolo Pelizza", "Irene Masiello"],
+    synopsis:
+      "The world wakes up to discover that social networks no longer work. Beppe and Arianna are in a complicated relationship, which is pushed to the breaking point by this very event, while the rest of the population gives in to the strangest and most grotesque behaviors—metaphors for contemporary virtual life.",
+    gradient:
+      "linear-gradient(135deg, #14122a 0%, #2a1f4a 50%, #3f1f5a 100%)",
+    accentColor: "#2a1f4a",
+  },
+  {
     slug: "kiss-of-an-angel",
     title: "KISS OF AN ANGEL",
+    year: 2026,
     format: "short",
     formatLabel: "Short Film",
     directors: ["Lone Widahl Madsen"],
@@ -124,6 +145,7 @@ export const projects: Project[] = [
   {
     slug: "pine-tree",
     title: "PINE TREE",
+    year: 2027,
     format: "development",
     formatLabel: "Feature Film — In Development",
     directors: ["Matteo Severini"],
