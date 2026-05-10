@@ -17,34 +17,34 @@ export const PROJECT_MEDIA: Record<string, ProjectMedia> = {
   "cuirdange": {
     "cover": {
       "src": "/projects/cuirdange/hero.webp",
-      "blurDataURL": "data:image/webp;base64,UklGRkAAAABXRUJQVlA4IDQAAAAQAgCdASoQAAcAAsBMJYwCdAEVzm/Mji6AAP7ysLDDeQ63FtkbBewGjIL4Nk70tB8V8AAA",
-      "width": 2000,
-      "height": 838
+      "blurDataURL": "data:image/webp;base64,UklGRlAAAABXRUJQVlA4IEQAAADQAQCdASoQAAcAAsBMJYwAAfcTEtesAAD+807DAEToi7CCh9idMTiz9fyruITuGjHppivB4OSnzTiJgmP6n+kuhkwAAA==",
+      "width": 2400,
+      "height": 1004
     },
     "gallery": [
       {
         "src": "/projects/cuirdange/gallery-1.webp",
-        "blurDataURL": "data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAACwAQCdASoQAAcAAsBMJZQC7AEN0LkAAP74oBPdTLb8LuKvj0FcV0PkhmzIAAAA",
+        "blurDataURL": "data:image/webp;base64,UklGRjgAAABXRUJQVlA4ICwAAAAQAgCdASoQAAcAAsBMJZQC7AERHzfXvSAAAP74n9zuIvmtIb8v+mDbsIgAAA==",
         "width": 1201,
-        "height": 531
+        "height": 503
       },
       {
         "src": "/projects/cuirdange/gallery-2.webp",
-        "blurDataURL": "data:image/webp;base64,UklGRkAAAABXRUJQVlA4IDQAAACwAQCdASoQAAcAAsBMJaQAAqH2VpwAAP75F7fNLFkP9RE+/uXSFiauqLwVupnx71d/KCgA",
-        "width": 2000,
-        "height": 838
+        "blurDataURL": "data:image/webp;base64,UklGRkAAAABXRUJQVlA4IDQAAACwAQCdASoQAAcAAsBMJaQAAqH2VqTAAP75F7fNLFkP9RE+/uXSFiauqLwVupnx71d0B4AA",
+        "width": 2400,
+        "height": 1004
       },
       {
         "src": "/projects/cuirdange/gallery-3.webp",
-        "blurDataURL": "data:image/webp;base64,UklGRlAAAABXRUJQVlA4IEQAAADQAQCdASoQAAcAAsBMJYwAAiDPwHPIAAD+807DAEToi7CCh9idMTiz9fyruITuGjHn9/HY71BuD4xj0yYcD/SXQyYAAA==",
-        "width": 2000,
-        "height": 838
+        "blurDataURL": "data:image/webp;base64,UklGRjwAAABXRUJQVlA4IDAAAADwAQCdASoQAAcAAsBMJZwC7AENoHIF/oAA/vKiBIh/zsRNCh8SYrhucnBGkI4AAAA=",
+        "width": 2400,
+        "height": 1004
       },
       {
         "src": "/projects/cuirdange/gallery-4.webp",
-        "blurDataURL": "data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAADwAQCdASoQAAcAAsBMJZwC7AEOmFrM4QAA/vKiA278mvSJ6XZJcmlg+pxk0AAA",
-        "width": 2000,
-        "height": 838
+        "blurDataURL": "data:image/webp;base64,UklGRkAAAABXRUJQVlA4IDQAAAAQAgCdASoQAAcAAsBMJYwCdAEVzm/Mji6AAP7ysLDDeQ63FtkbBewGjIL4Nk70tB8V8AAA",
+        "width": 2400,
+        "height": 1004
       },
       {
         "src": "/projects/cuirdange/gallery-5.webp",
@@ -57,146 +57,146 @@ export const PROJECT_MEDIA: Record<string, ProjectMedia> = {
   "jail-time-records": {
     "cover": {
       "src": "/projects/jail-time-records/hero.webp",
-      "blurDataURL": "data:image/webp;base64,UklGRlQAAABXRUJQVlA4IEgAAAAQAgCdASoQAAkAAsBMJZwAAwF1elFBR84AAP7ts176j4VeX9rbmti8NlyhbLQvpnLtD5sfq1Oa2eVuDJpzgfhFnw8yf823IAA=",
-      "width": 2000,
-      "height": 1129
+      "blurDataURL": "data:image/webp;base64,UklGRlIAAABXRUJQVlA4IEYAAADwAQCdASoQAAcAAsBMJQBOgBupX7Bn5gAA/vhtvuORk+ufMIZ6B0B95SVEu3E6A2hH5skJl5iwWVwASWfMS2TRV8JnFXQA",
+      "width": 1800,
+      "height": 753
     },
     "gallery": [
       {
         "src": "/projects/jail-time-records/gallery-1.webp",
-        "blurDataURL": "data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAACQAQCdASoQAAkAAsBMJZwC7AB/eoAA/p6hJGkJrZ0t0Kkna1MNR9Rqta+Y6AAA",
-        "width": 2000,
-        "height": 1127
+        "blurDataURL": "data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAACwAQCdASoQAAcAAsBMJZwCw7CUg93QAP6exqDhxDdSVENItjx7koYxtCzydmAA",
+        "width": 2400,
+        "height": 1004
       },
       {
         "src": "/projects/jail-time-records/gallery-2.webp",
-        "blurDataURL": "data:image/webp;base64,UklGRmoAAABXRUJQVlA4IF4AAADwAQCdASoQAAoAAsBMJaQAAp3QhWiFgAAA/u0hDZBmxoSr76ySC70d+i0DV9+10n4pqxKt4yfADe+OovuCdou2vDZ60jvgVYh8VXP37XL3PQMPcfSlIunmCU9wAAAA",
-        "width": 2000,
-        "height": 1210
+        "blurDataURL": "data:image/webp;base64,UklGRlwAAABXRUJQVlA4IFAAAADQAQCdASoQAAcAAsBMJaQAD40tnbWkQAD+9MNn9LHuQVq+FyDdHjOYZYGMNdm+3Bg5JJXROkbxQhHMYCqLpd6ANYHrtipR6gDmwe/NTpgAAA==",
+        "width": 2400,
+        "height": 1004
       },
       {
         "src": "/projects/jail-time-records/gallery-3.webp",
-        "blurDataURL": "data:image/webp;base64,UklGRloAAABXRUJQVlA4IE4AAAAQAgCdASoQAAkAAsBMJZQCdAEW098SVq4AAP74bW/kSMP/V45xM2Z93pgHsIfx9rPMuHWvuatUGWSJO5kqJkPny+Hq/i+Fvwbh6nSAAAA=",
-        "width": 1800,
-        "height": 1013
+        "blurDataURL": "data:image/webp;base64,UklGRlIAAABXRUJQVlA4IEYAAADQAQCdASoQAAcAAsBMJZwAAxfyPF9pAAD+1RaKQG3xcHKz1wNk1PW+eCdyVbOLf5PMdqtpkVxtxbAbEmQk+ccTI8BIAAAA",
+        "width": 2400,
+        "height": 1004
       },
       {
         "src": "/projects/jail-time-records/gallery-4.webp",
-        "blurDataURL": "data:image/webp;base64,UklGRlwAAABXRUJQVlA4IFAAAADQAQCdASoQAAkAAsBMJYgCdAEORWduRAD+3Oyuj6ryBPHPej9WCJGztpjwaP1liqC2G8d2FgiAvjFXVWBRY5bLhKIfqmgjUE8EEiyDNDAAAA==",
+        "blurDataURL": "data:image/webp;base64,UklGRloAAABXRUJQVlA4IE4AAADwAQCdASoQAAcAAsBMJQBOgCFqgZdl6AAA/t2CNW0kLIoqdwQDNxqxj9Vd8XeolYdcMik1eZr3Jkz5fxcsIucyEm9qdxw5pFYAno3gKAA=",
         "width": 1800,
-        "height": 1013
+        "height": 753
       }
     ]
   },
   "la-tempesta": {
     "cover": {
       "src": "/projects/la-tempesta/hero.webp",
-      "blurDataURL": "data:image/webp;base64,UklGRkIAAABXRUJQVlA4IDYAAACwAQCdASoQAAgAAsBMJZwAAudQQDzOAP76ivZR7isWj3lCl3MZ/0Kuiaa1Fs8cUIBsq0tIAAA=",
-      "width": 2000,
-      "height": 1052
+      "blurDataURL": "data:image/webp;base64,UklGRkQAAABXRUJQVlA4IDgAAACwAQCdASoQAAcAAsBMJZQAAuQaQ8awAP76iu1BpZO5OjacHcQoYUNxgga32YRJbORCTysXeQAAAA==",
+      "width": 2400,
+      "height": 1004
     },
     "gallery": [
       {
         "src": "/projects/la-tempesta/gallery-1.webp",
-        "blurDataURL": "data:image/webp;base64,UklGRjgAAABXRUJQVlA4ICwAAADQAQCdASoQAAoAAsBMJaQAAujdBJTgAAD++J+SmqZPkaHKfspSTDn84UAAAA==",
-        "width": 2000,
-        "height": 1201
+        "blurDataURL": "data:image/webp;base64,UklGRjYAAABXRUJQVlA4ICoAAACwAQCdASoQAAcAAsBMJaQAAvc2HpKAAP74h8BGgA9Sw/47I/l6g/AAAAA=",
+        "width": 2390,
+        "height": 1000
       },
       {
         "src": "/projects/la-tempesta/gallery-2.webp",
-        "blurDataURL": "data:image/webp;base64,UklGRkYAAABXRUJQVlA4IDoAAAAQAgCdASoQAAgAAsBMJZQCdH8AGZ9egv+AAP73wIzkfKYqRxnPs7QMVKcMDx17Nk+zhpAOwmRVgAAA",
-        "width": 2000,
-        "height": 997
+        "blurDataURL": "data:image/webp;base64,UklGRkgAAABXRUJQVlA4IDwAAAAQAgCdASoQAAcAAsBMJYwCdAD6l/84soIAAP72r3Cqzd2lKgx8+wLjsxBrQzjcbewzPbmiWKte50QW4AA=",
+        "width": 2400,
+        "height": 1004
       },
       {
         "src": "/projects/la-tempesta/gallery-3.webp",
-        "blurDataURL": "data:image/webp;base64,UklGRkYAAABXRUJQVlA4IDoAAAAQAgCdASoQAAkAAsBMJZwCw7Ef/yLyNjAAAP7d3hrUeHRDKDU168rvKQ1QNNAhndLr75EpvNnD+AgA",
-        "width": 2000,
-        "height": 1125
+        "blurDataURL": "data:image/webp;base64,UklGRkwAAABXRUJQVlA4IEAAAADwAQCdASoQAAcAAsBMJZwCdAED/ZTpYfgA/t3NGZOINhqhMFlmjoD/yrvUADjm9R8qSg+sGQatDVeNyvl2QAAA",
+        "width": 2400,
+        "height": 1004
       }
     ]
   },
   "noia": {
     "cover": {
       "src": "/projects/noia/hero.webp",
-      "blurDataURL": "data:image/webp;base64,UklGRkQAAABXRUJQVlA4IDgAAACwAQCdASoQAAYAAsBMJaQAAucPY6dAAP74lbnvyUCApS17L0/t2MP018AJuE/QdjXoge4ypE6AAA==",
-      "width": 2000,
-      "height": 773
+      "blurDataURL": "data:image/webp;base64,UklGRkoAAABXRUJQVlA4ID4AAADQAQCdASoQAAcAAsBMJaQAAxZgfzheAAD++d0HZYAMM53L29R5ZSIcKI28sh/AAAwsKj+hC0VmYBT+oAAAAA==",
+      "width": 2400,
+      "height": 1004
     },
     "gallery": [
       {
         "src": "/projects/noia/gallery-1.webp",
-        "blurDataURL": "data:image/webp;base64,UklGRloAAABXRUJQVlA4IE4AAADQAQCdASoQAAcAAsBMJaQAD4nNnbJkgAD+7SlKnby2Wd0/WwTnMTWv0R92Ht5ZhDBOIMRq3Xyd3yQKQaIKacR5jZd2cxVCZn1FtvqgAAA=",
-        "width": 2000,
-        "height": 833
+        "blurDataURL": "data:image/webp;base64,UklGRloAAABXRUJQVlA4IE4AAADQAQCdASoQAAcAAsBMJaQAD4nNnbJkgAD+76ovzn8kZ9ynaHC68tZpsyi6Kt5kHfVSBsf9bwYL7rKakqEcQC/hDzTW0+jB44ystu6SAAA=",
+        "width": 2400,
+        "height": 1004
       },
       {
         "src": "/projects/noia/gallery-2.webp",
-        "blurDataURL": "data:image/webp;base64,UklGRk4AAABXRUJQVlA4IEIAAACwAQCdASoQAAcAAsBMJaQAAq36mxVgAP74nrhkSvcoOv6sRs9NzGeiKCt8vV/2FCrNSk1F4VxnTHDn8QH71nz0AAA=",
-        "width": 2000,
-        "height": 833
+        "blurDataURL": "data:image/webp;base64,UklGRk4AAABXRUJQVlA4IEIAAADQAQCdASoQAAcAAsBMJaQAAq4OunrzYAD++J64ZEr3KDr+rEbPTcxnoigrr+ZTFe+3yIlUWN90aEoGroTriTAAAAA=",
+        "width": 2400,
+        "height": 1004
       },
       {
         "src": "/projects/noia/gallery-3.webp",
-        "blurDataURL": "data:image/webp;base64,UklGRlAAAABXRUJQVlA4IEQAAACwAQCdASoQAAYAAsBMJaQAAkra6UAAAP77bns81E4DNLq/tlUgPpBFwNQJ7qnhLKO2Cn9aWWQ4jAU7qDPtrpF1LAAAAA==",
-        "width": 2000,
-        "height": 788
+        "blurDataURL": "data:image/webp;base64,UklGRk4AAABXRUJQVlA4IEIAAACwAQCdASoQAAcAAsBMJaQAAuW/n3LAAP77blNTi7zGQtSOGMjIwAJ/Ey1VCarLZJ2Cnwbd65R2p/jFPl/gTGAAAAA=",
+        "width": 2400,
+        "height": 1004
       }
     ]
   },
   "maree": {
     "cover": {
       "src": "/projects/maree/hero.webp",
-      "blurDataURL": "data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAADQAQCdASoQAAcAAsBMJZQCw7Dyq55VgAD+9HiKdYwY69HV55JYUdfAWWnpGAAA",
-      "width": 2000,
-      "height": 831
+      "blurDataURL": "data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAACwAQCdASoQAAcAAsBMJZwCw7DshRkAAP70eIp1jBofJ9ncKr7cMRByAdz+IAAA",
+      "width": 2400,
+      "height": 1004
     },
     "gallery": [
       {
         "src": "/projects/maree/gallery-1.webp",
-        "blurDataURL": "data:image/webp;base64,UklGRmoAAABXRUJQVlA4IF4AAADQAQCdASoQAAcAAsBMJbACdAEfaw1GYAD+9AiAD6YDfvSN/B+LzwrV0263a4EHxItEfjo78EmqvElhCUUzn/5a2EZeWgsOTp+W4nSM/ksf/edq9f2hDfO9CzZTMAAA",
-        "width": 2000,
-        "height": 828
+        "blurDataURL": "data:image/webp;base64,UklGRmYAAABXRUJQVlA4IFoAAAAQAgCdASoQAAcAAsBMJbACdAEfbm2zZHP4AP70CIAPpgN+9I38H4vPCtXTYbxJ9cvGkl9yDGmfKsV1eoGMqM95QDaUZrx29fl7xUSm9CVvzG1fD0Ac35uAAAA=",
+        "width": 2400,
+        "height": 1004
       },
       {
         "src": "/projects/maree/gallery-2.webp",
-        "blurDataURL": "data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAADwAQCdASoQAAUAAsBMJQBOjXAAWbWXUQAA/tz+35J7aHDVv8vOS+JyIpM2AAAA",
-        "width": 2000,
-        "height": 609
+        "blurDataURL": "data:image/webp;base64,UklGRkIAAABXRUJQVlA4IDYAAABQAgCdASoQAAcAAsBMJZACdGuAt/8D5ghp4kAA/nifXWeZB4Uai4sdhcKNpZ0nynrLICDDgAA=",
+        "width": 2400,
+        "height": 1004
       },
       {
         "src": "/projects/maree/gallery-3.webp",
-        "blurDataURL": "data:image/webp;base64,UklGRkoAAABXRUJQVlA4ID4AAAAQAgCdASoQAAYAAsBMJYwCdAYqXbM6z1gAAP767/cCgk73o2/7jZbvdSkJbMpYljQAbC0kRGASf5NJvoAAAA==",
-        "width": 2000,
-        "height": 766
+        "blurDataURL": "data:image/webp;base64,UklGRkYAAABXRUJQVlA4IDoAAADQAQCdASoQAAcAAsBMJYwCdAEPAoGC4AD++vxPGwu0iILY/wqfO/XaVOrKtKURkOjFmGMSvLwWqKAA",
+        "width": 2400,
+        "height": 1004
       },
       {
         "src": "/projects/maree/gallery-4.webp",
-        "blurDataURL": "data:image/webp;base64,UklGRl4AAABXRUJQVlA4IFIAAADwAQCdASoQAAcAAsBMJbACdAEQXG8kdfAA/sT7b03DBCF2cBwpFyUJJuZcVHQ8+L3CiowBbMM+iaHfEft+z5vsX45dHSsapYGDyKN98TgmgAAA",
-        "width": 2000,
-        "height": 832
+        "blurDataURL": "data:image/webp;base64,UklGRmAAAABXRUJQVlA4IFQAAAAQAgCdASoQAAcAAsBMJbACdAEQXKL4IDoAAP7E+29NwwQhdnAcKRclCSbmXFR0PPi8Ru2yhP4V/rmIidXtDF2IspePs/etGB+SjHwddDBCS+SwAAA=",
+        "width": 2400,
+        "height": 1004
       }
     ]
   },
   "kiss-of-an-angel": {
     "cover": {
       "src": "/projects/kiss-of-an-angel/hero.webp",
-      "blurDataURL": "data:image/webp;base64,UklGRjwAAABXRUJQVlA4IDAAAACwAQCdASoQAAkAAsBMJQBOgCFflu0AAP7y+BaK+t/LixaL5TSzu4s8TJHox/7wAAA=",
-      "width": 2000,
-      "height": 1115
+      "blurDataURL": "data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAACQAQCdASoQAAcAAsBMJYwCdACCbOAA+etx3+qusSktqdGLpFfhPbdLRU+n+AAA",
+      "width": 2400,
+      "height": 1004
     },
     "gallery": [
       {
         "src": "/projects/kiss-of-an-angel/gallery-1.webp",
-        "blurDataURL": "data:image/webp;base64,UklGRjwAAABXRUJQVlA4IDAAAACwAQCdASoQAAkAAsBMJYwCdACpSHW4APnrcd/qNlO950X3dBaYRgcz6F/z6bmINAA=",
-        "width": 2000,
-        "height": 1138
+        "blurDataURL": "data:image/webp;base64,UklGRkgAAABXRUJQVlA4IDwAAADwAQCdASoQAAcAAsBMJQBOgB0+mxBinAAA/nkxRwi+wDjD8c7IDD9l9U93S9h++K9QbiHiOgH5P0c9YAA=",
+        "width": 2400,
+        "height": 1004
       },
       {
         "src": "/projects/kiss-of-an-angel/gallery-2.webp",
-        "blurDataURL": "data:image/webp;base64,UklGRkoAAABXRUJQVlA4ID4AAACwAQCdASoQAAkAAsBMJQBOgBcT8qaAAPpN+7kMkdVLgBFHVuuvGbVawPgrdnKCSrRwknnNBHZd/hGGsVLgAA==",
-        "width": 2000,
-        "height": 1124
+        "blurDataURL": "data:image/webp;base64,UklGRjwAAABXRUJQVlA4IDAAAADwAQCdASoQAAcAAsBMJYwCdAEVV1MW4cAA/vL7K40Kv83d/41JCDy2IWmEJsxQAAA=",
+        "width": 2400,
+        "height": 1004
       }
     ]
   }

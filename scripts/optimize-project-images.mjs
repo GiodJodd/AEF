@@ -1,13 +1,15 @@
 #!/usr/bin/env node
 /**
  * Reads source images from ~/Downloads/material for AEF/<folder>/, auto-trims
- * letterbox bars with sharp.trim(), resizes to ~2000px max width, converts to
- * WebP @ 90% quality, and writes:
+ * letterbox bars with sharp.trim(), center-crops to 2.39:1 cinemascope (with a
+ * "this image" exception for files where the native aspect must be preserved),
+ * resizes to ~2400px max width, converts to WebP @ 95% quality, and writes:
  *   - public/projects/<slug>/hero.webp
  *   - public/projects/<slug>/gallery-N.webp
  *   - src/data/project-media.ts (typed map of cover + gallery + blurDataURLs)
  *
- * Skips: faceboom (no project metadata yet), files containing "to fix"
+ * Skips: faceboom (no project metadata yet), files containing "to fix".
+ * Cinemascope crop exception: filenames containing "this image" (case-insensitive).
  */
 import sharp from "sharp";
 import fs from "node:fs/promises";
@@ -28,9 +30,11 @@ const FOLDERS = {
   "kiss-of-an-angel": "kiss of an angel",
 };
 
-const TARGET_WIDTH = 2000;
-const QUALITY = 90;
+const TARGET_WIDTH = 2400;
+const QUALITY = 95;
+const EFFORT = 6;
 const BLUR_WIDTH = 16;
+const CINEMASCOPE_RATIO = 2.39;
 
 const SUPPORTED_EXT = new Set([".jpg", ".jpeg", ".png", ".webp"]);
 
@@ -47,17 +51,45 @@ function isHero(name) {
   return /^hero\./i.test(name);
 }
 
-async function processOne(srcPath, outPath) {
-  // Pipeline: trim → resize → webp
-  const pipeline = sharp(srcPath)
-    .trim({ background: "#000000", threshold: 25 })
-    .resize({ width: TARGET_WIDTH, withoutEnlargement: true })
-    .webp({ quality: QUALITY });
+function shouldKeepNativeAspect(name) {
+  // Files matching "this image" preserve their native aspect ratio (no
+  // cinemascope crop). Used for stills with intentional graphic elements at
+  // the top/bottom of the frame (e.g. burned-in timestamps).
+  return name.toLowerCase().includes("this image");
+}
 
-  const { data, info } = await pipeline.toBuffer({ resolveWithObject: true });
+async function processOne(srcPath, outPath) {
+  // 1) Trim letterbox bars to a buffer so we can read the trimmed metadata
+  const trimmed = await sharp(srcPath)
+    .trim({ background: "#000000", threshold: 25 })
+    .toBuffer();
+  const meta = await sharp(trimmed).metadata();
+
+  // 2) Resize: cinemascope (default) or native aspect (exception)
+  let pipeline = sharp(trimmed);
+  if (shouldKeepNativeAspect(path.basename(srcPath))) {
+    pipeline = pipeline.resize({
+      width: TARGET_WIDTH,
+      withoutEnlargement: true,
+    });
+  } else {
+    const w = Math.min(meta.width, TARGET_WIDTH);
+    const h = Math.round(w / CINEMASCOPE_RATIO);
+    pipeline = pipeline.resize({
+      width: w,
+      height: h,
+      fit: "cover",
+      position: "center",
+    });
+  }
+
+  // 3) Encode WebP and write
+  const { data, info } = await pipeline
+    .webp({ quality: QUALITY, effort: EFFORT })
+    .toBuffer({ resolveWithObject: true });
   await fs.writeFile(outPath, data);
 
-  // Generate blur placeholder from the *trimmed/resized* output for consistency
+  // 4) Blur placeholder from the final output (so colors/aspect match)
   const blurBuffer = await sharp(data)
     .resize({ width: BLUR_WIDTH })
     .webp({ quality: 50 })
