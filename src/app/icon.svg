@@ -1,0 +1,10 @@
+<svg width="231" height="233" viewBox="0 0 231 233" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <style>
+    .mark { fill: #0a0a0a; stroke: #0a0a0a; }
+    @media (prefers-color-scheme: dark) {
+      .mark { fill: #f5f5f5; stroke: #f5f5f5; }
+    }
+  </style>
+  <path class="mark" d="M104.061 189.121V154.677C104.061 144.881 92.2212 139.973 85.2905 146.891L228.561 3.62109V231.121H146.061C122.865 231.121 104.061 212.317 104.061 189.121Z"/>
+  <path class="mark" fill="none" stroke-width="3" d="M1.06055 231.121L85.2824 146.899C92.212 139.97 104.061 144.877 104.061 154.677V189.121C104.061 212.317 122.865 231.121 146.061 231.121H228.561V3.62109L1.06055 231.121Z"/>
+</svg>
