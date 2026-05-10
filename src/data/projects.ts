@@ -37,7 +37,6 @@ export const projects: Project[] = [
     gradient:
       "linear-gradient(135deg, #2a1a10 0%, #4a2a1a 40%, #6b3520 70%, #8a4530 100%)",
     accentColor: "#6b3520",
-    coverPosition: "right center",
   },
   {
     slug: "jail-time-records",

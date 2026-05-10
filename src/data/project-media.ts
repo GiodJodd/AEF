@@ -24,9 +24,9 @@ export const PROJECT_MEDIA: Record<string, ProjectMedia> = {
     "gallery": [
       {
         "src": "/projects/cuirdange/gallery-1.webp",
-        "blurDataURL": "data:image/webp;base64,UklGRjgAAABXRUJQVlA4ICwAAAAQAgCdASoQAAcAAsBMJZQC7AERHzfXvSAAAP74n9zuIvmtIb8v+mDbsIgAAA==",
-        "width": 1201,
-        "height": 503
+        "blurDataURL": "data:image/webp;base64,UklGRjIAAABXRUJQVlA4ICYAAADQAQCdASoQAAcAAsBMJaQAAujdTIOCAAD++u0rNAdVls2SqgAAAA==",
+        "width": 2400,
+        "height": 1017
       },
       {
         "src": "/projects/cuirdange/gallery-2.webp",
@@ -48,9 +48,9 @@ export const PROJECT_MEDIA: Record<string, ProjectMedia> = {
       },
       {
         "src": "/projects/cuirdange/gallery-5.webp",
-        "blurDataURL": "data:image/webp;base64,UklGRjAAAABXRUJQVlA4ICQAAABwAQCdASoQAAoAAsBMJZwCw7F1AAD+9vMFNeIKNNvVkvWAAAA=",
-        "width": 1911,
-        "height": 1140
+        "blurDataURL": "data:image/webp;base64,UklGRjIAAABXRUJQVlA4ICYAAADQAQCdASoQAAkAAsBMJZwCw7EPDe1swAD++o4DbfRrvgt7rQAAAA==",
+        "width": 2160,
+        "height": 1211
       }
     ]
   },
@@ -91,28 +91,28 @@ export const PROJECT_MEDIA: Record<string, ProjectMedia> = {
   "la-tempesta": {
     "cover": {
       "src": "/projects/la-tempesta/hero.webp",
-      "blurDataURL": "data:image/webp;base64,UklGRkQAAABXRUJQVlA4IDgAAACwAQCdASoQAAcAAsBMJZQAAuQaQ8awAP76iu1BpZO5OjacHcQoYUNxgga32YRJbORCTysXeQAAAA==",
+      "blurDataURL": "data:image/webp;base64,UklGRkIAAABXRUJQVlA4IDYAAACwAQCdASoQAAgAAsBMJZwAAudQQEfgAP76ivZR7isWj3lCl3MZ/0Kuiaa1Fs8cUICFp60tIAA=",
       "width": 2400,
-      "height": 1004
+      "height": 1258
     },
     "gallery": [
       {
         "src": "/projects/la-tempesta/gallery-1.webp",
-        "blurDataURL": "data:image/webp;base64,UklGRjYAAABXRUJQVlA4ICoAAACwAQCdASoQAAcAAsBMJaQAAvc2HpKAAP74h8BGgA9Sw/47I/l6g/AAAAA=",
+        "blurDataURL": "data:image/webp;base64,UklGRjgAAABXRUJQVlA4ICwAAADQAQCdASoQAAoAAsBMJaQAAujdBJTgAAD++J+SmqZPkaHKfspSTDn84UAAAA==",
         "width": 2390,
-        "height": 1000
+        "height": 1424
       },
       {
         "src": "/projects/la-tempesta/gallery-2.webp",
-        "blurDataURL": "data:image/webp;base64,UklGRkgAAABXRUJQVlA4IDwAAAAQAgCdASoQAAcAAsBMJYwCdAD6l/84soIAAP72r3Cqzd2lKgx8+wLjsxBrQzjcbewzPbmiWKte50QW4AA=",
+        "blurDataURL": "data:image/webp;base64,UklGRkYAAABXRUJQVlA4IDoAAAAQAgCdASoQAAgAAsBMJZQCdH8AGZyD1gFgAP73wIzkfKYqRxnPs7QLS2+lzBHZ69QvnQWk8cEBgAAA",
         "width": 2400,
-        "height": 1004
+        "height": 1191
       },
       {
         "src": "/projects/la-tempesta/gallery-3.webp",
-        "blurDataURL": "data:image/webp;base64,UklGRkwAAABXRUJQVlA4IEAAAADwAQCdASoQAAcAAsBMJZwCdAED/ZTpYfgA/t3NGZOINhqhMFlmjoD/yrvUADjm9R8qSg+sGQatDVeNyvl2QAAA",
+        "blurDataURL": "data:image/webp;base64,UklGRkYAAABXRUJQVlA4IDoAAADwAQCdASoQAAgAAsBMJZwCdAEfgIO/wmAA/t3Y2q8UY/fpR1gnjn07GuU+2zWE1Ml4yzUjOgtkwYAA",
         "width": 2400,
-        "height": 1004
+        "height": 1216
       }
     ]
   },
@@ -181,22 +181,62 @@ export const PROJECT_MEDIA: Record<string, ProjectMedia> = {
   "kiss-of-an-angel": {
     "cover": {
       "src": "/projects/kiss-of-an-angel/hero.webp",
-      "blurDataURL": "data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAACQAQCdASoQAAcAAsBMJYwCdACCbOAA+etx3+qusSktqdGLpFfhPbdLRU+n+AAA",
+      "blurDataURL": "data:image/webp;base64,UklGRjwAAABXRUJQVlA4IDAAAACwAQCdASoQAAkAAsBMJYwCdACpSHW4APnrcd/qNlO950X3dBaYRgcz6F/z6bmINAA=",
       "width": 2400,
-      "height": 1004
+      "height": 1366
     },
     "gallery": [
       {
         "src": "/projects/kiss-of-an-angel/gallery-1.webp",
-        "blurDataURL": "data:image/webp;base64,UklGRkgAAABXRUJQVlA4IDwAAADwAQCdASoQAAcAAsBMJQBOgB0+mxBinAAA/nkxRwi+wDjD8c7IDD9l9U93S9h++K9QbiHiOgH5P0c9YAA=",
+        "blurDataURL": "data:image/webp;base64,UklGRkwAAABXRUJQVlA4IEAAAADwAQCdASoQAAkAAsBMJQBOgMWgmHqM+gAA+k37t9H7wqtsErfW3DTfLlJplXUPlk+aWgJLIy0Nca5P1cg7AAAA",
         "width": 2400,
-        "height": 1004
+        "height": 1349
       },
       {
         "src": "/projects/kiss-of-an-angel/gallery-2.webp",
-        "blurDataURL": "data:image/webp;base64,UklGRjwAAABXRUJQVlA4IDAAAADwAQCdASoQAAcAAsBMJYwCdAEVV1MW4cAA/vL7K40Kv83d/41JCDy2IWmEJsxQAAA=",
+        "blurDataURL": "data:image/webp;base64,UklGRjwAAABXRUJQVlA4IDAAAACwAQCdASoQAAkAAsBMJQBOgCFflu0AAP7y+BaK+t/LixaL5TSzu4s8TJHox/7wAAA=",
         "width": 2400,
-        "height": 1004
+        "height": 1338
+      }
+    ]
+  },
+  "faceboom": {
+    "cover": {
+      "src": "/projects/faceboom/hero.webp",
+      "blurDataURL": "data:image/webp;base64,UklGRlAAAABXRUJQVlA4IEQAAADwAQCdASoQAAcAAsBMJYwCdADhhjB9SPAA/u+B/3FjSb18bcRdo2KTIpLYDpm8Zi2gbPQT/pP+9YgZ9IcKGc/dBHUYAA==",
+      "width": 1914,
+      "height": 801
+    },
+    "gallery": [
+      {
+        "src": "/projects/faceboom/gallery-1.webp",
+        "blurDataURL": "data:image/webp;base64,UklGRlYAAABXRUJQVlA4IEoAAADwAQCdASoQAAcAAsBMJaQAD48O1JBSC0AA/qN965WpFwCZ1qNSiVHmd8tCIHj9HZ6DABGmjkVoXPmHJB6usnQ2YY0U3t6+uHAAAA==",
+        "width": 1920,
+        "height": 803
+      },
+      {
+        "src": "/projects/faceboom/gallery-2.webp",
+        "blurDataURL": "data:image/webp;base64,UklGRkoAAABXRUJQVlA4ID4AAADQAQCdASoQAAcAAsBMJZQCsADvzpUdYAD+yDwJOadFJS+ZUZXMwup8d60X+FgretuCPrqAwfCbQaTcLgKAAA==",
+        "width": 1920,
+        "height": 803
+      },
+      {
+        "src": "/projects/faceboom/gallery-3.webp",
+        "blurDataURL": "data:image/webp;base64,UklGRk4AAABXRUJQVlA4IEIAAADwAQCdASoQAAcAAsBMJYwCdADpGB1N6IAA/vh9/ZXTmae4NNGBhgD/Z2EtzvizaENhCiklgkx9VEqThFn72hbwAAA=",
+        "width": 1920,
+        "height": 803
+      },
+      {
+        "src": "/projects/faceboom/gallery-4.webp",
+        "blurDataURL": "data:image/webp;base64,UklGRlwAAABXRUJQVlA4IFAAAACQAQCdASoQAAcAAsBMJZQCdACCbOAA/vipYtr/Fxx8Qg3kfHVMSwwuB1lSz9w2H1nHl4cwjY2OsLt5NQjV+Xl5B4P+xm+JvFpmZSPFV29AAA==",
+        "width": 1920,
+        "height": 803
+      },
+      {
+        "src": "/projects/faceboom/gallery-5.webp",
+        "blurDataURL": "data:image/webp;base64,UklGRlgAAABXRUJQVlA4IEwAAACQAQCdASoQAAcAAsBMJaQAAZO5tMAA/vGc4oTTZWSentCkGDCz6XxtHC9KzbqAcDpDJ4ENQBSo8M6PGFbbKMnnaxeSjrDD8YKAAAAA",
+        "width": 1859,
+        "height": 778
       }
     ]
   }

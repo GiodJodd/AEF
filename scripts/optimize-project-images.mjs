@@ -1,15 +1,18 @@
 #!/usr/bin/env node
 /**
  * Reads source images from ~/Downloads/material for AEF/<folder>/, auto-trims
- * letterbox bars with sharp.trim(), center-crops to 2.39:1 cinemascope (with a
- * "this image" exception for files where the native aspect must be preserved),
+ * letterbox bars with sharp.trim(), center-crops to 2.39:1 cinemascope (with
+ * exceptions for projects/files whose native aspect must be preserved),
  * resizes to ~2400px max width, converts to WebP @ 95% quality, and writes:
  *   - public/projects/<slug>/hero.webp
  *   - public/projects/<slug>/gallery-N.webp
  *   - src/data/project-media.ts (typed map of cover + gallery + blurDataURLs)
  *
- * Skips: faceboom (no project metadata yet), files containing "to fix".
- * Cinemascope crop exception: filenames containing "this image" (case-insensitive).
+ * Skips: files containing "to fix".
+ * Native-aspect exceptions (no cinemascope crop):
+ *   - whole projects listed in KEEP_NATIVE_ASPECT_SLUGS
+ *   - individual filenames containing "this image" (these also skip the auto-trim,
+ *     so intentional dark/negative space around a subject is preserved as-is).
  */
 import sharp from "sharp";
 import fs from "node:fs/promises";
@@ -20,7 +23,7 @@ const SOURCE_ROOT = path.join(homedir(), "Downloads", "material for AEF");
 const OUT_PUBLIC_ROOT = path.resolve("public/projects");
 const OUT_DATA_FILE = path.resolve("src/data/project-media.ts");
 
-// Map slug → source folder name
+// Map slug → source folder (relative to SOURCE_ROOT)
 const FOLDERS = {
   cuirdange: "cuirdange",
   "jail-time-records": "Jail time",
@@ -28,7 +31,15 @@ const FOLDERS = {
   noia: "noia",
   maree: "maree",
   "kiss-of-an-angel": "kiss of an angel",
+  faceboom: "faceboom/faceboom",
 };
+
+// Projects whose images keep their native aspect (no cinemascope crop). The
+// auto-trim still runs to strip any letterbox bars.
+const KEEP_NATIVE_ASPECT_SLUGS = new Set([
+  "kiss-of-an-angel",
+  "la-tempesta",
+]);
 
 const TARGET_WIDTH = 2400;
 const QUALITY = 95;
@@ -36,7 +47,14 @@ const EFFORT = 6;
 const BLUR_WIDTH = 16;
 const CINEMASCOPE_RATIO = 2.39;
 
-const SUPPORTED_EXT = new Set([".jpg", ".jpeg", ".png", ".webp"]);
+const SUPPORTED_EXT = new Set([
+  ".jpg",
+  ".jpeg",
+  ".png",
+  ".webp",
+  ".tif",
+  ".tiff",
+]);
 
 function shouldSkip(name) {
   const lower = name.toLowerCase();
@@ -51,23 +69,30 @@ function isHero(name) {
   return /^hero\./i.test(name);
 }
 
-function shouldKeepNativeAspect(name) {
-  // Files matching "this image" preserve their native aspect ratio (no
-  // cinemascope crop). Used for stills with intentional graphic elements at
-  // the top/bottom of the frame (e.g. burned-in timestamps).
+function isThisImage(name) {
+  // Files matching "this image" preserve their native framing entirely: they
+  // skip the auto-trim AND the cinemascope crop. Used for stills where the
+  // dark/negative space around the subject IS the composition.
   return name.toLowerCase().includes("this image");
 }
 
-async function processOne(srcPath, outPath) {
-  // 1) Trim letterbox bars to a buffer so we can read the trimmed metadata
-  const trimmed = await sharp(srcPath)
-    .trim({ background: "#000000", threshold: 25 })
-    .toBuffer();
+async function processOne(srcPath, outPath, { keepNativeAspect }) {
+  const filename = path.basename(srcPath);
+  const skipTrim = isThisImage(filename);
+  const skipCinemascope = skipTrim || keepNativeAspect;
+
+  // 1) Trim letterbox bars (skipped for "this image" files so the framing is
+  //    preserved exactly as the source).
+  const trimmed = skipTrim
+    ? await sharp(srcPath).toBuffer()
+    : await sharp(srcPath)
+        .trim({ background: "#000000", threshold: 25 })
+        .toBuffer();
   const meta = await sharp(trimmed).metadata();
 
   // 2) Resize: cinemascope (default) or native aspect (exception)
   let pipeline = sharp(trimmed);
-  if (shouldKeepNativeAspect(path.basename(srcPath))) {
+  if (skipCinemascope) {
     pipeline = pipeline.resize({
       width: TARGET_WIDTH,
       withoutEnlargement: true,
@@ -107,6 +132,7 @@ async function processOne(srcPath, outPath) {
 async function processFolder(slug, folderName) {
   const srcDir = path.join(SOURCE_ROOT, folderName);
   const outDir = path.join(OUT_PUBLIC_ROOT, slug);
+  const keepNativeAspect = KEEP_NATIVE_ASPECT_SLUGS.has(slug);
 
   let entries;
   try {
@@ -132,11 +158,12 @@ async function processFolder(slug, folderName) {
   await fs.rm(outDir, { recursive: true, force: true });
   await fs.mkdir(outDir, { recursive: true });
 
-  console.log(`\n→ ${slug}`);
+  console.log(`\n→ ${slug}${keepNativeAspect ? "  (native aspect)" : ""}`);
   console.log(`  hero: ${heroFile}`);
   const cover = await processOne(
     path.join(srcDir, heroFile),
     path.join(outDir, "hero.webp"),
+    { keepNativeAspect },
   );
 
   const gallery = [];
@@ -147,6 +174,7 @@ async function processFolder(slug, folderName) {
     const meta = await processOne(
       path.join(srcDir, src),
       path.join(outDir, out),
+      { keepNativeAspect },
     );
     gallery.push(meta);
   }
