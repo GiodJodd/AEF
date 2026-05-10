@@ -53,6 +53,7 @@ export default function ProjectDetailPage({
                 blurDataURL={media.cover.blurDataURL}
                 sizes="100vw"
                 className="object-cover"
+                style={{ objectPosition: project.coverPosition ?? "center" }}
               />
             ) : (
               <div

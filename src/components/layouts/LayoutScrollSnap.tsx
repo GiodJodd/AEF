@@ -88,6 +88,7 @@ export default function LayoutScrollSnap() {
                           blurDataURL={m.cover.blurDataURL}
                           sizes="(min-width: 768px) 33vw, 50vw"
                           className="object-cover"
+                          style={{ objectPosition: project.coverPosition ?? "center" }}
                         />
                       ) : (
                         <div

@@ -87,6 +87,7 @@ export default function HeroBlurMorph() {
                 blurDataURL={media.cover.blurDataURL}
                 sizes="100vw"
                 className="object-cover"
+                style={{ objectPosition: project.coverPosition ?? "center" }}
               />
             ) : (
               <div

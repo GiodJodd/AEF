@@ -14,6 +14,12 @@ export interface Project {
   synopsis: string;
   gradient: string;
   accentColor: string;
+  /**
+   * CSS object-position for the cover image when cropped (e.g. "left center",
+   * "30% 50%"). Use when the subject sits off-center and you don't want it
+   * cropped at narrow viewports. Defaults to "center" if omitted.
+   */
+  coverPosition?: string;
 }
 
 export const projects: Project[] = [
@@ -29,6 +35,7 @@ export const projects: Project[] = [
     gradient:
       "linear-gradient(135deg, #2a1a10 0%, #4a2a1a 40%, #6b3520 70%, #8a4530 100%)",
     accentColor: "#6b3520",
+    coverPosition: "left center",
   },
   {
     slug: "jail-time-records",

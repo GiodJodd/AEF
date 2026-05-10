@@ -40,6 +40,7 @@ export default function ProjectCard({
               blurDataURL={media.cover.blurDataURL}
               sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
               className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
+              style={{ objectPosition: project.coverPosition ?? "center" }}
             />
           ) : (
             <div
