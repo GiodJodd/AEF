@@ -35,7 +35,7 @@ export const projects: Project[] = [
     gradient:
       "linear-gradient(135deg, #2a1a10 0%, #4a2a1a 40%, #6b3520 70%, #8a4530 100%)",
     accentColor: "#6b3520",
-    coverPosition: "left center",
+    coverPosition: "right center",
   },
   {
     slug: "jail-time-records",
@@ -90,6 +90,7 @@ export const projects: Project[] = [
     gradient:
       "linear-gradient(135deg, #0a1218 0%, #15252e 50%, #1f3845 100%)",
     accentColor: "#15252e",
+    coverPosition: "60% 60%",
   },
   {
     slug: "maree",
@@ -103,6 +104,7 @@ export const projects: Project[] = [
     gradient:
       "linear-gradient(135deg, #1a2025 0%, #2a3a3f 50%, #3a4a4f 100%)",
     accentColor: "#2a3a3f",
+    coverPosition: "right center",
   },
   {
     slug: "kiss-of-an-angel",
@@ -117,6 +119,7 @@ export const projects: Project[] = [
     gradient:
       "linear-gradient(135deg, #1a2530 0%, #2f4555 50%, #4a5f70 100%)",
     accentColor: "#2f4555",
+    coverPosition: "60% 70%",
   },
   {
     slug: "pine-tree",
