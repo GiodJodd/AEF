@@ -21,8 +21,10 @@
     "postcss": "^8.5.8",
     "react": "^19.2.4",
     "react-dom": "^19.2.4",
+    "react-photo-album": "^3.6.0",
     "tailwindcss": "^4.2.2",
-    "typescript": "^6.0.2"
+    "typescript": "^6.0.2",
+    "yet-another-react-lightbox": "^3.32.0"
   },
   "devDependencies": {
     "sharp": "^0.34.5"

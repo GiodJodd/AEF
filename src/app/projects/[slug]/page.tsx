@@ -7,7 +7,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { getProject, getProjectMedia } from "@/data/projects";
 import Footer from "@/components/Footer";
-import MediaCarousel from "@/components/MediaCarousel";
+import ProjectGallery from "@/components/ProjectGallery";
 import { useHeroColor } from "@/components/HeroColorContext";
 
 export default function ProjectDetailPage({
@@ -152,13 +152,13 @@ export default function ProjectDetailPage({
               </div>
             </div>
 
-            {/* Media carousel — only if there are gallery images */}
+            {/* Gallery mosaic — only if there are gallery images */}
             {media && media.gallery.length > 0 && (
               <div className="mt-20">
                 <h2 className="text-xs tracking-[0.3em] uppercase text-white/30 mb-8">
                   Gallery
                 </h2>
-                <MediaCarousel items={media.gallery} />
+                <ProjectGallery images={media.gallery} />
               </div>
             )}
 
