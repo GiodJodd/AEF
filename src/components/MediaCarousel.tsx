@@ -1,19 +1,16 @@
 "use client";
 
 import { useState, useRef } from "react";
+import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
+import type { ImageMeta } from "@/data/project-media";
 
-export interface MediaItem {
-  type: "image" | "video";
-  gradient?: string; // placeholder gradient for images
-  videoUrl?: string; // placeholder for video
-  caption?: string;
-}
-
-export default function MediaCarousel({ items }: { items: MediaItem[] }) {
+export default function MediaCarousel({ items }: { items: ImageMeta[] }) {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [direction, setDirection] = useState(0);
   const containerRef = useRef<HTMLDivElement>(null);
+
+  if (!items || items.length === 0) return null;
 
   const navigate = (newIndex: number) => {
     setDirection(newIndex > currentIndex ? 1 : -1);
@@ -61,35 +58,22 @@ export default function MediaCarousel({ items }: { items: MediaItem[] }) {
             }}
             className="absolute inset-0"
           >
-            {item.type === "image" ? (
-              <div
-                className="absolute inset-0"
-                style={{ background: item.gradient || "#1a1a1a" }}
-              />
-            ) : (
-              <div className="absolute inset-0 flex items-center justify-center bg-black">
-                <div
-                  className="absolute inset-0 opacity-30"
-                  style={{ background: item.gradient || "#1a1a1a" }}
-                />
-                {/* Play button overlay */}
-                <div className="relative z-10 w-16 h-16 rounded-full border border-white/30 flex items-center justify-center cursor-pointer hover:border-white/60 hover:scale-105 transition-all">
-                  <svg
-                    className="w-6 h-6 text-white/70 ml-1"
-                    fill="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path d="M8 5v14l11-7z" />
-                  </svg>
-                </div>
-              </div>
-            )}
+            <Image
+              src={item.src}
+              alt=""
+              fill
+              placeholder="blur"
+              blurDataURL={item.blurDataURL}
+              sizes="(min-width: 1024px) 80vw, 100vw"
+              className="object-cover"
+            />
           </motion.div>
         </AnimatePresence>
 
         {/* Navigation arrows */}
         <button
           onClick={prev}
+          aria-label="Previous"
           className="absolute left-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 flex items-center justify-center text-white/40 hover:text-white/80 transition-colors"
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -98,6 +82,7 @@ export default function MediaCarousel({ items }: { items: MediaItem[] }) {
         </button>
         <button
           onClick={next}
+          aria-label="Next"
           className="absolute right-4 top-1/2 -translate-y-1/2 z-20 w-10 h-10 flex items-center justify-center text-white/40 hover:text-white/80 transition-colors"
         >
           <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -106,16 +91,9 @@ export default function MediaCarousel({ items }: { items: MediaItem[] }) {
         </button>
 
         {/* Counter */}
-        <div className="absolute bottom-4 right-4 z-20 text-xs tracking-[0.3em] text-white/30 font-mono">
+        <div className="absolute bottom-4 right-4 z-20 text-xs tracking-[0.3em] text-white/50 font-mono bg-black/30 backdrop-blur-sm px-2 py-1 rounded-sm">
           {String(currentIndex + 1).padStart(2, "0")} / {String(items.length).padStart(2, "0")}
         </div>
-
-        {/* Type badge */}
-        {item.type === "video" && (
-          <div className="absolute top-4 left-4 z-20 text-[10px] tracking-[0.3em] uppercase text-white/40 bg-white/5 backdrop-blur-sm px-3 py-1 rounded-sm">
-            Video
-          </div>
-        )}
       </div>
 
       {/* Thumbnail strip */}
@@ -124,31 +102,25 @@ export default function MediaCarousel({ items }: { items: MediaItem[] }) {
           <button
             key={i}
             onClick={() => navigate(i)}
+            aria-label={`Go to image ${i + 1}`}
             className={`relative flex-shrink-0 w-16 h-10 rounded-sm overflow-hidden transition-colors duration-300 border ${
               i === currentIndex
                 ? "border-white/70"
                 : "border-transparent hover:border-white/20"
             }`}
           >
-            <div
-              className="absolute inset-0"
-              style={{ background: thumb.gradient || "#1a1a1a" }}
+            <Image
+              src={thumb.src}
+              alt=""
+              fill
+              placeholder="blur"
+              blurDataURL={thumb.blurDataURL}
+              sizes="64px"
+              className="object-cover"
             />
-            {thumb.type === "video" && (
-              <div className="absolute inset-0 flex items-center justify-center">
-                <svg className="w-3 h-3 text-white/60" fill="currentColor" viewBox="0 0 24 24">
-                  <path d="M8 5v14l11-7z" />
-                </svg>
-              </div>
-            )}
           </button>
         ))}
       </div>
-
-      {/* Caption */}
-      {item.caption && (
-        <p className="text-xs text-white/30 mt-3 tracking-wide">{item.caption}</p>
-      )}
     </div>
   );
 }

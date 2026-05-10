@@ -4,7 +4,8 @@ import { use, useEffect } from "react";
 import { notFound } from "next/navigation";
 import { motion } from "framer-motion";
 import Link from "next/link";
-import { getProject } from "@/data/projects";
+import Image from "next/image";
+import { getProject, getProjectMedia } from "@/data/projects";
 import Footer from "@/components/Footer";
 import MediaCarousel from "@/components/MediaCarousel";
 import { useHeroColor } from "@/components/HeroColorContext";
@@ -16,6 +17,7 @@ export default function ProjectDetailPage({
 }) {
   const { slug } = use(params);
   const project = getProject(slug);
+  const media = getProjectMedia(slug);
 
   // Sync nav accent color with this project even though we don't use PageWithHero
   const { setHeroColor } = useHeroColor();
@@ -40,8 +42,25 @@ export default function ProjectDetailPage({
             initial={{ scale: 1.1, filter: "blur(10px)" }}
             animate={{ scale: 1, filter: "blur(0px)" }}
             transition={{ duration: 1, ease: "easeOut" }}
-            style={{ background: project.gradient }}
-          />
+          >
+            {media ? (
+              <Image
+                src={media.cover.src}
+                alt={project.title}
+                fill
+                priority
+                placeholder="blur"
+                blurDataURL={media.cover.blurDataURL}
+                sizes="100vw"
+                className="object-cover"
+              />
+            ) : (
+              <div
+                className="absolute inset-0"
+                style={{ background: project.gradient }}
+              />
+            )}
+          </motion.div>
           {/* Film grain */}
           <div className="absolute inset-0 opacity-[0.05] mix-blend-overlay bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJhIiB4PSIwIiB5PSIwIj48ZmVUdXJidWxlbmNlIGJhc2VGcmVxdWVuY3k9Ii43NSIgc3RpdGNoVGlsZXM9InN0aXRjaCIgdHlwZT0iZnJhY3RhbE5vaXNlIi8+PGZlQ29sb3JNYXRyaXggdHlwZT0ic2F0dXJhdGUiIHZhbHVlcz0iMCIvPjwvZmlsdGVyPjxyZWN0IHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIiBmaWx0ZXI9InVybCgjYSkiIG9wYWNpdHk9IjEiLz48L3N2Zz4=')]" />
           <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/30 to-transparent" />
@@ -132,13 +151,13 @@ export default function ProjectDetailPage({
               </div>
             </div>
 
-            {/* Media carousel — only if there are media items */}
-            {project.media && project.media.length > 0 && (
+            {/* Media carousel — only if there are gallery images */}
+            {media && media.gallery.length > 0 && (
               <div className="mt-20">
                 <h2 className="text-xs tracking-[0.3em] uppercase text-white/30 mb-8">
                   Gallery
                 </h2>
-                <MediaCarousel items={project.media} />
+                <MediaCarousel items={media.gallery} />
               </div>
             )}
 

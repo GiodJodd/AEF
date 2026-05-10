@@ -3,8 +3,11 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
-import { projects } from "@/data/projects";
+import Image from "next/image";
+import { projectsForHomeHero, getProjectMedia } from "@/data/projects";
 import { useHeroColor } from "@/components/HeroColorContext";
+
+const projects = projectsForHomeHero;
 
 type FeedbackSide = "left" | "right" | null;
 
@@ -72,11 +75,26 @@ export default function HeroBlurMorph() {
             opacity: { duration: 0.8 },
           }}
         >
-          {/* Gradient cover */}
-          <div
-            className="absolute inset-0"
-            style={{ background: project.gradient }}
-          />
+          {(() => {
+            const media = getProjectMedia(project.slug);
+            return media ? (
+              <Image
+                src={media.cover.src}
+                alt={project.title}
+                fill
+                priority={currentIndex === 0}
+                placeholder="blur"
+                blurDataURL={media.cover.blurDataURL}
+                sizes="100vw"
+                className="object-cover"
+              />
+            ) : (
+              <div
+                className="absolute inset-0"
+                style={{ background: project.gradient }}
+              />
+            );
+          })()}
           {/* Film grain texture */}
           <div className="absolute inset-0 opacity-[0.05] mix-blend-overlay bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJhIiB4PSIwIiB5PSIwIj48ZmVUdXJidWxlbmNlIGJhc2VGcmVxdWVuY3k9Ii43NSIgc3RpdGNoVGlsZXM9InN0aXRjaCIgdHlwZT0iZnJhY3RhbE5vaXNlIi8+PGZlQ29sb3JNYXRyaXggdHlwZT0ic2F0dXJhdGUiIHZhbHVlcz0iMCIvPjwvZmlsdGVyPjxyZWN0IHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIiBmaWx0ZXI9InVybCgjYSkiIG9wYWNpdHk9IjEiLz48L3N2Zz4=')]" />
           {/* Dark gradient for text readability */}

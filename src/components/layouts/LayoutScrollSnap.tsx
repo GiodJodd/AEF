@@ -3,7 +3,8 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import Link from "next/link";
-import { projects } from "@/data/projects";
+import Image from "next/image";
+import { projects, getProjectMedia } from "@/data/projects";
 import Footer from "@/components/Footer";
 import HeroSelector from "@/components/hero/HeroSelector";
 
@@ -76,13 +77,28 @@ export default function LayoutScrollSnap() {
                   className="group block"
                 >
                   <div className="aspect-[4/5] rounded-sm overflow-hidden mb-2 relative transition-transform duration-500 group-hover:scale-[1.02]">
-                    <div
-                      className="absolute inset-0"
-                      style={{ background: project.gradient }}
-                    />
-                    <div className="absolute inset-0 opacity-[0.05] mix-blend-overlay bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJhIiB4PSIwIiB5PSIwIj48ZmVUdXJidWxlbmNlIGJhc2VGcmVxdWVuY3k9Ii43NSIgc3RpdGNoVGlsZXM9InN0aXRjaCIgdHlwZT0iZnJhY3RhbE5vaXNlIi8+PGZlQ29sb3JNYXRyaXggdHlwZT0ic2F0dXJhdGUiIHZhbHVlcz0iMCIvPjwvZmlsdGVyPjxyZWN0IHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIiBmaWx0ZXI9InVybCgjYSkiIG9wYWNpdHk9IjEiLz48L3N2Zz4=')]" />
+                    {(() => {
+                      const m = getProjectMedia(project.slug);
+                      return m ? (
+                        <Image
+                          src={m.cover.src}
+                          alt={project.title}
+                          fill
+                          placeholder="blur"
+                          blurDataURL={m.cover.blurDataURL}
+                          sizes="(min-width: 768px) 33vw, 50vw"
+                          className="object-cover"
+                        />
+                      ) : (
+                        <div
+                          className="absolute inset-0"
+                          style={{ background: project.gradient }}
+                        />
+                      );
+                    })()}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
                     <div className="absolute inset-0 flex items-end p-4">
-                      <p className="text-sm md:text-base font-light tracking-tight text-white/90">
+                      <p className="text-sm md:text-base font-light tracking-tight text-white/95">
                         {project.title}
                       </p>
                     </div>

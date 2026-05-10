@@ -1,10 +1,6 @@
-export type ProjectFormat = "feature" | "documentary" | "short" | "development";
+import { PROJECT_MEDIA, type ProjectMedia } from "./project-media";
 
-export interface MediaItem {
-  type: "image" | "video";
-  gradient: string;
-  caption?: string;
-}
+export type ProjectFormat = "feature" | "documentary" | "short" | "development";
 
 export interface Project {
   slug: string;
@@ -18,7 +14,6 @@ export interface Project {
   synopsis: string;
   gradient: string;
   accentColor: string;
-  media?: MediaItem[];
 }
 
 export const projects: Project[] = [
@@ -34,11 +29,6 @@ export const projects: Project[] = [
     gradient:
       "linear-gradient(135deg, #2a1a10 0%, #4a2a1a 40%, #6b3520 70%, #8a4530 100%)",
     accentColor: "#6b3520",
-    media: [
-      { type: "image", gradient: "linear-gradient(135deg, #2a1a10 0%, #6b3520 100%)" },
-      { type: "image", gradient: "linear-gradient(160deg, #1f1410 0%, #5a2e1c 100%)" },
-      { type: "image", gradient: "linear-gradient(180deg, #2a1a10 0%, #7a3a25 100%)" },
-    ],
   },
   {
     slug: "jail-time-records",
@@ -65,11 +55,6 @@ export const projects: Project[] = [
     gradient:
       "linear-gradient(135deg, #1a0808 0%, #3a0f0f 40%, #5a1818 70%, #7a2818 100%)",
     accentColor: "#5a1818",
-    media: [
-      { type: "image", gradient: "linear-gradient(135deg, #1a0808 0%, #5a1818 100%)" },
-      { type: "image", gradient: "linear-gradient(160deg, #200a0a 0%, #6b1f18 100%)" },
-      { type: "image", gradient: "linear-gradient(180deg, #1a0808 0%, #4a1818 100%)" },
-    ],
   },
   {
     slug: "la-tempesta",
@@ -84,10 +69,6 @@ export const projects: Project[] = [
     gradient:
       "linear-gradient(135deg, #0f1525 0%, #1f2540 50%, #2f1f4a 100%)",
     accentColor: "#1f2540",
-    media: [
-      { type: "image", gradient: "linear-gradient(135deg, #0f1525 0%, #2f1f4a 100%)" },
-      { type: "image", gradient: "linear-gradient(160deg, #15182a 0%, #251f3a 100%)" },
-    ],
   },
   {
     slug: "noia",
@@ -102,10 +83,6 @@ export const projects: Project[] = [
     gradient:
       "linear-gradient(135deg, #0a1218 0%, #15252e 50%, #1f3845 100%)",
     accentColor: "#15252e",
-    media: [
-      { type: "image", gradient: "linear-gradient(135deg, #0a1218 0%, #1f3845 100%)" },
-      { type: "image", gradient: "linear-gradient(160deg, #0e1820 0%, #1a3038 100%)" },
-    ],
   },
   {
     slug: "maree",
@@ -119,10 +96,6 @@ export const projects: Project[] = [
     gradient:
       "linear-gradient(135deg, #1a2025 0%, #2a3a3f 50%, #3a4a4f 100%)",
     accentColor: "#2a3a3f",
-    media: [
-      { type: "image", gradient: "linear-gradient(135deg, #1a2025 0%, #3a4a4f 100%)" },
-      { type: "image", gradient: "linear-gradient(160deg, #1f2a2f 0%, #354548 100%)" },
-    ],
   },
   {
     slug: "kiss-of-an-angel",
@@ -137,10 +110,6 @@ export const projects: Project[] = [
     gradient:
       "linear-gradient(135deg, #1a2530 0%, #2f4555 50%, #4a5f70 100%)",
     accentColor: "#2f4555",
-    media: [
-      { type: "image", gradient: "linear-gradient(135deg, #1a2530 0%, #4a5f70 100%)" },
-      { type: "image", gradient: "linear-gradient(160deg, #202d3a 0%, #4a6075 100%)" },
-    ],
   },
   {
     slug: "pine-tree",
@@ -154,10 +123,6 @@ export const projects: Project[] = [
     gradient:
       "linear-gradient(135deg, #0a1410 0%, #15251a 40%, #1f3525 70%, #2a1818 100%)",
     accentColor: "#1f3525",
-    media: [
-      { type: "image", gradient: "linear-gradient(135deg, #0a1410 0%, #2a1818 100%)" },
-      { type: "image", gradient: "linear-gradient(160deg, #0e1814 0%, #1f3525 100%)" },
-    ],
   },
 ];
 
@@ -172,3 +137,12 @@ export const FORMAT_FILTERS: { value: ProjectFormat | "all"; label: string }[] =
 export function getProject(slug: string): Project | undefined {
   return projects.find((p) => p.slug === slug);
 }
+
+export function getProjectMedia(slug: string): ProjectMedia | undefined {
+  return PROJECT_MEDIA[slug];
+}
+
+/** Projects that have real cover imagery — used for the homepage hero rotation. */
+export const projectsForHomeHero: Project[] = projects.filter(
+  (p) => PROJECT_MEDIA[p.slug] !== undefined,
+);
