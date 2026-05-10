@@ -177,7 +177,12 @@ export default function ProjectsPage() {
                   duration: 0.25,
                   ease: [0.22, 1, 0.36, 1],
                 }}
-                className="relative w-[280px] aspect-[4/5] rounded-sm overflow-hidden shadow-[0_30px_60px_rgba(0,0,0,0.5)]"
+                className="relative w-[400px] rounded-sm overflow-hidden shadow-[0_30px_60px_rgba(0,0,0,0.5)]"
+                style={{
+                  aspectRatio: hoveredMedia
+                    ? `${hoveredMedia.cover.width} / ${hoveredMedia.cover.height}`
+                    : "4 / 5",
+                }}
               >
                 {hoveredMedia ? (
                   <Image
@@ -186,11 +191,8 @@ export default function ProjectsPage() {
                     fill
                     placeholder="blur"
                     blurDataURL={hoveredMedia.cover.blurDataURL}
-                    sizes="280px"
-                    className="object-cover"
-                    style={{
-                      objectPosition: hoveredProject.coverPosition ?? "center",
-                    }}
+                    sizes="400px"
+                    className="object-contain"
                   />
                 ) : (
                   <div
