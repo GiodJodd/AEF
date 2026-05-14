@@ -78,17 +78,27 @@ export default function HeroBlurMorph() {
           {(() => {
             const media = getProjectMedia(project.slug);
             return media ? (
-              <Image
-                src={media.cover.src}
-                alt={project.title}
-                fill
-                priority={currentIndex === 0}
-                placeholder="blur"
-                blurDataURL={media.cover.blurDataURL}
-                sizes="100vw"
-                className="object-cover"
-                style={{ objectPosition: project.coverPosition ?? "center" }}
-              />
+              <div
+                className="absolute top-0 left-0 right-0 min-h-[40vh] md:min-h-0 max-h-[80vh] overflow-hidden"
+                style={{
+                  aspectRatio: `${media.cover.width} / ${media.cover.height}`,
+                }}
+              >
+                <Image
+                  src={media.cover.src}
+                  alt={project.title}
+                  fill
+                  priority={currentIndex === 0}
+                  placeholder="blur"
+                  blurDataURL={media.cover.blurDataURL}
+                  sizes="100vw"
+                  className="object-contain"
+                  style={{ objectPosition: "top center" }}
+                />
+                {/* Soft bottom fade so title contrast holds even when the image's
+                    bottom edge is bright (e.g. KOA snow). */}
+                <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-[#0a0a0a]/70 to-transparent" />
+              </div>
             ) : (
               <div
                 className="absolute inset-0"
@@ -98,9 +108,6 @@ export default function HeroBlurMorph() {
           })()}
           {/* Film grain texture */}
           <div className="absolute inset-0 opacity-[0.05] mix-blend-overlay bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJhIiB4PSIwIiB5PSIwIj48ZmVUdXJidWxlbmNlIGJhc2VGcmVxdWVuY3k9Ii43NSIgc3RpdGNoVGlsZXM9InN0aXRjaCIgdHlwZT0iZnJhY3RhbE5vaXNlIi8+PGZlQ29sb3JNYXRyaXggdHlwZT0ic2F0dXJhdGUiIHZhbHVlcz0iMCIvPjwvZmlsdGVyPjxyZWN0IHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIiBmaWx0ZXI9InVybCgjYSkiIG9wYWNpdHk9IjEiLz48L3N2Zz4=')]" />
-          {/* Dark gradient: bottom 2/5 (mobile) / 1/5 (desktop) is fully dark so the
-              image reads as shorter+wider and the title block always has a solid base. */}
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] from-[40%] md:from-[20%] to-transparent" />
         </motion.div>
       </AnimatePresence>
 
