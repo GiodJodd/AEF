@@ -21,9 +21,15 @@ export default function Footer({ minimal = false }: { minimal?: boolean }) {
           <p className="text-sm text-[#666]">Rome &middot; London</p>
         </div>
         <div className="flex gap-8 text-sm text-[#666]">
-          <a href="#" className="hover:text-white transition-colors">Instagram</a>
-          <a href="#" className="hover:text-white transition-colors">Vimeo</a>
-          <a href="#" className="hover:text-white transition-colors">Email</a>
+          {/* Social links parked until the profiles are live. */}
+          {/* <a href="#" className="hover:text-white transition-colors">Instagram</a> */}
+          {/* <a href="#" className="hover:text-white transition-colors">Vimeo</a> */}
+          <a
+            href="mailto:info@aef.film"
+            className="hover:text-white transition-colors"
+          >
+            Email
+          </a>
         </div>
       </div>
       <div className="max-w-6xl mx-auto mt-8 pt-8 border-t border-white/5 text-xs text-[#444] tracking-widest uppercase">
