@@ -35,16 +35,11 @@ export default function ProjectDetailPage({
 
   return (
     <main className="min-h-screen bg-[#0a0a0a]">
-        {/* Hero: image at native aspect, then a dark title band beneath it */}
-        <div className="relative bg-[#0a0a0a] flex flex-col">
+        {/* Hero */}
+        <div className="relative h-[70vh] overflow-hidden">
           <motion.div
-            className="relative w-full min-h-[40vh] md:min-h-0 max-h-[80vh] overflow-hidden"
-            style={{
-              aspectRatio: media
-                ? `${media.cover.width} / ${media.cover.height}`
-                : "16 / 9",
-            }}
-            initial={{ scale: 1.04, filter: "blur(10px)" }}
+            className="absolute inset-0"
+            initial={{ scale: 1.1, filter: "blur(10px)" }}
             animate={{ scale: 1, filter: "blur(0px)" }}
             transition={{ duration: 1, ease: "easeOut" }}
           >
@@ -57,8 +52,8 @@ export default function ProjectDetailPage({
                 placeholder="blur"
                 blurDataURL={media.cover.blurDataURL}
                 sizes="100vw"
-                className="object-contain"
-                style={{ objectPosition: "top center" }}
+                className="object-cover"
+                style={{ objectPosition: project.coverPosition ?? "center" }}
               />
             ) : (
               <div
@@ -66,15 +61,12 @@ export default function ProjectDetailPage({
                 style={{ background: project.gradient }}
               />
             )}
-            {/* Film grain — restricted to the image box */}
-            <div className="absolute inset-0 opacity-[0.05] mix-blend-overlay bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJhIiB4PSIwIiB5PSIwIj48ZmVUdXJidWxlbmNlIGJhc2VGcmVxdWVuY3k9Ii43NSIgc3RpdGNoVGlsZXM9InN0aXRjaCIgdHlwZT0iZnJhY3RhbE5vaXNlIi8+PGZlQ29sb3JNYXRyaXggdHlwZT0ic2F0dXJhdGUiIHZhbHVlcz0iMCIvPjwvZmlsdGVyPjxyZWN0IHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIiBmaWx0ZXI9InVybCgjYSkiIG9wYWNpdHk9IjEiLz48L3N2Zz4=')]" />
-            {/* Soft bottom fade — keeps the image's bottom edge from clashing
-                with the dark title band beneath. */}
-            <div className="absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-[#0a0a0a]/70 to-transparent" />
           </motion.div>
+          {/* Film grain */}
+          <div className="absolute inset-0 opacity-[0.05] mix-blend-overlay bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJhIiB4PSIwIiB5PSIwIj48ZmVUdXJidWxlbmNlIGJhc2VGcmVxdWVuY3k9Ii43NSIgc3RpdGNoVGlsZXM9InN0aXRjaCIgdHlwZT0iZnJhY3RhbE5vaXNlIi8+PGZlQ29sb3JNYXRyaXggdHlwZT0ic2F0dXJhdGUiIHZhbHVlcz0iMCIvPjwvZmlsdGVyPjxyZWN0IHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIiBmaWx0ZXI9InVybCgjYSkiIG9wYWNpdHk9IjEiLz48L3N2Zz4=')]" />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/30 to-transparent" />
 
-          {/* Title band: 2/5 of viewport on mobile, 1/5 on desktop */}
-          <div className="h-[40vh] md:h-[25vh] flex flex-col justify-center px-8 md:px-16">
+          <div className="absolute bottom-0 left-0 right-0 p-8 md:p-16 z-10">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
