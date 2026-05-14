@@ -5,11 +5,15 @@ import Image from "next/image";
 import { RowsPhotoAlbum, type Photo } from "react-photo-album";
 import "react-photo-album/rows.css";
 import Lightbox from "yet-another-react-lightbox";
+import Zoom from "yet-another-react-lightbox/plugins/zoom";
 import "yet-another-react-lightbox/styles.css";
 import type { ImageMeta } from "@/data/project-media";
 
 interface PhotoWithBlur extends Photo {
   blurDataURL: string;
+  hqSrc: string;
+  hqWidth: number;
+  hqHeight: number;
 }
 
 export default function ProjectGallery({ images }: { images: ImageMeta[] }) {
@@ -22,6 +26,9 @@ export default function ProjectGallery({ images }: { images: ImageMeta[] }) {
     width: img.width,
     height: img.height,
     blurDataURL: img.blurDataURL,
+    hqSrc: img.hqSrc,
+    hqWidth: img.hqWidth,
+    hqHeight: img.hqHeight,
   }));
 
   return (
@@ -88,10 +95,18 @@ export default function ProjectGallery({ images }: { images: ImageMeta[] }) {
         open={lightboxIndex >= 0}
         index={lightboxIndex >= 0 ? lightboxIndex : 0}
         close={() => setLightboxIndex(-1)}
+        plugins={[Zoom]}
+        zoom={{
+          maxZoomPixelRatio: 3,
+          scrollToZoom: true,
+          doubleTapDelay: 300,
+          doubleClickDelay: 300,
+        }}
         slides={photos.map((p) => ({
-          src: p.src,
-          width: p.width,
-          height: p.height,
+          // Serve the HQ PNG so zooming reveals real detail
+          src: p.hqSrc,
+          width: p.hqWidth,
+          height: p.hqHeight,
         }))}
         styles={{
           container: { backgroundColor: "rgba(10, 10, 10, 0.96)" },

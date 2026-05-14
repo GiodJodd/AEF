@@ -2,10 +2,17 @@
 // Run `node scripts/optimize-project-images.mjs` to regenerate.
 
 export interface ImageMeta {
+  /** LQ WebP source — used for hero + thumbnails. */
   src: string;
+  /** HQ PNG source — served by the lightbox / zoom view. */
+  hqSrc: string;
   blurDataURL: string;
+  /** Dimensions of the LQ WebP (governs hero / thumbnail aspect ratio). */
   width: number;
   height: number;
+  /** Dimensions of the HQ PNG (governs lightbox sizing + zoom level). */
+  hqWidth: number;
+  hqHeight: number;
 }
 
 export interface ProjectMedia {
@@ -17,226 +24,325 @@ export const PROJECT_MEDIA: Record<string, ProjectMedia> = {
   "cuirdange": {
     "cover": {
       "src": "/projects/cuirdange/hero.webp",
-      "blurDataURL": "data:image/webp;base64,UklGRlAAAABXRUJQVlA4IEQAAADQAQCdASoQAAcAAsBMJYwAAfcTEtesAAD+807DAEToi7CCh9idMTiz9fyruITuGjHppivB4OSnzTiJgmP6n+kuhkwAAA==",
+      "hqSrc": "/projects/cuirdange/hero-hq.png",
+      "blurDataURL": "data:image/webp;base64,UklGRlAAAABXRUJQVlA4IEQAAADQAQCdASoQAAcAAsBMJYwAAiDPwFQwAAD+807DAEToi7CCh9iZ/EkfMlQG7iE7hox5/fx2CB4fGO15hweivJH6D4r4AA==",
       "width": 2400,
-      "height": 1004
+      "height": 1005,
+      "hqWidth": 4800,
+      "hqHeight": 2010
     },
     "gallery": [
       {
         "src": "/projects/cuirdange/gallery-1.webp",
+        "hqSrc": "/projects/cuirdange/gallery-1-hq.png",
         "blurDataURL": "data:image/webp;base64,UklGRjIAAABXRUJQVlA4ICYAAADQAQCdASoQAAcAAsBMJaQAAujdTIOCAAD++u0rNAdVls2SqgAAAA==",
         "width": 2400,
-        "height": 1017
+        "height": 1017,
+        "hqWidth": 2879,
+        "hqHeight": 1220
       },
       {
         "src": "/projects/cuirdange/gallery-2.webp",
+        "hqSrc": "/projects/cuirdange/gallery-2-hq.png",
         "blurDataURL": "data:image/webp;base64,UklGRkAAAABXRUJQVlA4IDQAAACwAQCdASoQAAcAAsBMJaQAAqH2VqTAAP75F7fNLFkP9RE+/uXSFiauqLwVupnx71d0B4AA",
         "width": 2400,
-        "height": 1004
+        "height": 1005,
+        "hqWidth": 2879,
+        "hqHeight": 1206
       },
       {
         "src": "/projects/cuirdange/gallery-3.webp",
+        "hqSrc": "/projects/cuirdange/gallery-3-hq.png",
         "blurDataURL": "data:image/webp;base64,UklGRjwAAABXRUJQVlA4IDAAAADwAQCdASoQAAcAAsBMJZwC7AENoHIF/oAA/vKiBIh/zsRNCh8SYrhucnBGkI4AAAA=",
         "width": 2400,
-        "height": 1004
+        "height": 1005,
+        "hqWidth": 2879,
+        "hqHeight": 1206
       },
       {
         "src": "/projects/cuirdange/gallery-4.webp",
+        "hqSrc": "/projects/cuirdange/gallery-4-hq.png",
         "blurDataURL": "data:image/webp;base64,UklGRkAAAABXRUJQVlA4IDQAAAAQAgCdASoQAAcAAsBMJYwCdAEVzm/Mji6AAP7ysLDDeQ63FtkbBewGjIL4Nk70tB8V8AAA",
         "width": 2400,
-        "height": 1004
+        "height": 1005,
+        "hqWidth": 2880,
+        "hqHeight": 1206
       },
       {
         "src": "/projects/cuirdange/gallery-5.webp",
+        "hqSrc": "/projects/cuirdange/gallery-5-hq.png",
         "blurDataURL": "data:image/webp;base64,UklGRjIAAABXRUJQVlA4ICYAAADQAQCdASoQAAkAAsBMJZwCw7EPDe1swAD++o4DbfRrvgt7rQAAAA==",
         "width": 2160,
-        "height": 1211
+        "height": 1211,
+        "hqWidth": 2160,
+        "hqHeight": 1211
       }
     ]
   },
   "jail-time-records": {
     "cover": {
       "src": "/projects/jail-time-records/hero.webp",
-      "blurDataURL": "data:image/webp;base64,UklGRlIAAABXRUJQVlA4IEYAAADwAQCdASoQAAcAAsBMJQBOgBupX7Bn5gAA/vhtvuORk+ufMIZ6B0B95SVEu3E6A2hH5skJl5iwWVwASWfMS2TRV8JnFXQA",
-      "width": 1800,
-      "height": 753
+      "hqSrc": "/projects/jail-time-records/hero-hq.png",
+      "blurDataURL": "data:image/webp;base64,UklGRlwAAABXRUJQVlA4IFAAAAAQAgCdASoQAAkAAsBMJZQCdAEW098SVtEAAP74bW/kSO4FgaSv5wFz3qKBNMluUN67cQjT45NAs6nBrIxNhQqM7MbwrsQ2KrZaYuL7cAAAAA==",
+      "width": 2400,
+      "height": 1349,
+      "hqWidth": 3600,
+      "hqHeight": 2024
     },
     "gallery": [
       {
         "src": "/projects/jail-time-records/gallery-1.webp",
-        "blurDataURL": "data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAACwAQCdASoQAAcAAsBMJZwCw7CUg93QAP6exqDhxDdSVENItjx7koYxtCzydmAA",
+        "hqSrc": "/projects/jail-time-records/gallery-1-hq.png",
+        "blurDataURL": "data:image/webp;base64,UklGRjwAAABXRUJQVlA4IDAAAACQAQCdASoQAAkAAsBMJZwC7ABVvgAA/p6hJGkJrZ0t1W6xJkVHqkQ+UMExZ9qAAAA=",
         "width": 2400,
-        "height": 1004
+        "height": 1353,
+        "hqWidth": 2500,
+        "hqHeight": 1409
       },
       {
         "src": "/projects/jail-time-records/gallery-2.webp",
-        "blurDataURL": "data:image/webp;base64,UklGRlwAAABXRUJQVlA4IFAAAADQAQCdASoQAAcAAsBMJaQAD40tnbWkQAD+9MNn9LHuQVq+FyDdHjOYZYGMNdm+3Bg5JJXROkbxQhHMYCqLpd6ANYHrtipR6gDmwe/NTpgAAA==",
+        "hqSrc": "/projects/jail-time-records/gallery-2-hq.png",
+        "blurDataURL": "data:image/webp;base64,UklGRmoAAABXRUJQVlA4IF4AAADwAQCdASoQAAoAAsBMJaQAAp3QhWiFgAAA/u0hDZBmxoSr76ySC70d+i0DV9+10n4pqxKt4yfADe+OovuCdou2vDZ60jvgVYh8VXP37XL3PQMPcfSlIunmCU9wAAAA",
         "width": 2400,
-        "height": 1004
+        "height": 1452,
+        "hqWidth": 2400,
+        "hqHeight": 1452
       },
       {
         "src": "/projects/jail-time-records/gallery-3.webp",
-        "blurDataURL": "data:image/webp;base64,UklGRlIAAABXRUJQVlA4IEYAAADQAQCdASoQAAcAAsBMJZwAAxfyPF9pAAD+1RaKQG3xcHKz1wNk1PW+eCdyVbOLf5PMdqtpkVxtxbAbEmQk+ccTI8BIAAAA",
+        "hqSrc": "/projects/jail-time-records/gallery-3-hq.png",
+        "blurDataURL": "data:image/webp;base64,UklGRlQAAABXRUJQVlA4IEgAAAAQAgCdASoQAAkAAsBMJZwAAwF1elFBR84AAP7ts176j4VeX9rbmti8NlyhbLQvpnLtD5sfq1Oa2eVuDJpzgfhFnw8yf823IAA=",
         "width": 2400,
-        "height": 1004
+        "height": 1355,
+        "hqWidth": 2500,
+        "hqHeight": 1411
       },
       {
         "src": "/projects/jail-time-records/gallery-4.webp",
-        "blurDataURL": "data:image/webp;base64,UklGRloAAABXRUJQVlA4IE4AAADwAQCdASoQAAcAAsBMJQBOgCFqgZdl6AAA/t2CNW0kLIoqdwQDNxqxj9Vd8XeolYdcMik1eZr3Jkz5fxcsIucyEm9qdxw5pFYAno3gKAA=",
+        "hqSrc": "/projects/jail-time-records/gallery-4-hq.png",
+        "blurDataURL": "data:image/webp;base64,UklGRlwAAABXRUJQVlA4IFAAAADQAQCdASoQAAkAAsBMJYgCdAEORWduRAD+3Oyuj6ryBPHPej9WCJGztpjwaP1liqC2G8d2FgiAvjFXVWBRY5bLhKIfqmgjUE8EEiyDNDAAAA==",
         "width": 1800,
-        "height": 753
+        "height": 1013,
+        "hqWidth": 1800,
+        "hqHeight": 1013
       }
     ]
   },
   "la-tempesta": {
     "cover": {
       "src": "/projects/la-tempesta/hero.webp",
-      "blurDataURL": "data:image/webp;base64,UklGRkIAAABXRUJQVlA4IDYAAACwAQCdASoQAAgAAsBMJZwAAudQQEfgAP76ivZR7isWj3lCl3MZ/0Kuiaa1Fs8cUICFp60tIAA=",
+      "hqSrc": "/projects/la-tempesta/hero-hq.png",
+      "blurDataURL": "data:image/webp;base64,UklGRkAAAABXRUJQVlA4IDQAAACwAQCdASoQAAgAAsBMJZwAAudiuFxgAP76ivZR7isWj3lNI7SpsTLfauhEIOUKRokYCAAA",
       "width": 2400,
-      "height": 1258
+      "height": 1245,
+      "hqWidth": 4800,
+      "hqHeight": 2490
     },
     "gallery": [
       {
         "src": "/projects/la-tempesta/gallery-1.webp",
+        "hqSrc": "/projects/la-tempesta/gallery-1-hq.png",
         "blurDataURL": "data:image/webp;base64,UklGRjgAAABXRUJQVlA4ICwAAADQAQCdASoQAAoAAsBMJaQAAujdBJTgAAD++J+SmqZPkaHKfspSTDn84UAAAA==",
         "width": 2390,
-        "height": 1424
+        "height": 1424,
+        "hqWidth": 2390,
+        "hqHeight": 1424
       },
       {
         "src": "/projects/la-tempesta/gallery-2.webp",
+        "hqSrc": "/projects/la-tempesta/gallery-2-hq.png",
         "blurDataURL": "data:image/webp;base64,UklGRkYAAABXRUJQVlA4IDoAAAAQAgCdASoQAAgAAsBMJZQCdH8AGZyD1gFgAP73wIzkfKYqRxnPs7QLS2+lzBHZ69QvnQWk8cEBgAAA",
         "width": 2400,
-        "height": 1191
+        "height": 1191,
+        "hqWidth": 2880,
+        "hqHeight": 1429
       },
       {
         "src": "/projects/la-tempesta/gallery-3.webp",
+        "hqSrc": "/projects/la-tempesta/gallery-3-hq.png",
         "blurDataURL": "data:image/webp;base64,UklGRkYAAABXRUJQVlA4IDoAAADwAQCdASoQAAgAAsBMJZwCdAEfgIO/wmAA/t3Y2q8UY/fpR1gnjn07GuU+2zWE1Ml4yzUjOgtkwYAA",
         "width": 2400,
-        "height": 1216
+        "height": 1216,
+        "hqWidth": 2819,
+        "hqHeight": 1428
       }
     ]
   },
   "noia": {
     "cover": {
       "src": "/projects/noia/hero.webp",
-      "blurDataURL": "data:image/webp;base64,UklGRkoAAABXRUJQVlA4ID4AAADQAQCdASoQAAcAAsBMJaQAAxZgfzheAAD++d0HZYAMM53L29R5ZSIcKI28sh/AAAwsKj+hC0VmYBT+oAAAAA==",
+      "hqSrc": "/projects/noia/hero-hq.png",
+      "blurDataURL": "data:image/webp;base64,UklGRkQAAABXRUJQVlA4IDgAAADQAQCdASoQAAYAAsBMJaQAAucRTvchAAD++JW578lAgKUtey9P7djD9NfACbhPyEgbB5/IITgAAA==",
       "width": 2400,
-      "height": 1004
+      "height": 927,
+      "hqWidth": 2560,
+      "hqHeight": 989
     },
     "gallery": [
       {
         "src": "/projects/noia/gallery-1.webp",
-        "blurDataURL": "data:image/webp;base64,UklGRloAAABXRUJQVlA4IE4AAADQAQCdASoQAAcAAsBMJaQAD4nNnbJkgAD+76ovzn8kZ9ynaHC68tZpsyi6Kt5kHfVSBsf9bwYL7rKakqEcQC/hDzTW0+jB44ystu6SAAA=",
+        "hqSrc": "/projects/noia/gallery-1-hq.png",
+        "blurDataURL": "data:image/webp;base64,UklGRloAAABXRUJQVlA4IE4AAADQAQCdASoQAAcAAsBMJaQAD4ltnbJkgAD+7SlKnby2WdP/WwTnMTUF4hUzir48XnbOIMCR/qcX75H1HNEFNOI7n8u7MYqgWRXzI2CQAAA=",
         "width": 2400,
-        "height": 1004
+        "height": 999,
+        "hqWidth": 2560,
+        "hqHeight": 1066
       },
       {
         "src": "/projects/noia/gallery-2.webp",
-        "blurDataURL": "data:image/webp;base64,UklGRk4AAABXRUJQVlA4IEIAAADQAQCdASoQAAcAAsBMJaQAAq4OunrzYAD++J64ZEr3KDr+rEbPTcxnoigrr+ZTFe+3yIlUWN90aEoGroTriTAAAAA=",
+        "hqSrc": "/projects/noia/gallery-2-hq.png",
+        "blurDataURL": "data:image/webp;base64,UklGRk4AAABXRUJQVlA4IEIAAACwAQCdASoQAAcAAsBMJaQAAq36mxVgAP74nrhkSvcoOv6sRs9NzGeiKCt8vV/2FCrNSk1F4VxnTHDn8QH71nz0AAA=",
         "width": 2400,
-        "height": 1004
+        "height": 999,
+        "hqWidth": 2560,
+        "hqHeight": 1066
       },
       {
         "src": "/projects/noia/gallery-3.webp",
-        "blurDataURL": "data:image/webp;base64,UklGRk4AAABXRUJQVlA4IEIAAACwAQCdASoQAAcAAsBMJaQAAuW/n3LAAP77blNTi7zGQtSOGMjIwAJ/Ey1VCarLZJ2Cnwbd65R2p/jFPl/gTGAAAAA=",
+        "hqSrc": "/projects/noia/gallery-3-hq.png",
+        "blurDataURL": "data:image/webp;base64,UklGRlAAAABXRUJQVlA4IEQAAACwAQCdASoQAAYAAsBMJaQAAkra6UAAAP77bns81E4DNLq/tlUgPpH8gpZy+5H4RlxGsWlGwxGd7wWWGjxPePqz5GAAAA==",
         "width": 2400,
-        "height": 1004
+        "height": 946,
+        "hqWidth": 2560,
+        "hqHeight": 1009
       }
     ]
   },
   "maree": {
     "cover": {
       "src": "/projects/maree/hero.webp",
-      "blurDataURL": "data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAACwAQCdASoQAAcAAsBMJZwCw7DshRkAAP70eIp1jBofJ9ncKr7cMRByAdz+IAAA",
+      "hqSrc": "/projects/maree/hero-hq.png",
+      "blurDataURL": "data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAACwAQCdASoQAAcAAsBMJZwCw7Dx9ZVgAP70eIp1jBjtdc9EyZST5d4Uj65QAAAA",
       "width": 2400,
-      "height": 1004
+      "height": 996,
+      "hqWidth": 4800,
+      "hqHeight": 1993
     },
     "gallery": [
       {
         "src": "/projects/maree/gallery-1.webp",
-        "blurDataURL": "data:image/webp;base64,UklGRmYAAABXRUJQVlA4IFoAAAAQAgCdASoQAAcAAsBMJbACdAEfbm2zZHP4AP70CIAPpgN+9I38H4vPCtXTYbxJ9cvGkl9yDGmfKsV1eoGMqM95QDaUZrx29fl7xUSm9CVvzG1fD0Ac35uAAAA=",
+        "hqSrc": "/projects/maree/gallery-1-hq.png",
+        "blurDataURL": "data:image/webp;base64,UklGRmgAAABXRUJQVlA4IFwAAADwAQCdASoQAAcAAsBMJbACdAEfa1lcckAA/vQIgA+mA370jfwfi88K1dNut2uBB8SLRH49DdAes1WXsu684l1sk3mMwxRmvHb1+X1iYxKe1ev7QhvnehaIszAAAA==",
         "width": 2400,
-        "height": 1004
+        "height": 994,
+        "hqWidth": 2879,
+        "hqHeight": 1192
       },
       {
         "src": "/projects/maree/gallery-2.webp",
-        "blurDataURL": "data:image/webp;base64,UklGRkIAAABXRUJQVlA4IDYAAABQAgCdASoQAAcAAsBMJZACdGuAt/8D5ghp4kAA/nifXWeZB4Uai4sdhcKNpZ0nynrLICDDgAA=",
+        "hqSrc": "/projects/maree/gallery-2-hq.png",
+        "blurDataURL": "data:image/webp;base64,UklGRjoAAABXRUJQVlA4IC4AAADwAQCdASoQAAUAAsBMJQBOjXAAWbWXUQAA/tz9gwAVUkO0XGZwlk+bAi290AAA",
         "width": 2400,
-        "height": 1004
+        "height": 731,
+        "hqWidth": 2880,
+        "hqHeight": 877
       },
       {
         "src": "/projects/maree/gallery-3.webp",
-        "blurDataURL": "data:image/webp;base64,UklGRkYAAABXRUJQVlA4IDoAAADQAQCdASoQAAcAAsBMJYwCdAEPAoGC4AD++vxPGwu0iILY/wqfO/XaVOrKtKURkOjFmGMSvLwWqKAA",
+        "hqSrc": "/projects/maree/gallery-3-hq.png",
+        "blurDataURL": "data:image/webp;base64,UklGRkgAAABXRUJQVlA4IDwAAAAQAgCdASoQAAYAAsBMJYwCdAYqXbL9ZfAAAP767/cCgk73o2/7jZbvdSkJahBmppm1nhh3BZcZLyXgAAA=",
         "width": 2400,
-        "height": 1004
+        "height": 919,
+        "hqWidth": 2879,
+        "hqHeight": 1102
       },
       {
         "src": "/projects/maree/gallery-4.webp",
-        "blurDataURL": "data:image/webp;base64,UklGRmAAAABXRUJQVlA4IFQAAAAQAgCdASoQAAcAAsBMJbACdAEQXKL4IDoAAP7E+29NwwQhdnAcKRclCSbmXFR0PPi8Ru2yhP4V/rmIidXtDF2IspePs/etGB+SjHwddDBCS+SwAAA=",
+        "hqSrc": "/projects/maree/gallery-4-hq.png",
+        "blurDataURL": "data:image/webp;base64,UklGRl4AAABXRUJQVlA4IFIAAADwAQCdASoQAAcAAsBMJbACdAEQXG8kdfAA/sT7b03DBCF2cBwpFyUJJuZcVHQ8+L3CiowBbMM+iaHfEft+z5vsX477I6UNfAp60W+hghJfJYAA",
         "width": 2400,
-        "height": 1004
+        "height": 998,
+        "hqWidth": 2879,
+        "hqHeight": 1197
       }
     ]
   },
   "kiss-of-an-angel": {
     "cover": {
       "src": "/projects/kiss-of-an-angel/hero.webp",
+      "hqSrc": "/projects/kiss-of-an-angel/hero-hq.png",
       "blurDataURL": "data:image/webp;base64,UklGRjwAAABXRUJQVlA4IDAAAACwAQCdASoQAAkAAsBMJYwCdACpSHW4APnrcd/qNlO950X3dBaYRgcz6F/z6bmINAA=",
       "width": 2400,
-      "height": 1366
+      "height": 1366,
+      "hqWidth": 3394,
+      "hqHeight": 1932
     },
     "gallery": [
       {
         "src": "/projects/kiss-of-an-angel/gallery-1.webp",
+        "hqSrc": "/projects/kiss-of-an-angel/gallery-1-hq.png",
         "blurDataURL": "data:image/webp;base64,UklGRkwAAABXRUJQVlA4IEAAAADwAQCdASoQAAkAAsBMJQBOgMWgmHqM+gAA+k37t9H7wqtsErfW3DTfLlJplXUPlk+aWgJLIy0Nca5P1cg7AAAA",
         "width": 2400,
-        "height": 1349
+        "height": 1349,
+        "hqWidth": 3438,
+        "hqHeight": 1932
       },
       {
         "src": "/projects/kiss-of-an-angel/gallery-2.webp",
+        "hqSrc": "/projects/kiss-of-an-angel/gallery-2-hq.png",
         "blurDataURL": "data:image/webp;base64,UklGRjwAAABXRUJQVlA4IDAAAACwAQCdASoQAAkAAsBMJQBOgCFflu0AAP7y+BaK+t/LixaL5TSzu4s8TJHox/7wAAA=",
         "width": 2400,
-        "height": 1338
+        "height": 1338,
+        "hqWidth": 3438,
+        "hqHeight": 1916
       }
     ]
   },
   "faceboom": {
     "cover": {
       "src": "/projects/faceboom/hero.webp",
-      "blurDataURL": "data:image/webp;base64,UklGRlAAAABXRUJQVlA4IEQAAADwAQCdASoQAAcAAsBMJYwCdADhhjB9SPAA/u+B/3FjSb18bcRdo2KTIpLYDpm8Zi2gbPQT/pP+9YgZ9IcKGc/dBHUYAA==",
+      "hqSrc": "/projects/faceboom/hero-hq.png",
+      "blurDataURL": "data:image/webp;base64,UklGRlAAAABXRUJQVlA4IEQAAADwAQCdASoQAAcAAsBMJYwCdADhhjB9R+gA/u+B/3FjSb18bcRdo2KTIpLYDpm8Zi2gbPQT/pP+9YgZ8ygTrmSxMfBwAA==",
       "width": 1914,
-      "height": 801
+      "height": 804,
+      "hqWidth": 1914,
+      "hqHeight": 804
     },
     "gallery": [
       {
         "src": "/projects/faceboom/gallery-1.webp",
-        "blurDataURL": "data:image/webp;base64,UklGRlYAAABXRUJQVlA4IEoAAADwAQCdASoQAAcAAsBMJaQAD48O1JBSC0AA/qN965WpFwCZ1qNSiVHmd8tCIHj9HZ6DABGmjkVoXPmHJB6usnQ2YY0U3t6+uHAAAA==",
+        "hqSrc": "/projects/faceboom/gallery-1-hq.png",
+        "blurDataURL": "data:image/webp;base64,UklGRlYAAABXRUJQVlA4IEoAAADQAQCdASoQAAcAAsBMJaQAAsaR0lJHeAD+o33rlfHMTvuduzlv9H0kWH5y7RRO+O0mAT3A6/im8lFr+vn1gOjXU+WQsfw04QAAAA==",
         "width": 1920,
-        "height": 803
+        "height": 798,
+        "hqWidth": 1920,
+        "hqHeight": 798
       },
       {
         "src": "/projects/faceboom/gallery-2.webp",
-        "blurDataURL": "data:image/webp;base64,UklGRkoAAABXRUJQVlA4ID4AAADQAQCdASoQAAcAAsBMJZQCsADvzpUdYAD+yDwJOadFJS+ZUZXMwup8d60X+FgretuCPrqAwfCbQaTcLgKAAA==",
+        "hqSrc": "/projects/faceboom/gallery-2-hq.png",
+        "blurDataURL": "data:image/webp;base64,UklGRkoAAABXRUJQVlA4ID4AAADQAQCdASoQAAcAAsBMJZQCsADvzpUdYAD+yDy5+6N+W+uJD+yFfO84Np5atYzQ6TxPYkOeDXNnCBzNwuAoAA==",
         "width": 1920,
-        "height": 803
+        "height": 801,
+        "hqWidth": 1920,
+        "hqHeight": 801
       },
       {
         "src": "/projects/faceboom/gallery-3.webp",
-        "blurDataURL": "data:image/webp;base64,UklGRk4AAABXRUJQVlA4IEIAAADwAQCdASoQAAcAAsBMJYwCdADpGB1N6IAA/vh9/ZXTmae4NNGBhgD/Z2EtzvizaENhCiklgkx9VEqThFn72hbwAAA=",
+        "hqSrc": "/projects/faceboom/gallery-3-hq.png",
+        "blurDataURL": "data:image/webp;base64,UklGRk4AAABXRUJQVlA4IEIAAADwAQCdASoQAAcAAsBMJYwCdADpGB1N6IAA/vh9/ZomU5Xkm7952YsrFMHU/D0lazc00e8r46x6vxzXwWRGdzd2AAA=",
         "width": 1920,
-        "height": 803
+        "height": 805,
+        "hqWidth": 1920,
+        "hqHeight": 805
       },
       {
         "src": "/projects/faceboom/gallery-4.webp",
-        "blurDataURL": "data:image/webp;base64,UklGRlwAAABXRUJQVlA4IFAAAACQAQCdASoQAAcAAsBMJZQCdACCbOAA/vipYtr/Fxx8Qg3kfHVMSwwuB1lSz9w2H1nHl4cwjY2OsLt5NQjV+Xl5B4P+xm+JvFpmZSPFV29AAA==",
+        "hqSrc": "/projects/faceboom/gallery-4-hq.png",
+        "blurDataURL": "data:image/webp;base64,UklGRlwAAABXRUJQVlA4IFAAAACQAQCdASoQAAcAAsBMJYwCdACCbOAA/vimylbMo1PNUBprzND/XaWIfgkcT90G5F523tptJZ6kqKZ4vZ5yO+uhS2nZqCCZd1fK45TwHFoAAA==",
         "width": 1920,
-        "height": 803
+        "height": 801,
+        "hqWidth": 1920,
+        "hqHeight": 801
       },
       {
         "src": "/projects/faceboom/gallery-5.webp",
-        "blurDataURL": "data:image/webp;base64,UklGRlgAAABXRUJQVlA4IEwAAACQAQCdASoQAAcAAsBMJaQAAZO5tMAA/vGc4oTTZWSentCkGDCz6XxtHC9KzbqAcDpDJ4ENQBSo8M6PGFbbKMnnaxeSjrDD8YKAAAAA",
+        "hqSrc": "/projects/faceboom/gallery-5-hq.png",
+        "blurDataURL": "data:image/webp;base64,UklGRlQAAABXRUJQVlA4IEgAAADQAQCdASoQAAcAAsBMJaQAD4zNMYA6wAD+8ZziJiraadb/7xC0beiIY7XptxxhA/8jF+8M30dIIx5wpTUtpJj1hB1wRc0AAAA=",
         "width": 1859,
-        "height": 778
+        "height": 805,
+        "hqWidth": 1859,
+        "hqHeight": 805
       }
     ]
   }
