@@ -63,30 +63,37 @@ export default function LayoutScrollSnap() {
           <p className="text-xs tracking-[0.4em] uppercase text-white/30 mb-12 text-center">
             Selected Projects
           </p>
-          <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-5">
-            {projects.slice(0, 6).map((project, i) => (
-              <motion.div
-                key={project.slug}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ delay: i * 0.08, type: "spring", stiffness: 100, damping: 20 }}
-                viewport={{ once: true, amount: 0.2 }}
-              >
-                <Link
-                  href={`/projects/${project.slug}`}
-                  className="group block"
+          <div className="flex flex-col gap-6 md:gap-10">
+            {projects.slice(0, 6).map((project, i) => {
+              const m = getProjectMedia(project.slug);
+              return (
+                <motion.div
+                  key={project.slug}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ delay: i * 0.08, type: "spring", stiffness: 100, damping: 20 }}
+                  viewport={{ once: true, amount: 0.2 }}
                 >
-                  <div className="aspect-[4/5] rounded-sm overflow-hidden mb-2 relative transition-transform duration-500 group-hover:scale-[1.02]">
-                    {(() => {
-                      const m = getProjectMedia(project.slug);
-                      return m ? (
+                  <Link
+                    href={`/projects/${project.slug}`}
+                    className="group block"
+                  >
+                    <div
+                      className="rounded-sm overflow-hidden relative transition-transform duration-500 group-hover:scale-[1.01]"
+                      style={{
+                        aspectRatio: m
+                          ? `${m.cover.width} / ${m.cover.height}`
+                          : "16 / 9",
+                      }}
+                    >
+                      {m ? (
                         <Image
                           src={m.cover.src}
                           alt={project.title}
                           fill
                           placeholder="blur"
                           blurDataURL={m.cover.blurDataURL}
-                          sizes="(min-width: 768px) 33vw, 50vw"
+                          sizes="(min-width: 1024px) 1024px, 100vw"
                           className="object-cover"
                           style={{ objectPosition: project.coverPosition ?? "center" }}
                         />
@@ -95,21 +102,21 @@ export default function LayoutScrollSnap() {
                           className="absolute inset-0"
                           style={{ background: project.gradient }}
                         />
-                      );
-                    })()}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
-                    <div className="absolute inset-0 flex items-end p-4">
-                      <p className="text-sm md:text-base font-light tracking-tight text-white/95">
-                        {project.title}
-                      </p>
+                      )}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/15 to-transparent" />
+                      <div className="absolute inset-0 flex flex-col justify-end p-5 md:p-8">
+                        <p className="text-[10px] md:text-xs tracking-[0.25em] uppercase text-white/60 mb-2">
+                          {project.formatLabel}
+                        </p>
+                        <h3 className="text-2xl md:text-4xl font-light tracking-tight text-white">
+                          {project.title}
+                        </h3>
+                      </div>
                     </div>
-                  </div>
-                  <p className="text-xs text-white/30 mt-1 tracking-wide">
-                    {project.formatLabel}
-                  </p>
-                </Link>
-              </motion.div>
-            ))}
+                  </Link>
+                </motion.div>
+              );
+            })}
           </div>
         </FadeInSection>
       </div>
