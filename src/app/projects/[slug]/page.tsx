@@ -64,7 +64,9 @@ export default function ProjectDetailPage({
           </motion.div>
           {/* Film grain */}
           <div className="absolute inset-0 opacity-[0.05] mix-blend-overlay bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJhIiB4PSIwIiB5PSIwIj48ZmVUdXJidWxlbmNlIGJhc2VGcmVxdWVuY3k9Ii43NSIgc3RpdGNoVGlsZXM9InN0aXRjaCIgdHlwZT0iZnJhY3RhbE5vaXNlIi8+PGZlQ29sb3JNYXRyaXggdHlwZT0ic2F0dXJhdGUiIHZhbHVlcz0iMCIvPjwvZmlsdGVyPjxyZWN0IHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIiBmaWx0ZXI9InVybCgjYSkiIG9wYWNpdHk9IjEiLz48L3N2Zz4=')]" />
-          <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/30 to-transparent" />
+          {/* Bottom 2/5 (mobile) / 1/5 (desktop) is fully dark so the image reads
+              as shorter+wider and the title block always has a solid base. */}
+          <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] from-[40%] md:from-[20%] to-transparent" />
 
           <div className="absolute bottom-0 left-0 right-0 p-8 md:p-16 z-10">
             <motion.div

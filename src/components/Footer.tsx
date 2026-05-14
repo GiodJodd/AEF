@@ -12,7 +12,12 @@ export default function Footer({ minimal = false }: { minimal?: boolean }) {
     <footer className="border-t border-white/5 px-6 md:px-12 py-12">
       <div className="max-w-6xl mx-auto flex flex-col md:flex-row justify-between items-start gap-8">
         <div>
-          <p className="text-xl tracking-[0.3em] font-light uppercase mb-2">AEF</p>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/logo-wordmark.svg"
+            alt="AEF"
+            className="h-12 md:h-16 w-auto mb-3"
+          />
           <p className="text-sm text-[#666]">Rome &middot; London</p>
         </div>
         <div className="flex gap-8 text-sm text-[#666]">
