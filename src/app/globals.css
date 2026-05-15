@@ -58,3 +58,13 @@ body {
   scroll-snap-align: none;
   position: relative;
 }
+
+/* Per-project hero cover position with mobile override */
+.hero-cover-image {
+  object-position: var(--cover-pos-mobile, center);
+}
+@media (min-width: 768px) {
+  .hero-cover-image {
+    object-position: var(--cover-pos-desktop, center);
+  }
+}

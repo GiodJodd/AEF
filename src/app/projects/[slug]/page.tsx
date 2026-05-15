@@ -52,8 +52,12 @@ export default function ProjectDetailPage({
                 placeholder="blur"
                 blurDataURL={media.cover.blurDataURL}
                 sizes="100vw"
-                className="object-cover"
-                style={{ objectPosition: project.coverPosition ?? "center" }}
+                className="object-cover hero-cover-image"
+                style={{
+                  "--cover-pos-desktop": project.coverPosition ?? "center",
+                  "--cover-pos-mobile":
+                    project.mobileCoverPosition ?? project.coverPosition ?? "center",
+                } as React.CSSProperties}
               />
             ) : (
               <div
