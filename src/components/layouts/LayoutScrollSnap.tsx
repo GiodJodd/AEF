@@ -5,6 +5,9 @@ import { motion, useInView } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import { projects, getProjectMedia } from "@/data/projects";
+import { computeObjectPosition } from "@/data/cover-position";
+
+const CARD_ASPECT = 4 / 5;
 import Footer from "@/components/Footer";
 import HeroSelector from "@/components/hero/HeroSelector";
 
@@ -79,6 +82,14 @@ export default function LayoutScrollSnap() {
                   <div className="aspect-[4/5] rounded-sm overflow-hidden mb-2 relative transition-transform duration-500 group-hover:scale-[1.02]">
                     {(() => {
                       const m = getProjectMedia(project.slug);
+                      const objectPosition =
+                        project.focal && m
+                          ? computeObjectPosition(
+                              project.focal,
+                              m.cover.width / m.cover.height,
+                              CARD_ASPECT,
+                            )
+                          : "center";
                       return m ? (
                         <Image
                           src={m.cover.src}
@@ -88,7 +99,7 @@ export default function LayoutScrollSnap() {
                           blurDataURL={m.cover.blurDataURL}
                           sizes="(min-width: 768px) 33vw, 50vw"
                           className="object-cover"
-                          style={{ objectPosition: project.coverPosition ?? "center" }}
+                          style={{ objectPosition }}
                         />
                       ) : (
                         <div

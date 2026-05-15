@@ -1,3 +1,4 @@
+import { type FocalPoint } from "./cover-position";
 import { PROJECT_MEDIA, type ProjectMedia } from "./project-media";
 
 export type ProjectFormat = "feature" | "documentary" | "short" | "development";
@@ -16,17 +17,13 @@ export interface Project {
   gradient: string;
   accentColor: string;
   /**
-   * CSS object-position for the cover image when cropped (e.g. "left center",
-   * "30% 50%"). Use when the subject sits off-center and you don't want it
-   * cropped at narrow viewports. Defaults to "center" if omitted.
+   * Point in the cover image (x, y in [0, 1]) that should anchor the
+   * cropped view. The hero computes `object-position` per-breakpoint
+   * from this so the focal stays centered as the container reshapes.
+   * For "show only the left half of subject X" framing, set the focal
+   * just left of X — that pushes X toward the right edge of the view.
    */
-  coverPosition?: string;
-  /**
-   * CSS object-position used only at mobile widths (< md / 768px). Falls back
-   * to `coverPosition` when omitted. Use to keep the subject framed in the
-   * portrait crop when the desktop position is too wide.
-   */
-  mobileCoverPosition?: string;
+  focal?: FocalPoint;
 }
 
 export const projects: Project[] = [
@@ -43,7 +40,7 @@ export const projects: Project[] = [
     gradient:
       "linear-gradient(135deg, #2a1a10 0%, #4a2a1a 40%, #6b3520 70%, #8a4530 100%)",
     accentColor: "#6b3520",
-    mobileCoverPosition: "80% center",
+    focal: { x: 0.74, y: 0.62 },
   },
   {
     slug: "jail-time-records",
@@ -71,7 +68,7 @@ export const projects: Project[] = [
     gradient:
       "linear-gradient(135deg, #1a0808 0%, #3a0f0f 40%, #5a1818 70%, #7a2818 100%)",
     accentColor: "#5a1818",
-    mobileCoverPosition: "31% center",
+    focal: { x: 0.36, y: 0.5 },
   },
   {
     slug: "la-tempesta",
@@ -87,7 +84,7 @@ export const projects: Project[] = [
     gradient:
       "linear-gradient(135deg, #0f1525 0%, #1f2540 50%, #2f1f4a 100%)",
     accentColor: "#1f2540",
-    mobileCoverPosition: "11% 70%",
+    focal: { x: 0.22, y: 0.72 },
   },
   {
     slug: "noia",
@@ -103,8 +100,7 @@ export const projects: Project[] = [
     gradient:
       "linear-gradient(135deg, #0a1218 0%, #15252e 50%, #1f3845 100%)",
     accentColor: "#15252e",
-    coverPosition: "60% 60%",
-    mobileCoverPosition: "57% 80%",
+    focal: { x: 0.55, y: 0.78 },
   },
   {
     slug: "maree",
@@ -119,8 +115,7 @@ export const projects: Project[] = [
     gradient:
       "linear-gradient(135deg, #1a2025 0%, #2a3a3f 50%, #3a4a4f 100%)",
     accentColor: "#2a3a3f",
-    coverPosition: "right center",
-    mobileCoverPosition: "75% 25%",
+    focal: { x: 0.68, y: 0.22 },
   },
   {
     slug: "faceboom",
@@ -135,7 +130,7 @@ export const projects: Project[] = [
     gradient:
       "linear-gradient(135deg, #14122a 0%, #2a1f4a 50%, #3f1f5a 100%)",
     accentColor: "#2a1f4a",
-    mobileCoverPosition: "32% 35%",
+    focal: { x: 0.36, y: 0.35 },
   },
   {
     slug: "kiss-of-an-angel",
@@ -151,8 +146,7 @@ export const projects: Project[] = [
     gradient:
       "linear-gradient(135deg, #1a2530 0%, #2f4555 50%, #4a5f70 100%)",
     accentColor: "#2f4555",
-    coverPosition: "60% 70%",
-    mobileCoverPosition: "20% 85%",
+    focal: { x: 0.27, y: 0.82 },
   },
   {
     slug: "pine-tree",

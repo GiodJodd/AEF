@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import { getProject, getProjectMedia } from "@/data/projects";
+import { computeObjectPosition, HERO_CONTAINER_ASPECT } from "@/data/cover-position";
 import Footer from "@/components/Footer";
 import ProjectGallery from "@/components/ProjectGallery";
 import { useHeroColor } from "@/components/HeroColorContext";
@@ -33,6 +34,16 @@ export default function ProjectDetailPage({
 
   if (!project) notFound();
 
+  const imageAspect = media ? media.cover.width / media.cover.height : 1;
+  const desktopPos =
+    project.focal && media
+      ? computeObjectPosition(project.focal, imageAspect, HERO_CONTAINER_ASPECT.desktop)
+      : "center";
+  const mobilePos =
+    project.focal && media
+      ? computeObjectPosition(project.focal, imageAspect, HERO_CONTAINER_ASPECT.mobile)
+      : "center";
+
   return (
     <main className="min-h-screen bg-[#0a0a0a]">
         {/* Hero */}
@@ -54,9 +65,8 @@ export default function ProjectDetailPage({
                 sizes="100vw"
                 className="object-cover hero-cover-image"
                 style={{
-                  "--cover-pos-desktop": project.coverPosition ?? "center",
-                  "--cover-pos-mobile":
-                    project.mobileCoverPosition ?? project.coverPosition ?? "center",
+                  "--cover-pos-desktop": desktopPos,
+                  "--cover-pos-mobile": mobilePos,
                 } as React.CSSProperties}
               />
             ) : (

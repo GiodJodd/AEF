@@ -4,6 +4,10 @@ import Link from "next/link";
 import Image from "next/image";
 import { motion } from "framer-motion";
 import { type Project, getProjectMedia } from "@/data/projects";
+import { computeObjectPosition } from "@/data/cover-position";
+
+/** Aspect (W/H) of the project card thumb (`aspect-[4/5]`). */
+const CARD_ASPECT = 4 / 5;
 
 export default function ProjectCard({
   project,
@@ -14,6 +18,14 @@ export default function ProjectCard({
 }) {
   const href = `/projects/${project.slug}`;
   const media = getProjectMedia(project.slug);
+  const objectPosition =
+    project.focal && media
+      ? computeObjectPosition(
+          project.focal,
+          media.cover.width / media.cover.height,
+          CARD_ASPECT,
+        )
+      : "center";
 
   return (
     <motion.div
@@ -40,7 +52,7 @@ export default function ProjectCard({
               blurDataURL={media.cover.blurDataURL}
               sizes="(min-width: 1024px) 33vw, (min-width: 640px) 50vw, 100vw"
               className="object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-              style={{ objectPosition: project.coverPosition ?? "center" }}
+              style={{ objectPosition }}
             />
           ) : (
             <div

@@ -5,7 +5,20 @@ import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
 import { projectsForHomeHero, getProjectMedia } from "@/data/projects";
+import { computeObjectPosition } from "@/data/cover-position";
 import { useHeroColor } from "@/components/HeroColorContext";
+
+/**
+ * Container aspects (W/H) for the homepage hero — full viewport (100vw × 100dvh).
+ * Used to precompute object-position per breakpoint so the focal point stays
+ * centered as the viewport reshapes between phone portrait and laptop landscape.
+ */
+const HOME_HERO_ASPECT = {
+  /** Typical phone portrait — ~390 × 844. */
+  mobile: 0.46,
+  /** Typical laptop — ~1280 × 800. */
+  desktop: 1.6,
+} as const;
 
 const projects = projectsForHomeHero;
 
@@ -77,7 +90,22 @@ export default function HeroBlurMorph() {
         >
           {(() => {
             const media = getProjectMedia(project.slug);
-            return media ? (
+            if (!media) {
+              return (
+                <div
+                  className="absolute inset-0"
+                  style={{ background: project.gradient }}
+                />
+              );
+            }
+            const imageAspect = media.cover.width / media.cover.height;
+            const desktopPos = project.focal
+              ? computeObjectPosition(project.focal, imageAspect, HOME_HERO_ASPECT.desktop)
+              : "center";
+            const mobilePos = project.focal
+              ? computeObjectPosition(project.focal, imageAspect, HOME_HERO_ASPECT.mobile)
+              : "center";
+            return (
               <Image
                 src={media.cover.src}
                 alt={project.title}
@@ -86,13 +114,11 @@ export default function HeroBlurMorph() {
                 placeholder="blur"
                 blurDataURL={media.cover.blurDataURL}
                 sizes="100vw"
-                className="object-cover"
-                style={{ objectPosition: project.coverPosition ?? "center" }}
-              />
-            ) : (
-              <div
-                className="absolute inset-0"
-                style={{ background: project.gradient }}
+                className="object-cover hero-cover-image"
+                style={{
+                  "--cover-pos-desktop": desktopPos,
+                  "--cover-pos-mobile": mobilePos,
+                } as React.CSSProperties}
               />
             );
           })()}
