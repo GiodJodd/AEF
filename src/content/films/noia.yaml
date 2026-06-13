@@ -1,0 +1,27 @@
+title: NOIA
+year: 2022
+sortOrder: 4
+format: short
+formatLabel: Short Fiction
+logline: >-
+  During Italy's 2020 lockdown, three friends break curfew and drift through a
+  deserted city, confronting the emptiness around and within them.
+synopsis: |-
+  Early April 2020. A virus has brought the world to a standstill, leaving thousands dead. In Italy, a total lockdown is in place: leaving home is forbidden, except for essential needs.
+
+  In the middle of the night, three friends break the rules and venture out into a city emptied of life, suspended in an eerie stillness. Deserted streets, unnatural silence, and cold lights become the reflection of something deeper—lives frozen in place, trapped in a time that no longer seems to move.
+
+  Their journey unfolds as an existential drift, a quiet confrontation with emptiness—both around them and within.
+directors:
+  - Francesco Branca
+producers:
+  - Francesco Branca
+  - Matteo Severini
+partners:
+  - IED production
+genre:
+  - Drama
+gradient: "linear-gradient(135deg, #0a1218 0%, #15252e 50%, #1f3845 100%)"
+accentColor: "#15252e"
+coverPosition: 60% 60%
+coverAlt: Cover still from NOIA, a short fiction directed by Francesco Branca.

@@ -4,14 +4,13 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
-import { projectsForHomeHero, getProjectMedia } from "@/data/projects";
 import { useHeroColor } from "@/components/HeroColorContext";
-
-const projects = projectsForHomeHero;
+import type { Film } from "@/lib/film";
 
 type FeedbackSide = "left" | "right" | null;
 
-export default function HeroBlurMorph() {
+export default function HeroBlurMorph({ films }: { films: Film[] }) {
+  const projects = films;
   const [currentIndex, setCurrentIndex] = useState(0);
   const [feedback, setFeedback] = useState<FeedbackSide>(null);
   const { setHeroColor } = useHeroColor();
@@ -76,8 +75,42 @@ export default function HeroBlurMorph() {
           }}
         >
           {(() => {
-            const media = getProjectMedia(project.slug);
-            return media ? (
+            const media = project.media;
+            if (!media) {
+              return (
+                <div
+                  className="absolute inset-0"
+                  style={{ background: project.gradient }}
+                />
+              );
+            }
+            // When the film opts into a separate mobile cover, swap the source
+            // by viewport; otherwise the single desktop cover at all sizes.
+            return media.coverMobile ? (
+              <>
+                <Image
+                  src={media.coverMobile.src}
+                  alt={project.title}
+                  fill
+                  priority={currentIndex === 0}
+                  placeholder="blur"
+                  blurDataURL={media.coverMobile.blurDataURL}
+                  sizes="100vw"
+                  className="object-cover md:hidden"
+                />
+                <Image
+                  src={media.cover.src}
+                  alt={project.title}
+                  fill
+                  priority={currentIndex === 0}
+                  placeholder="blur"
+                  blurDataURL={media.cover.blurDataURL}
+                  sizes="100vw"
+                  className="hidden object-cover md:block"
+                  style={{ objectPosition: project.coverPosition ?? "center" }}
+                />
+              </>
+            ) : (
               <Image
                 src={media.cover.src}
                 alt={project.title}
@@ -88,11 +121,6 @@ export default function HeroBlurMorph() {
                 sizes="100vw"
                 className="object-cover"
                 style={{ objectPosition: project.coverPosition ?? "center" }}
-              />
-            ) : (
-              <div
-                className="absolute inset-0"
-                style={{ background: project.gradient }}
               />
             );
           })()}

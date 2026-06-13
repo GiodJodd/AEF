@@ -4,6 +4,7 @@
 # next.js
 /.next/
 /out/
+*.tsbuildinfo
 
 # production
 /build
@@ -21,3 +22,13 @@ npm-debug.log*
 # turbopack
 .turbo
 .vercel
+
+# derived social cards (regenerated from hero.webp by the prebuild step)
+/public/projects/*/og.jpg
+
+# CMS film imagery: hero/gallery/og derivatives are regenerated on every build
+# from the committed originals in public/projects-src/ (build-cms-media.mjs).
+/public/projects-cms/
+
+# Claude Code local worktrees (per-session scratch space, not for the repo)
+/.claude/worktrees/

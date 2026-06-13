@@ -1,0 +1,28 @@
+title: PINE TREE
+year: 2027
+sortOrder: 8
+format: development
+formatLabel: Feature Film — In Development
+logline: >-
+  A young woman and her new friends awaken a supernatural presence after a
+  careless ritual, and reality blurs into nightmare.
+synopsis: |-
+  A mysterious event in the past sets in motion a dark force tied to an ancient secret.
+
+  In the present day, a young woman moves to the city seeking a fresh start. She becomes involved with a group of friends whose carefree choices lead them to a strange discovery. After performing a ritual, they unknowingly awaken a supernatural presence.
+
+  Disturbing visions and paranoia begin to consume them. In search of answers, they venture into an unfamiliar and ominous place. There, reality shifts and they find themselves trapped in a hostile environment. As fear grows, the group begins to fall apart under pressure.
+
+  This encounter leaves a lasting impact, blurring the line between nightmare and reality.
+directors:
+  - Matteo Severini
+producers:
+  - Riccardo Rizzi
+  - Thomas Piette
+  - Matteo Severini
+genre:
+  - Horror
+status: In development
+gradient: "linear-gradient(135deg, #0a1410 0%, #15251a 40%, #1f3525 70%, #2a1818 100%)"
+accentColor: "#1f3525"
+coverAlt: Concept artwork for PINE TREE, a feature film in development directed by Matteo Severini.

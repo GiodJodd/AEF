@@ -12,7 +12,13 @@ interface PhotoWithBlur extends Photo {
   blurDataURL: string;
 }
 
-export default function ProjectGallery({ images }: { images: ImageMeta[] }) {
+export default function ProjectGallery({
+  images,
+  title,
+}: {
+  images: ImageMeta[];
+  title: string;
+}) {
   const [lightboxIndex, setLightboxIndex] = useState(-1);
 
   if (!images || images.length === 0) return null;
@@ -42,7 +48,7 @@ export default function ProjectGallery({ images }: { images: ImageMeta[] }) {
             >
               <Image
                 src={img.src}
-                alt=""
+                alt={`${title} — still ${i + 1}`}
                 fill
                 placeholder="blur"
                 blurDataURL={img.blurDataURL}
@@ -70,7 +76,7 @@ export default function ProjectGallery({ images }: { images: ImageMeta[] }) {
             image: (_, { photo, width, height, index }) => (
               <Image
                 src={photo.src}
-                alt=""
+                alt={`${title} — still ${index + 1}`}
                 width={width}
                 height={height}
                 placeholder="blur"

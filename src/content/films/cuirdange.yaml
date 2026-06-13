@@ -1,0 +1,26 @@
+title: CUIRDANGE
+year: 2025
+sortOrder: 1
+format: feature
+formatLabel: Feature Film
+logline: >-
+  A struggling young actor and a solitary American archaeologist meet on a
+  restless Roman night, and an unlikely encounter becomes an intimate
+  excavation of healing.
+synopsis: |-
+  Set against the blistering heat of Rome, this debut feature by director Riccardo Rizzi is drawn from a true story originating from a personal confession and brought to the screen by its real-life protagonists, who portray themselves.
+
+  Simone, a struggling young actor drifting between auditions, and Karen, an aging American archaeologist worn down by solitude, meet on a restless night. What begins as a raw, physical connection soon evolves into something far more unexpected.
+
+  As desire gives way to vulnerability, two lives shaped by distance, time, and disillusion begin to converge. In a city layered with history and decay, their relationship becomes an intimate excavation, uncovering the fragile, often uncomfortable truth that even the most unlikely encounters can lead to healing.
+directors:
+  - Riccardo Rizzi
+producers:
+  - Matteo Severini
+  - Riccardo Rizzi
+  - Thomas Piette
+genre:
+  - Drama
+gradient: "linear-gradient(135deg, #2a1a10 0%, #4a2a1a 40%, #6b3520 70%, #8a4530 100%)"
+accentColor: "#6b3520"
+coverAlt: Cover still from CUIRDANGE, a feature film directed by Riccardo Rizzi.

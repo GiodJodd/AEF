@@ -4,9 +4,9 @@ import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
-import { projects, getProjectMedia } from "@/data/projects";
 import Footer from "@/components/Footer";
 import HeroSelector from "@/components/hero/HeroSelector";
+import type { Film } from "@/lib/film";
 
 function FadeInSection({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -29,12 +29,21 @@ function FadeInSection({ children, className = "" }: { children: React.ReactNode
   );
 }
 
-export default function LayoutScrollSnap() {
+export default function LayoutScrollSnap({
+  films,
+  aboutTeaser,
+  contactPrompt,
+}: {
+  films: Film[];
+  aboutTeaser: string;
+  contactPrompt: string;
+}) {
+  const heroFilms = films.filter((f) => f.media);
   return (
     <div className="scroll-snap-container" style={{ position: "fixed", inset: 0, zIndex: 1 }}>
       {/* Section 1: Hero */}
       <div className="scroll-snap-section">
-        <HeroSelector />
+        <HeroSelector films={heroFilms} />
       </div>
 
       {/* Section 2: About teaser / Tagline */}
@@ -44,9 +53,7 @@ export default function LayoutScrollSnap() {
             About AEF
           </p>
           <p className="text-2xl md:text-3xl font-extralight leading-relaxed text-white/70 mb-8">
-            An independent film production company between Rome and London —
-            building cinema as a collaborative system where authorship, labor,
-            and value are inseparable.
+            {aboutTeaser}
           </p>
           <Link
             href="/about"
@@ -64,7 +71,7 @@ export default function LayoutScrollSnap() {
             Selected Projects
           </p>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-5">
-            {projects.slice(0, 6).map((project, i) => (
+            {films.slice(0, 6).map((project, i) => (
               <motion.div
                 key={project.slug}
                 initial={{ opacity: 0, y: 20 }}
@@ -78,7 +85,7 @@ export default function LayoutScrollSnap() {
                 >
                   <div className="aspect-[4/5] rounded-sm overflow-hidden mb-2 relative transition-transform duration-500 group-hover:scale-[1.02]">
                     {(() => {
-                      const m = getProjectMedia(project.slug);
+                      const m = project.media;
                       return m ? (
                         <Image
                           src={m.cover.src}
@@ -121,7 +128,7 @@ export default function LayoutScrollSnap() {
             Get in Touch
           </p>
           <p className="text-xl md:text-2xl font-extralight text-white/50 mb-8">
-            Have a story to tell?
+            {contactPrompt}
           </p>
           <Link
             href="/contact"

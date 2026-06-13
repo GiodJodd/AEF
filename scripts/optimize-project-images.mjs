@@ -195,6 +195,7 @@ export interface ImageMeta {
 
 export interface ProjectMedia {
   cover: ImageMeta;
+  coverMobile?: ImageMeta;
   gallery: ImageMeta[];
 }
 

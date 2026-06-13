@@ -1,37 +1,54 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import "./globals.css";
-import ClientProviders from "@/components/ClientProviders";
-
-const SITE_URL = "https://aefproductions.com";
-const TITLE = "AEF — Independent Film Production";
-const DESCRIPTION =
-  "AEF is an independent film production company between Rome and London, founded in 2022 by Matteo Severini and Riccardo Rizzi.";
+import JsonLd from "@/components/JsonLd";
+import { organizationSchema, websiteSchema } from "@/lib/schema";
+import { SITE_URL, SITE_NAME, SITE_TITLE, SITE_DESCRIPTION } from "@/lib/site";
+import { satoshi } from "@/lib/fonts";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  title: TITLE,
-  description: DESCRIPTION,
+  title: { default: SITE_TITLE, template: "%s — AEF" },
+  description: SITE_DESCRIPTION,
+  applicationName: SITE_NAME,
+  alternates: {
+    types: { "application/rss+xml": `${SITE_URL}/feed.xml` },
+  },
+  // Root social images are served by the opengraph-image.jpg / twitter-image.jpg
+  // file conventions in this folder, so they're intentionally not repeated here.
   openGraph: {
     type: "website",
     url: SITE_URL,
-    siteName: "AEF",
-    title: TITLE,
-    description: DESCRIPTION,
-    images: [
-      {
-        url: "/opengraph-image.jpg",
-        width: 1200,
-        height: 630,
-        alt: "CUIRDANGE — a feature film by Riccardo Rizzi, produced by AEF.",
-      },
-    ],
+    siteName: SITE_NAME,
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
+    locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    title: TITLE,
-    description: DESCRIPTION,
-    images: ["/twitter-image.jpg"],
+    title: SITE_TITLE,
+    description: SITE_DESCRIPTION,
   },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+      "max-video-preview": -1,
+    },
+  },
+  // Set GOOGLE_SITE_VERIFICATION on Vercel to emit the Search Console
+  // verification <meta> tag. Omitted entirely when unset.
+  ...(process.env.GOOGLE_SITE_VERIFICATION
+    ? { verification: { google: process.env.GOOGLE_SITE_VERIFICATION } }
+    : {}),
+};
+
+export const viewport: Viewport = {
+  themeColor: "#0a0a0a",
+  colorScheme: "dark",
 };
 
 export default function RootLayout({
@@ -40,15 +57,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
-      <head>
-        <link rel="preconnect" href="https://api.fontshare.com" />
-        <link rel="preconnect" href="https://cdn.fontshare.com" crossOrigin="anonymous" />
-      </head>
+    <html lang="en" className={satoshi.variable}>
       <body className="bg-[#0a0a0a] text-[#f5f5f5] antialiased">
-        <ClientProviders>
-          {children}
-        </ClientProviders>
+        <JsonLd data={[organizationSchema(), websiteSchema()]} />
+        {children}
       </body>
     </html>
   );

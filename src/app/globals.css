@@ -1,4 +1,3 @@
-@import url('https://api.fontshare.com/v2/css?f[]=satoshi@300,400,500,700,900&display=swap');
 @import "tailwindcss";
 
 @theme {
@@ -8,7 +7,7 @@
   --color-text-muted: #888888;
   --color-accent: #e0e0e0;
   --color-border: #222222;
-  --font-sans: "Satoshi", "Inter", "Helvetica Neue", Arial, sans-serif;
+  --font-sans: var(--font-satoshi);
 }
 
 html {

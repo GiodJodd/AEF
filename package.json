@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "next dev --turbopack",
+    "prebuild": "node scripts/build-cms-media.mjs && node scripts/generate-og-images.mjs",
     "build": "next build",
     "start": "next start"
   },
@@ -13,9 +14,15 @@
   "license": "ISC",
   "type": "module",
   "dependencies": {
+    "@keystatic/core": "^0.5.50",
+    "@keystatic/next": "^5.0.4",
+    "@markdoc/markdoc": "^0.5.7",
+    "@next/third-parties": "^16.2.7",
     "@tailwindcss/postcss": "^4.2.2",
     "@types/node": "^25.5.0",
     "@types/react": "^19.2.14",
+    "@vercel/analytics": "^2.0.1",
+    "@vercel/speed-insights": "^2.0.0",
     "framer-motion": "^12.38.0",
     "next": "^16.2.1",
     "postcss": "^8.5.8",
@@ -27,6 +34,7 @@
     "yet-another-react-lightbox": "^3.32.0"
   },
   "devDependencies": {
+    "js-yaml": "^4.2.0",
     "sharp": "^0.34.5"
   }
 }
