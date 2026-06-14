@@ -57,3 +57,19 @@ body {
   scroll-snap-align: none;
   position: relative;
 }
+
+/* Reduced-motion backstop. Components also branch on Framer's useReducedMotion()
+   for tailored fallbacks; this neutralizes any remaining CSS transitions and the
+   smooth scroll above for users who ask for less motion. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

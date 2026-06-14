@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import Footer from "@/components/Footer";
+import { formatStudioAddress } from "@/lib/site";
 import type { AboutContent, TeamMember, SiteSettings } from "@/lib/content";
 
 export default function AboutClient({
@@ -21,7 +22,7 @@ export default function AboutClient({
             animate={{ opacity: 1, y: 0 }}
             transition={{ type: "spring", stiffness: 100, damping: 20 }}
           >
-            <h1 className="text-xs tracking-[0.4em] uppercase text-white/30 mb-16">
+            <h1 className="text-xs tracking-[0.15em] text-white/30 mb-16">
               About
             </h1>
 
@@ -43,21 +44,30 @@ export default function AboutClient({
               <div className="md:pl-4">
                 <div className="space-y-6 text-sm text-white/30">
                   <div>
-                    <p className="text-xs tracking-[0.3em] uppercase text-white/20 mb-1">
+                    <p className="text-xs tracking-[0.12em] text-white/20 mb-2">
                       Headquarters
                     </p>
-                    <p className="text-white/60">
-                      {settings.locations.join(" & ")}
-                    </p>
+                    <div className="space-y-3 text-white/60">
+                      {settings.studios.map((s) => (
+                        <div key={s.city}>
+                          <p className="text-white/80">{s.city}</p>
+                          <p>{formatStudioAddress(s)}</p>
+                        </div>
+                      ))}
+                    </div>
                   </div>
                   <div>
-                    <p className="text-xs tracking-[0.3em] uppercase text-white/20 mb-1">
+                    <p className="text-xs tracking-[0.12em] text-white/20 mb-1">
                       Founded
                     </p>
-                    <p className="text-white/60">{settings.foundingYear}</p>
+                    <p className="text-white/60">
+                      {[settings.foundingLocation, settings.foundingYear]
+                        .filter(Boolean)
+                        .join(", ")}
+                    </p>
                   </div>
                   <div>
-                    <p className="text-xs tracking-[0.3em] uppercase text-white/20 mb-1">
+                    <p className="text-xs tracking-[0.12em] text-white/20 mb-1">
                       Founders
                     </p>
                     <p className="text-white/60">
@@ -75,7 +85,7 @@ export default function AboutClient({
 
             {/* Team */}
             <div>
-              <h2 className="text-xs tracking-[0.4em] uppercase text-white/30 mb-10">
+              <h2 className="text-xs tracking-[0.15em] text-white/30 mb-10">
                 Team
               </h2>
               <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-x-8 gap-y-10">
@@ -91,12 +101,12 @@ export default function AboutClient({
                       damping: 20,
                     }}
                     viewport={{ once: true, amount: 0.3 }}
-                    className="border-t border-white/5 pt-4"
+                    className="pt-4"
                   >
                     <p className="text-base md:text-lg font-light text-white/85 mb-1">
                       {member.name}
                     </p>
-                    <p className="text-xs tracking-[0.15em] uppercase text-white/35">
+                    <p className="text-xs tracking-[0.15em] text-white/35">
                       {member.role}
                     </p>
                   </motion.div>

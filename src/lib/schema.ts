@@ -4,9 +4,11 @@ import {
   SITE_DESCRIPTION,
   CONTACT_EMAIL,
   FOUNDING_YEAR,
+  FOUNDING_LOCATION,
   FOUNDERS,
-  LOCATIONS,
+  STUDIOS,
   SOCIAL_LINKS,
+  type Studio,
 } from "./site";
 import { type Film, filmOgPath } from "./film";
 
@@ -18,7 +20,27 @@ export const WEBSITE_ID = `${SITE_URL}/#website`;
 const absoluteUrl = (path: string) =>
   path.startsWith("http") ? path : `${SITE_URL}${path}`;
 
-export function organizationSchema() {
+interface OrgSettings {
+  studios?: Studio[];
+  founders?: string[];
+  foundingYear?: string;
+  foundingLocation?: string;
+  contactEmail?: string;
+  social?: string[];
+  seoDescription?: string;
+}
+
+// Pass the CMS siteSettings to reflect editor changes; falls back to the
+// canonical constants in site.ts when called without arguments.
+export function organizationSchema(settings?: OrgSettings) {
+  const studios = settings?.studios?.length ? settings.studios : STUDIOS;
+  const founders = settings?.founders?.length ? settings.founders : FOUNDERS;
+  const foundingYear = settings?.foundingYear || FOUNDING_YEAR;
+  const foundingLocation = settings?.foundingLocation || FOUNDING_LOCATION;
+  const email = settings?.contactEmail || CONTACT_EMAIL;
+  const description = settings?.seoDescription || SITE_DESCRIPTION;
+  const sameAs = settings?.social?.length ? settings.social : SOCIAL_LINKS;
+
   return {
     "@context": "https://schema.org",
     "@type": "Organization",
@@ -27,15 +49,32 @@ export function organizationSchema() {
     alternateName: "AEF Productions",
     url: SITE_URL,
     logo: `${SITE_URL}/icon.svg`,
-    description: SITE_DESCRIPTION,
-    email: CONTACT_EMAIL,
-    foundingDate: FOUNDING_YEAR,
-    founders: FOUNDERS.map((name) => ({ "@type": "Person", name })),
-    location: LOCATIONS.map((city) => ({
+    description,
+    email,
+    foundingDate: foundingYear,
+    ...(foundingLocation
+      ? {
+          foundingLocation: {
+            "@type": "Place",
+            address: {
+              "@type": "PostalAddress",
+              addressLocality: foundingLocation,
+            },
+          },
+        }
+      : {}),
+    founders: founders.map((name) => ({ "@type": "Person", name })),
+    location: studios.map((s) => ({
       "@type": "Place",
-      address: { "@type": "PostalAddress", addressLocality: city },
+      address: {
+        "@type": "PostalAddress",
+        ...(s.street ? { streetAddress: s.street } : {}),
+        ...(s.postalCode ? { postalCode: s.postalCode } : {}),
+        addressLocality: s.city,
+        ...(s.country ? { addressCountry: s.country } : {}),
+      },
     })),
-    ...(SOCIAL_LINKS.length > 0 ? { sameAs: SOCIAL_LINKS } : {}),
+    ...(sameAs.length > 0 ? { sameAs } : {}),
   };
 }
 

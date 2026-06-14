@@ -53,11 +53,11 @@ export const newsRenderers: DocumentRendererProps["renderers"] = {
       );
     },
     blockquote: ({ children }) => (
-      <blockquote className="my-8 border-l border-white/20 pl-6 text-lg font-light italic text-white/55">
+      <blockquote className="my-8 pl-6 text-lg font-light italic text-white/55">
         {children}
       </blockquote>
     ),
-    divider: () => <hr className="my-12 border-white/10" />,
+    divider: () => <hr className="my-12 border-0" />,
     list: ({ type, children }) => {
       const cls =
         "mb-6 space-y-2 pl-6 text-base md:text-lg font-light leading-relaxed text-white/65";

@@ -7,6 +7,7 @@ import keystaticConfig from "../../keystatic.config";
 import { PROJECT_MEDIA } from "@/data/project-media";
 import { CMS_MEDIA } from "@/data/cms-media.generated";
 import type { Film, ProjectFormat } from "./film";
+import type { Studio } from "@/lib/site";
 
 const reader = createReader(process.cwd(), keystaticConfig);
 
@@ -120,9 +121,11 @@ export interface SiteSettings {
   seoTitle: string;
   seoDescription: string;
   contactEmail: string;
+  studios: Studio[];
   locations: string[];
   founders: string[];
   foundingYear: string;
+  foundingLocation: string;
   social: string[];
 }
 
@@ -131,13 +134,21 @@ export async function getSiteSettings(): Promise<SiteSettings> {
   const social = [s?.instagram, s?.letterboxd, s?.vimeo, s?.linkedin].filter(
     (u): u is string => typeof u === "string" && u.length > 0,
   );
+  const studios: Studio[] = (s?.studios ?? []).map((st) => ({
+    city: st?.city ?? "",
+    street: st?.street ?? "",
+    postalCode: st?.postalCode ?? "",
+    country: st?.country ?? "",
+  }));
   return {
     seoTitle: s?.seoTitle ?? "",
     seoDescription: s?.seoDescription ?? "",
     contactEmail: s?.contactEmail ?? "",
-    locations: [...(s?.locations ?? [])],
+    studios,
+    locations: studios.map((st) => st.city),
     founders: [...(s?.founders ?? [])],
     foundingYear: s?.foundingYear ?? "",
+    foundingLocation: s?.foundingLocation ?? "",
     social,
   };
 }

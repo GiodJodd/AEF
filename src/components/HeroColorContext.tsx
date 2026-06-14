@@ -14,8 +14,8 @@ interface HeroColorContextType {
 }
 
 const defaultState: HeroColorState = {
-  gradient: "linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%)",
-  accentColor: "#0f3460",
+  gradient: "",
+  accentColor: "",
   title: "",
 };
 

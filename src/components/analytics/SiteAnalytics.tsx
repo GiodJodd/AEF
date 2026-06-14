@@ -50,7 +50,7 @@ export default function SiteAnalytics() {
         <div
           role="dialog"
           aria-label="Cookie consent"
-          className="fixed inset-x-0 bottom-0 z-[100] border-t border-white/10 bg-[#0a0a0a]/90 backdrop-blur-md"
+          className="fixed inset-x-0 bottom-0 z-[100] bg-[#0a0a0a]/90 backdrop-blur-md"
         >
           <div className="mx-auto flex max-w-5xl flex-col gap-4 px-6 py-5 md:flex-row md:items-center md:justify-between md:px-12">
             <p className="text-sm font-light leading-relaxed text-white/55">
@@ -62,14 +62,14 @@ export default function SiteAnalytics() {
               <button
                 type="button"
                 onClick={() => choose("denied")}
-                className="rounded-full border border-white/20 px-5 py-2 text-xs uppercase tracking-[0.2em] text-white/60 transition-colors hover:border-white/40 hover:text-white/90"
+                className="rounded-full bg-white/10 px-5 py-2 text-xs tracking-[0.1em] text-white/70 transition-colors hover:bg-white/20 hover:text-white"
               >
                 Decline
               </button>
               <button
                 type="button"
                 onClick={() => choose("granted")}
-                className="rounded-full bg-white px-5 py-2 text-xs uppercase tracking-[0.2em] text-black transition-opacity hover:opacity-85"
+                className="rounded-full bg-white px-5 py-2 text-xs tracking-[0.1em] text-black transition-opacity hover:opacity-85"
               >
                 Accept
               </button>

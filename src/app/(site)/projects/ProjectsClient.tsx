@@ -53,7 +53,7 @@ export default function ProjectsClient({ films }: { films: Film[] }) {
           animate={{ opacity: 1, y: 0 }}
           transition={{ type: "spring", stiffness: 100, damping: 20 }}
         >
-          <h1 className="text-xs tracking-[0.4em] uppercase text-white/30 mb-8">
+          <h1 className="text-xs tracking-[0.15em] text-white/30 mb-8">
             Projects
           </h1>
         </motion.div>
@@ -81,10 +81,10 @@ export default function ProjectsClient({ films }: { films: Film[] }) {
               <button
                 key={f.value}
                 onClick={() => setActiveFilter(f.value)}
-                className={`relative text-xs tracking-[0.2em] uppercase px-4 py-2 rounded-full border transition-all duration-300 ${
+                className={`relative text-xs tracking-[0.1em] px-4 py-2 rounded-full transition-all duration-300 ${
                   isActive
-                    ? "border-white/40 text-white bg-white/5"
-                    : "border-white/10 text-white/40 hover:text-white/70 hover:border-white/20"
+                    ? "text-white bg-white/10"
+                    : "text-white/40 hover:text-white/70"
                 }`}
               >
                 {f.label}
@@ -97,7 +97,6 @@ export default function ProjectsClient({ films }: { films: Film[] }) {
         {/* Typographic title list */}
         <motion.ul
           layout
-          className="border-t border-white/10"
           onMouseLeave={() => setHoveredSlug(null)}
         >
           <AnimatePresence mode="popLayout" initial={false}>
@@ -119,7 +118,6 @@ export default function ProjectsClient({ films }: { films: Film[] }) {
                     stiffness: 120,
                     damping: 22,
                   }}
-                  className="border-b border-white/10"
                   onMouseEnter={() => setHoveredSlug(project.slug)}
                   onFocus={() => setHoveredSlug(project.slug)}
                   onBlur={() => setHoveredSlug(null)}
@@ -130,7 +128,7 @@ export default function ProjectsClient({ films }: { films: Film[] }) {
                   >
                     <div className="flex items-baseline gap-3 md:gap-8 min-w-0 flex-1">
                       <span
-                        className={`shrink-0 md:w-14 text-[10px] md:text-xs tracking-[0.2em] tabular-nums transition-colors duration-500 ${
+                        className={`shrink-0 md:w-14 text-[10px] md:text-xs tracking-[0.1em] tabular-nums transition-colors duration-500 ${
                           someoneElseHovered ? "text-white/15" : "text-white/40"
                         }`}
                       >
@@ -147,7 +145,7 @@ export default function ProjectsClient({ films }: { films: Film[] }) {
                       </h2>
                     </div>
                     <span
-                      className={`shrink-0 text-[10px] md:text-xs tracking-[0.25em] uppercase transition-colors duration-500 ${
+                      className={`shrink-0 text-[10px] md:text-xs tracking-[0.1em] transition-colors duration-500 ${
                         someoneElseHovered ? "text-white/15" : "text-white/40"
                       }`}
                     >
@@ -199,10 +197,7 @@ export default function ProjectsClient({ films }: { films: Film[] }) {
                     className="object-contain"
                   />
                 ) : (
-                  <div
-                    className="absolute inset-0"
-                    style={{ background: hoveredProject.gradient }}
-                  />
+                  <div className="absolute inset-0 bg-[#141414]" />
                 )}
               </motion.div>
             )}

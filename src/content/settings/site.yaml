@@ -1,13 +1,20 @@
 seoTitle: AEF — Independent Film Production
-seoDescription: AEF is an independent film production company between Rome and London, founded in 2022 by Matteo Severini and Riccardo Rizzi.
+seoDescription: AEF is an independent film production company between London and Rome, founded in London in 2022 by Matteo Severini and Riccardo Rizzi.
 contactEmail: info@aef.film
-locations:
-  - Rome
-  - London
+studios:
+  - city: London
+    street: 12B Kensington Gardens Square
+    postalCode: "W2 4BH"
+    country: UK
+  - city: Rome
+    street: Via Giorgio Vasari, 4
+    postalCode: "00196"
+    country: Italy
 founders:
   - Matteo Severini
   - Riccardo Rizzi
 foundingYear: "2022"
+foundingLocation: London
 instagram: ""
 letterboxd: ""
 vimeo: ""

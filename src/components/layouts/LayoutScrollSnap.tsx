@@ -7,6 +7,7 @@ import Image from "next/image";
 import Footer from "@/components/Footer";
 import HeroSelector from "@/components/hero/HeroSelector";
 import type { Film } from "@/lib/film";
+import { CONTACT_EMAIL } from "@/lib/site";
 
 function FadeInSection({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -49,7 +50,7 @@ export default function LayoutScrollSnap({
       {/* Section 2: About teaser / Tagline */}
       <div className="scroll-snap-section flex items-center justify-center px-8 bg-[#0a0a0a] z-10">
         <FadeInSection className="max-w-3xl text-center">
-          <p className="text-xs tracking-[0.4em] uppercase text-white/30 mb-8">
+          <p className="text-xs tracking-[0.15em] text-white/30 mb-8">
             About AEF
           </p>
           <p className="text-2xl md:text-3xl font-extralight leading-relaxed text-white/70 mb-8">
@@ -57,7 +58,7 @@ export default function LayoutScrollSnap({
           </p>
           <Link
             href="/about"
-            className="text-xs tracking-[0.3em] uppercase text-white/30 hover:text-white/70 transition-colors border-b border-white/10 hover:border-white/30 pb-1"
+            className="text-xs tracking-[0.12em] text-white/30 hover:text-white/70 transition-colors"
           >
             Learn More
           </Link>
@@ -67,7 +68,7 @@ export default function LayoutScrollSnap({
       {/* Section 3: Selected Projects — free scroll */}
       <div className="scroll-free-section flex flex-col items-center px-8 py-32 md:py-40 bg-[#0a0a0a] z-10">
         <FadeInSection className="w-full max-w-5xl">
-          <p className="text-xs tracking-[0.4em] uppercase text-white/30 mb-12 text-center">
+          <p className="text-xs tracking-[0.15em] text-white/30 mb-12 text-center">
             Selected Projects
           </p>
           <div className="grid grid-cols-2 md:grid-cols-3 gap-3 md:gap-5">
@@ -98,10 +99,7 @@ export default function LayoutScrollSnap({
                           style={{ objectPosition: project.coverPosition ?? "center" }}
                         />
                       ) : (
-                        <div
-                          className="absolute inset-0"
-                          style={{ background: project.gradient }}
-                        />
+                        <div className="absolute inset-0 bg-[#141414]" />
                       );
                     })()}
                     <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
@@ -124,18 +122,18 @@ export default function LayoutScrollSnap({
       {/* Section 4: Contact CTA — free scroll */}
       <div className="scroll-free-section flex flex-col items-center px-8 py-32 md:py-40 bg-[#0a0a0a] z-10">
         <FadeInSection className="text-center">
-          <p className="text-xs tracking-[0.4em] uppercase text-white/30 mb-8">
+          <p className="text-xs tracking-[0.15em] text-white/30 mb-8">
             Get in Touch
           </p>
           <p className="text-xl md:text-2xl font-extralight text-white/50 mb-8">
             {contactPrompt}
           </p>
-          <Link
-            href="/contact"
-            className="inline-block text-sm tracking-[0.2em] uppercase text-white/70 hover:text-white transition-colors border border-white/10 hover:border-white/30 px-8 py-3"
+          <a
+            href={`mailto:${CONTACT_EMAIL}`}
+            className="inline-block text-sm tracking-[0.1em] text-white/80 hover:text-white transition-colors bg-white/10 hover:bg-white/20 rounded-md px-8 py-3"
           >
-            Contact Us
-          </Link>
+            Get in Touch
+          </a>
         </FadeInSection>
       </div>
 

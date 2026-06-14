@@ -48,10 +48,7 @@ export default function ProjectDetailClient({
             transition={{ duration: 1, ease: "easeOut" }}
           >
             {!media ? (
-              <div
-                className="absolute inset-0"
-                style={{ background: film.gradient }}
-              />
+              <div className="absolute inset-0 bg-[#141414]" />
             ) : media.coverMobile ? (
               <>
                 <Image
@@ -100,7 +97,7 @@ export default function ProjectDetailClient({
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.3, type: "spring", stiffness: 100, damping: 20 }}
             >
-              <p className="text-xs tracking-[0.3em] uppercase text-white/40 mb-3">
+              <p className="text-xs tracking-[0.12em] text-white/40 mb-3">
                 {film.formatLabel}
               </p>
               <h1 className="text-5xl md:text-7xl font-extralight tracking-tight mb-3">
@@ -124,7 +121,7 @@ export default function ProjectDetailClient({
               {/* Credits column */}
               <div className="space-y-6 text-sm text-white/50">
                 <div>
-                  <h3 className="text-xs tracking-[0.3em] uppercase text-white/30 mb-2">
+                  <h3 className="text-xs tracking-[0.12em] text-white/30 mb-2">
                     Directed By
                   </h3>
                   {film.directors.map((d) => (
@@ -132,7 +129,7 @@ export default function ProjectDetailClient({
                   ))}
                 </div>
                 <div>
-                  <h3 className="text-xs tracking-[0.3em] uppercase text-white/30 mb-2">
+                  <h3 className="text-xs tracking-[0.12em] text-white/30 mb-2">
                     Produced By
                   </h3>
                   {film.producers.map((p) => (
@@ -141,7 +138,7 @@ export default function ProjectDetailClient({
                 </div>
                 {film.executiveProducers.length > 0 && (
                   <div>
-                    <h3 className="text-xs tracking-[0.3em] uppercase text-white/30 mb-2">
+                    <h3 className="text-xs tracking-[0.12em] text-white/30 mb-2">
                       Executive Producers
                     </h3>
                     {film.executiveProducers.map((p) => (
@@ -151,7 +148,7 @@ export default function ProjectDetailClient({
                 )}
                 {film.partners.length > 0 && (
                   <div>
-                    <h3 className="text-xs tracking-[0.3em] uppercase text-white/30 mb-2">
+                    <h3 className="text-xs tracking-[0.12em] text-white/30 mb-2">
                       With
                     </h3>
                     {film.partners.map((p) => (
@@ -160,7 +157,7 @@ export default function ProjectDetailClient({
                   </div>
                 )}
                 <div>
-                  <h3 className="text-xs tracking-[0.3em] uppercase text-white/30 mb-2">
+                  <h3 className="text-xs tracking-[0.12em] text-white/30 mb-2">
                     Format
                   </h3>
                   <p>{film.formatLabel}</p>
@@ -169,7 +166,7 @@ export default function ProjectDetailClient({
 
               {/* Synopsis column */}
               <div>
-                <h2 className="text-xs tracking-[0.3em] uppercase text-white/30 mb-4">
+                <h2 className="text-xs tracking-[0.12em] text-white/30 mb-4">
                   Synopsis
                 </h2>
                 <div className="space-y-4 text-lg font-light leading-relaxed text-white/60">
@@ -183,7 +180,7 @@ export default function ProjectDetailClient({
             {/* Gallery mosaic — only if there are gallery images */}
             {media && media.gallery.length > 0 && (
               <div className="mt-20">
-                <h2 className="text-xs tracking-[0.3em] uppercase text-white/30 mb-8">
+                <h2 className="text-xs tracking-[0.12em] text-white/30 mb-8">
                   Gallery
                 </h2>
                 <ProjectGallery images={media.gallery} title={film.title} />
@@ -193,7 +190,7 @@ export default function ProjectDetailClient({
             {/* Related films — internal linking */}
             {related.length > 0 && (
               <div className="mt-24">
-                <h2 className="text-xs tracking-[0.3em] uppercase text-white/30 mb-8">
+                <h2 className="text-xs tracking-[0.12em] text-white/30 mb-8">
                   More Projects
                 </h2>
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -218,13 +215,10 @@ export default function ProjectDetailClient({
                             className="object-cover transition-transform duration-700 group-hover:scale-105"
                           />
                         ) : (
-                          <div
-                            className="absolute inset-0"
-                            style={{ background: r.gradient }}
-                          />
+                          <div className="absolute inset-0 bg-[#141414]" />
                         )}
                       </div>
-                      <p className="mt-3 text-xs tracking-[0.3em] uppercase text-white/30">
+                      <p className="mt-3 text-xs tracking-[0.12em] text-white/30">
                         {r.formatLabel}
                       </p>
                       <p className="mt-1 text-lg font-light text-white/80 transition-colors group-hover:text-white">
@@ -240,7 +234,7 @@ export default function ProjectDetailClient({
             <div className="mt-16">
               <Link
                 href="/projects"
-                className="text-xs tracking-[0.3em] uppercase text-white/30 hover:text-white/70 transition-colors"
+                className="text-xs tracking-[0.12em] text-white/30 hover:text-white/70 transition-colors"
               >
                 &larr; All Projects
               </Link>

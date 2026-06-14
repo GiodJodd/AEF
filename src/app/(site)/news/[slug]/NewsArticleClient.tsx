@@ -39,12 +39,12 @@ export default function NewsArticleClient({
         >
           <Link
             href="/news"
-            className="inline-block text-xs tracking-[0.3em] uppercase text-white/30 hover:text-white/60 transition-colors mb-10"
+            className="inline-block text-xs tracking-[0.12em] text-white/30 hover:text-white/60 transition-colors mb-10"
           >
             ← News
           </Link>
           <header className="mb-10">
-            <p className="text-xs tracking-[0.2em] uppercase text-white/30 mb-4">
+            <p className="text-xs tracking-[0.1em] text-white/30 mb-4">
               {formatDate(publishedDate)}
               {author ? ` · ${author}` : ""}
             </p>

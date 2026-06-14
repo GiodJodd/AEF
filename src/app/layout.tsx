@@ -4,6 +4,8 @@ import JsonLd from "@/components/JsonLd";
 import { organizationSchema, websiteSchema } from "@/lib/schema";
 import { SITE_URL, SITE_NAME, SITE_TITLE, SITE_DESCRIPTION } from "@/lib/site";
 import { satoshi } from "@/lib/fonts";
+import { getSiteSettings } from "@/lib/content";
+import { SiteSettingsProvider } from "@/components/SiteSettingsContext";
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -51,16 +53,17 @@ export const viewport: Viewport = {
   colorScheme: "dark",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const settings = await getSiteSettings();
   return (
     <html lang="en" className={satoshi.variable}>
       <body className="bg-[#0a0a0a] text-[#f5f5f5] antialiased">
-        <JsonLd data={[organizationSchema(), websiteSchema()]} />
-        {children}
+        <JsonLd data={[organizationSchema(settings), websiteSchema()]} />
+        <SiteSettingsProvider value={settings}>{children}</SiteSettingsProvider>
       </body>
     </html>
   );

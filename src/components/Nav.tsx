@@ -4,12 +4,12 @@ import Link from "next/link";
 import { useState, useEffect, useCallback } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
+import { CONTACT_EMAIL } from "@/lib/site";
 
 const links = [
   { href: "/projects", label: "Projects" },
   { href: "/about", label: "About" },
   { href: "/news", label: "News" },
-  { href: "/contact", label: "Get in Touch" },
 ];
 
 export default function Nav() {
@@ -58,6 +58,11 @@ export default function Nav() {
     return () => clearTimeout(timer);
   }, [pathname]);
 
+  // Close the menu whenever the route changes.
+  useEffect(() => {
+    setMenuOpen(false);
+  }, [pathname]);
+
   return (
     <nav className="fixed top-0 left-0 right-0 z-50">
       {/* Dynamic blurred backdrop — transitions smoothly on scroll */}
@@ -67,16 +72,25 @@ export default function Nav() {
           backgroundColor: scrolled ? "rgba(10, 10, 10, 0.8)" : "rgba(10, 10, 10, 0)",
           backdropFilter: scrolled ? "blur(16px)" : "blur(0px)",
           WebkitBackdropFilter: scrolled ? "blur(16px)" : "blur(0px)",
-          borderBottom: scrolled ? "1px solid rgba(255, 255, 255, 0.05)" : "1px solid transparent",
         }}
       />
 
       <div className="relative flex items-center justify-between px-6 md:px-12 py-5">
+        {/* Menu — opens the full-screen overlay (all breakpoints) */}
+        <button
+          onClick={() => setMenuOpen(true)}
+          className="text-sm font-medium tracking-wide text-white/80 transition-colors hover:text-white"
+          aria-label="Open menu"
+        >
+          Menu
+        </button>
+
+        {/* Logo — centered on every page */}
         <a
           href="/"
           onClick={handleLogoClick}
           aria-label="AEF — Home"
-          className="block text-white hover:opacity-70 transition-opacity cursor-pointer"
+          className="absolute left-1/2 top-1/2 z-10 block -translate-x-1/2 -translate-y-1/2 text-white transition-opacity hover:opacity-70 cursor-pointer"
         >
           <svg
             viewBox="0 0 231 233"
@@ -97,54 +111,16 @@ export default function Nav() {
           </svg>
         </a>
 
-        {/* Desktop nav */}
-        <div className="hidden md:flex items-center gap-8">
-          {links.map((link) => {
-            const isActive = pathname === link.href || pathname.startsWith(link.href + "/");
-            const isContact = link.href === "/contact";
-
-            return (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={`text-sm tracking-widest uppercase transition-colors duration-300 ${
-                  isContact
-                    ? isActive
-                      ? "text-white font-medium"
-                      : "text-white/70 font-medium hover:text-white"
-                    : isActive
-                      ? "text-white"
-                      : "text-white/40 hover:text-white/80"
-                }`}
-              >
-                {link.label}
-              </Link>
-            );
-          })}
-        </div>
-
-        {/* Mobile hamburger */}
-        <button
-          onClick={() => setMenuOpen(!menuOpen)}
-          className="md:hidden flex flex-col gap-1.5 w-6"
-          aria-label="Toggle menu"
+        {/* Get in Touch — opens the visitor's mail client */}
+        <a
+          href={`mailto:${CONTACT_EMAIL}`}
+          className="text-sm font-medium tracking-wide text-white/80 transition-colors hover:text-white"
         >
-          <motion.span
-            animate={menuOpen ? { rotate: 45, y: 5 } : { rotate: 0, y: 0 }}
-            className="block h-px w-full bg-white"
-          />
-          <motion.span
-            animate={menuOpen ? { opacity: 0 } : { opacity: 1 }}
-            className="block h-px w-full bg-white"
-          />
-          <motion.span
-            animate={menuOpen ? { rotate: -45, y: -5 } : { rotate: 0, y: 0 }}
-            className="block h-px w-full bg-white"
-          />
-        </button>
+          Get in Touch
+        </a>
       </div>
 
-      {/* Mobile menu overlay */}
+      {/* Full-screen menu overlay */}
       <AnimatePresence>
         {menuOpen && (
           <motion.div
@@ -152,7 +128,7 @@ export default function Nav() {
             animate={{ opacity: 1, backdropFilter: "blur(20px)" }}
             exit={{ opacity: 0, backdropFilter: "blur(0px)" }}
             transition={{ duration: 0.3 }}
-            className="fixed inset-0 bg-[#0a0a0a]/90 md:hidden flex flex-col items-center justify-center gap-8 z-40"
+            className="fixed inset-0 z-[60] flex flex-col items-center justify-center gap-5 bg-[#0a0a0a]/95"
           >
             <button
               onClick={() => setMenuOpen(false)}
@@ -174,12 +150,27 @@ export default function Nav() {
                 <Link
                   href={link.href}
                   onClick={() => setMenuOpen(false)}
-                  className="text-2xl tracking-[0.2em] uppercase text-white/80 hover:text-white transition-colors"
+                  className="text-3xl md:text-5xl font-medium tracking-tight text-white/70 hover:text-white transition-colors"
                 >
                   {link.label}
                 </Link>
               </motion.div>
             ))}
+            <motion.div
+              key="get-in-touch"
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              exit={{ opacity: 0, y: 20 }}
+              transition={{ delay: links.length * 0.05, type: "spring", stiffness: 200, damping: 20 }}
+            >
+              <a
+                href={`mailto:${CONTACT_EMAIL}`}
+                onClick={() => setMenuOpen(false)}
+                className="text-3xl md:text-5xl font-medium tracking-tight text-white/70 hover:text-white transition-colors"
+              >
+                Get in Touch
+              </a>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>

@@ -27,7 +27,7 @@ export default function NewsClient({ posts }: { posts: NewsListItem[] }) {
             animate={{ opacity: 1, y: 0 }}
             transition={{ type: "spring", stiffness: 100, damping: 20 }}
           >
-            <p className="text-xs tracking-[0.4em] uppercase text-white/30 mb-8">
+            <p className="text-xs tracking-[0.15em] text-white/30 mb-8">
               News
             </p>
             <h1 className="text-5xl md:text-7xl font-extralight tracking-tight text-white/85 mb-8">
@@ -48,10 +48,10 @@ export default function NewsClient({ posts }: { posts: NewsListItem[] }) {
   return (
     <main className="pt-24 pb-16 bg-[#0a0a0a] min-h-screen">
       <div className="max-w-3xl mx-auto px-6 md:px-12">
-        <h1 className="text-xs tracking-[0.4em] uppercase text-white/30 mb-12">
+        <h1 className="text-xs tracking-[0.15em] text-white/30 mb-12">
           News
         </h1>
-        <ul className="border-t border-white/10">
+        <ul>
           {posts.map((post, i) => (
             <motion.li
               key={post.slug}
@@ -63,10 +63,9 @@ export default function NewsClient({ posts }: { posts: NewsListItem[] }) {
                 stiffness: 100,
                 damping: 20,
               }}
-              className="border-b border-white/10"
             >
               <Link href={`/news/${post.slug}`} className="group block py-8">
-                <p className="text-xs tracking-[0.2em] uppercase text-white/30 mb-2">
+                <p className="text-xs tracking-[0.1em] text-white/30 mb-2">
                   {formatDate(post.publishedDate)}
                 </p>
                 <h2 className="text-2xl md:text-3xl font-extralight tracking-tight text-white/85 group-hover:text-white transition-colors mb-2">

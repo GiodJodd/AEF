@@ -7,12 +7,22 @@ import { config, collection, singleton, fields } from "@keystatic/core";
 //   - github → commits via a GitHub App (prod, so non-technical editors can
 //              save changes straight to the repo)
 //
-// Gate on the GitHub App credentials actually being present rather than on
-// NODE_ENV: `next build` runs with NODE_ENV=production, and the github route
-// handler throws at build time if the env vars are missing. This way local and
-// CI builds use local storage and succeed, and the deployment auto-upgrades to
-// github the moment KEYSTATIC_GITHUB_CLIENT_ID et al. are configured on Vercel.
-const storage = process.env.KEYSTATIC_GITHUB_CLIENT_ID
+// The /keystatic admin runs in the BROWSER, so the storage.kind trigger must be
+// a NEXT_PUBLIC_ var — otherwise the client resolves a different storage.kind
+// than the server (a server-only secret reads as undefined in the browser and
+// the admin silently falls back to local). So github mode keys off the PUBLIC
+// GitHub App slug: set the four env vars on Vercel and production becomes github.
+// Without it (local dev, CI), storage is local and builds never need GitHub creds.
+//
+// One-time setup: run `npm run dev` with NEXT_PUBLIC_KEYSTATIC_SETUP=true (it's in
+// .env.local) to force github mode before the app exists — that surfaces the
+// GitHub App setup wizard at /keystatic. Dev-only, so production builds without
+// the slug stay local and never throw. See CMS-ACCESS.md for the full walkthrough.
+const useGithubStorage =
+  !!process.env.NEXT_PUBLIC_KEYSTATIC_GITHUB_APP_SLUG ||
+  (process.env.NODE_ENV !== "production" &&
+    process.env.NEXT_PUBLIC_KEYSTATIC_SETUP === "true");
+const storage = useGithubStorage
   ? ({ kind: "github", repo: "GiodJodd/AEF" } as const)
   : ({ kind: "local" } as const);
 
@@ -285,15 +295,26 @@ export default config({
           multiline: true,
         }),
         contactEmail: fields.text({ label: "Contact email" }),
-        locations: fields.array(fields.text({ label: "City" }), {
-          label: "Studio locations",
-          itemLabel: (props) => props.value,
-        }),
+        studios: fields.array(
+          fields.object({
+            city: fields.text({ label: "City" }),
+            street: fields.text({ label: "Street address" }),
+            postalCode: fields.text({ label: "Postal code" }),
+            country: fields.text({ label: "Country" }),
+          }),
+          {
+            label: "Studios",
+            description:
+              "Listed in this order across the site (home, footer, about, contact) — drag to reorder.",
+            itemLabel: (props) => props.fields.city.value || "Studio",
+          },
+        ),
         founders: fields.array(fields.text({ label: "Founder" }), {
           label: "Founders",
           itemLabel: (props) => props.value,
         }),
         foundingYear: fields.text({ label: "Founding year" }),
+        foundingLocation: fields.text({ label: "Founding location" }),
         instagram: fields.url({ label: "Instagram URL (optional)" }),
         letterboxd: fields.url({ label: "Letterboxd URL (optional)" }),
         vimeo: fields.url({ label: "Vimeo URL (optional)" }),

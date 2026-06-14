@@ -1,248 +1,207 @@
 "use client";
 
 import { useState, useEffect, useCallback, useRef } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import Link from "next/link";
 import Image from "next/image";
-import { useHeroColor } from "@/components/HeroColorContext";
 import type { Film } from "@/lib/film";
 
-type FeedbackSide = "left" | "right" | null;
+const ROTATE_MS = 6000;
 
 export default function HeroBlurMorph({ films }: { films: Film[] }) {
   const projects = films;
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [feedback, setFeedback] = useState<FeedbackSide>(null);
-  const { setHeroColor } = useHeroColor();
-  // Guard against rapid duplicate calls (e.g. Next.js dev-mode multi-HMR firing)
-  const lastClickRef = useRef(0);
+  const reduce = useReducedMotion();
+  // Guards against rapid double-fires (e.g. click + keydown landing together).
+  const lastNavRef = useRef(0);
 
   const advance = useCallback(() => {
     const now = Date.now();
-    if (now - lastClickRef.current < 250) return;
-    lastClickRef.current = now;
+    if (now - lastNavRef.current < 250) return;
+    lastNavRef.current = now;
     setCurrentIndex((prev) => (prev + 1) % projects.length);
-    setFeedback("right");
-  }, []);
+  }, [projects.length]);
 
   const goBack = useCallback(() => {
     const now = Date.now();
-    if (now - lastClickRef.current < 250) return;
-    lastClickRef.current = now;
+    if (now - lastNavRef.current < 250) return;
+    lastNavRef.current = now;
     setCurrentIndex((prev) => (prev - 1 + projects.length) % projects.length);
-    setFeedback("left");
-  }, []);
+  }, [projects.length]);
 
-  // Clear feedback after animation
-  useEffect(() => {
-    if (feedback) {
-      const t = setTimeout(() => setFeedback(null), 500);
-      return () => clearTimeout(t);
-    }
-  }, [feedback]);
-
-  // Auto-advance: restarts 5s countdown whenever currentIndex changes (manual or auto)
+  // Slow auto-rotation, one film at a time. Restarts whenever the index changes
+  // (auto, click zones, keyboard, or the progress controls below).
   useEffect(() => {
     const timer = setTimeout(() => {
       setCurrentIndex((prev) => (prev + 1) % projects.length);
-    }, 5000);
+    }, ROTATE_MS);
     return () => clearTimeout(timer);
-  }, [currentIndex]);
+  }, [currentIndex, projects.length]);
 
-  const project = projects[currentIndex];
-
+  // Keyboard navigation.
   useEffect(() => {
-    setHeroColor({
-      gradient: project.gradient,
-      accentColor: project.accentColor,
-      title: project.title,
-    });
-  }, [project, setHeroColor]);
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "ArrowRight") advance();
+      else if (e.key === "ArrowLeft") goBack();
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [advance, goBack]);
+
+  if (!projects.length) return null;
+
+  const film = projects[currentIndex];
 
   return (
     <div className="absolute inset-0 overflow-hidden bg-[#0a0a0a]">
+      {/* Rotating still — slow crossfade + gentle zoom */}
       <AnimatePresence initial={false}>
         <motion.div
-          key={project.slug}
+          key={film.slug}
           className="absolute inset-0"
-          initial={{ filter: "blur(40px)", scale: 1.08, opacity: 0 }}
-          animate={{ filter: "blur(0px)", scale: 1, opacity: 1 }}
-          exit={{ filter: "blur(30px)", scale: 1.03, opacity: 0 }}
-          transition={{
-            filter: { type: "spring", stiffness: 80, damping: 20 },
-            scale: { type: "spring", stiffness: 80, damping: 20 },
-            opacity: { duration: 0.8 },
-          }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: reduce ? 0.3 : 1.2, ease: "easeInOut" }}
         >
-          {(() => {
-            const media = project.media;
-            if (!media) {
-              return (
-                <div
-                  className="absolute inset-0"
-                  style={{ background: project.gradient }}
-                />
-              );
-            }
-            // When the film opts into a separate mobile cover, swap the source
-            // by viewport; otherwise the single desktop cover at all sizes.
-            return media.coverMobile ? (
-              <>
-                <Image
-                  src={media.coverMobile.src}
-                  alt={project.title}
-                  fill
-                  priority={currentIndex === 0}
-                  placeholder="blur"
-                  blurDataURL={media.coverMobile.blurDataURL}
-                  sizes="100vw"
-                  className="object-cover md:hidden"
-                />
+          <motion.div
+            className="absolute inset-0"
+            initial={reduce ? false : { scale: 1.06 }}
+            animate={reduce ? undefined : { scale: 1 }}
+            transition={reduce ? undefined : { duration: ROTATE_MS / 1000 + 1.4, ease: "easeOut" }}
+          >
+            {(() => {
+              const media = film.media;
+              if (!media) return null;
+              // Per-film mobile cover swaps the source by viewport when present.
+              return media.coverMobile ? (
+                <>
+                  <Image
+                    src={media.coverMobile.src}
+                    alt={film.title}
+                    fill
+                    priority={currentIndex === 0}
+                    placeholder="blur"
+                    blurDataURL={media.coverMobile.blurDataURL}
+                    sizes="100vw"
+                    className="object-cover md:hidden"
+                  />
+                  <Image
+                    src={media.cover.src}
+                    alt={film.title}
+                    fill
+                    priority={currentIndex === 0}
+                    placeholder="blur"
+                    blurDataURL={media.cover.blurDataURL}
+                    sizes="100vw"
+                    className="hidden object-cover md:block"
+                    style={{ objectPosition: film.coverPosition ?? "center" }}
+                  />
+                </>
+              ) : (
                 <Image
                   src={media.cover.src}
-                  alt={project.title}
+                  alt={film.title}
                   fill
                   priority={currentIndex === 0}
                   placeholder="blur"
                   blurDataURL={media.cover.blurDataURL}
                   sizes="100vw"
-                  className="hidden object-cover md:block"
-                  style={{ objectPosition: project.coverPosition ?? "center" }}
+                  className="object-cover"
+                  style={{ objectPosition: film.coverPosition ?? "center" }}
                 />
-              </>
-            ) : (
-              <Image
-                src={media.cover.src}
-                alt={project.title}
-                fill
-                priority={currentIndex === 0}
-                placeholder="blur"
-                blurDataURL={media.cover.blurDataURL}
-                sizes="100vw"
-                className="object-cover"
-                style={{ objectPosition: project.coverPosition ?? "center" }}
-              />
-            );
-          })()}
+              );
+            })()}
+          </motion.div>
           {/* Film grain texture */}
           <div className="absolute inset-0 opacity-[0.05] mix-blend-overlay bg-[url('data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIj48ZmlsdGVyIGlkPSJhIiB4PSIwIiB5PSIwIj48ZmVUdXJidWxlbmNlIGJhc2VGcmVxdWVuY3k9Ii43NSIgc3RpdGNoVGlsZXM9InN0aXRjaCIgdHlwZT0iZnJhY3RhbE5vaXNlIi8+PGZlQ29sb3JNYXRyaXggdHlwZT0ic2F0dXJhdGUiIHZhbHVlcz0iMCIvPjwvZmlsdGVyPjxyZWN0IHdpZHRoPSIzMDAiIGhlaWdodD0iMzAwIiBmaWx0ZXI9InVybCgjYSkiIG9wYWNpdHk9IjEiLz48L3N2Zz4=')]" />
-          {/* Dark gradient for text readability */}
+          {/* Dark scrim — keeps the caption legible over bright stills */}
           <div className="absolute inset-0 bg-gradient-to-t from-[#0a0a0a] via-[#0a0a0a]/40 to-transparent" />
         </motion.div>
       </AnimatePresence>
 
-      {/* Feedback ellipses — mostly off-screen, peek in on click */}
-      <AnimatePresence>
-        {feedback === "left" && (
-          <motion.div
-            key="ellipse-left"
-            className="absolute z-[4] pointer-events-none"
-            style={{
-              width: "40vw",
-              height: "120vh",
-              borderRadius: "50%",
-              background: "radial-gradient(ellipse at center, rgba(255,255,255,0.08) 0%, transparent 70%)",
-              top: "50%",
-              left: "-30vw",
-              translateY: "-50%",
-            }}
-            initial={{ opacity: 0, scale: 0.7 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.9 }}
-            transition={{ type: "spring", stiffness: 200, damping: 25 }}
-          />
-        )}
-        {feedback === "right" && (
-          <motion.div
-            key="ellipse-right"
-            className="absolute z-[4] pointer-events-none"
-            style={{
-              width: "40vw",
-              height: "120vh",
-              borderRadius: "50%",
-              background: "radial-gradient(ellipse at center, rgba(255,255,255,0.08) 0%, transparent 70%)",
-              top: "50%",
-              right: "-30vw",
-              translateY: "-50%",
-            }}
-            initial={{ opacity: 0, scale: 0.7 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0, scale: 0.9 }}
-            transition={{ type: "spring", stiffness: 200, damping: 25 }}
-          />
-        )}
-      </AnimatePresence>
-
-      {/* Left/right click zones */}
+      {/* Click zones — left third = previous, right third = next */}
       <button
-        onClick={(e) => { e.stopPropagation(); goBack(); }}
-        className="absolute left-0 top-0 w-1/3 h-full z-[5] cursor-w-resize"
-        aria-label="Previous"
+        type="button"
+        onClick={goBack}
+        aria-label="Previous film"
+        className="absolute left-0 top-0 z-[5] h-full w-1/3 cursor-w-resize"
       />
       <button
-        onClick={(e) => { e.stopPropagation(); advance(); }}
-        className="absolute right-0 top-0 w-1/3 h-full z-[5] cursor-e-resize"
-        aria-label="Next"
+        type="button"
+        onClick={advance}
+        aria-label="Next film"
+        className="absolute right-0 top-0 z-[5] h-full w-1/3 cursor-e-resize"
       />
 
-      {/* Content overlay */}
-      <div className="absolute inset-0 flex flex-col justify-end p-8 md:p-16 z-10 pointer-events-none">
-        <AnimatePresence mode="wait">
-          <motion.div
-            key={project.slug}
-            initial={{ opacity: 0, y: 30, filter: "blur(10px)" }}
-            animate={{ opacity: 1, y: 0, filter: "blur(0px)" }}
-            exit={{ opacity: 0, y: -20, filter: "blur(10px)" }}
-            transition={{ type: "spring", stiffness: 100, damping: 20, delay: 0.1 }}
-          >
-            <p className="text-xs tracking-[0.3em] uppercase text-white/40 mb-3">
-              {project.formatLabel}
+      {/* Current film — small caption, bottom-left */}
+      <div className="absolute bottom-0 left-0 right-0 z-10 p-8 md:p-12 lg:p-16">
+        <motion.div
+          key={film.slug}
+          initial={reduce ? false : { y: 14 }}
+          animate={{ y: 0 }}
+          transition={{ duration: 0.5, ease: "easeOut" }}
+        >
+            <p className="mb-2 text-xs tracking-[0.15em] text-white/45">
+              {film.formatLabel}
             </p>
-            <Link
-              href={`/projects/${project.slug}`}
-              className="group inline-flex items-end gap-4 pointer-events-auto"
-            >
-              <h1 className="text-4xl md:text-6xl lg:text-7xl font-light tracking-tight group-hover:text-white/80 transition-colors">
-                {project.title}
-              </h1>
-              <span className="mb-2 md:mb-3 opacity-0 group-hover:opacity-100 translate-x-0 group-hover:translate-x-1 transition-all duration-300">
-                <svg className="w-5 h-5 md:w-6 md:h-6 text-white/60" fill="none" stroke="currentColor" viewBox="0 0 24 24" strokeWidth={1}>
-                  <path strokeLinecap="round" strokeLinejoin="round" d="M4.5 19.5l15-15m0 0H8.25m11.25 0v11.25" />
-                </svg>
-              </span>
+            <Link href={`/projects/${film.slug}`} className="group inline-block">
+              <h2 className="text-2xl md:text-4xl font-medium tracking-tight text-white transition-opacity group-hover:opacity-80">
+                {film.title}
+              </h2>
             </Link>
-            <p className="text-sm md:text-base text-white/50 tracking-wide mt-3">
-              {project.directors.join(", ")}
-            </p>
-          </motion.div>
-        </AnimatePresence>
+            {film.directors.length > 0 && (
+              <p className="mt-2 text-sm text-white/55">
+                {film.directors.join(", ")}
+              </p>
+            )}
+        </motion.div>
 
-        {/* Progress indicators */}
-        <div className="flex gap-2 mt-8 pointer-events-auto">
-          {projects.map((_, i) => (
+        {/* Progress / navigation — one segment per film, active fills over the rotation */}
+        <div className="mt-6 flex gap-2">
+          {projects.map((p, i) => (
             <button
-              key={i}
-              onClick={() => {
-                setCurrentIndex(i);
-                setFeedback(i > currentIndex ? "right" : "left");
-              }}
-              className="group relative h-[2px] flex-1 max-w-16 bg-white/10 overflow-hidden"
+              key={p.slug}
+              onClick={() => setCurrentIndex(i)}
+              aria-label={`Show ${p.title}`}
+              className="relative h-[2px] w-10 md:w-14 overflow-hidden bg-white/15"
             >
               <motion.div
                 key={`bar-${i}-${currentIndex}`}
-                className="absolute inset-y-0 left-0 bg-white/60"
+                className="absolute inset-y-0 left-0 bg-white/70"
                 initial={{ width: i < currentIndex ? "100%" : "0%" }}
-                animate={{ width: i === currentIndex ? "100%" : i < currentIndex ? "100%" : "0%" }}
+                animate={{
+                  width:
+                    i === currentIndex ? "100%" : i < currentIndex ? "100%" : "0%",
+                }}
                 transition={
                   i === currentIndex
-                    ? { duration: 5, ease: "linear" }
-                    : { duration: 0.4, ease: "easeOut" }
+                    ? { duration: reduce ? 0 : ROTATE_MS / 1000, ease: "linear" }
+                    : { duration: 0.3 }
                 }
               />
             </button>
           ))}
         </div>
       </div>
+
+      {/* Scroll cue */}
+      <motion.div
+        aria-hidden
+        className="pointer-events-none absolute bottom-8 right-6 z-10 text-white/50 md:right-12"
+        animate={reduce ? undefined : { y: [0, 6, 0] }}
+        transition={reduce ? undefined : { duration: 1.8, repeat: Infinity, ease: "easeInOut" }}
+      >
+        <svg
+          className="h-5 w-5 md:h-6 md:w-6"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+          strokeWidth={1}
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 13.5L12 21m0 0l-7.5-7.5M12 21V3" />
+        </svg>
+      </motion.div>
     </div>
   );
 }
