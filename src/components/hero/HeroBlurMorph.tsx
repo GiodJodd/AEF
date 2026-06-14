@@ -146,7 +146,10 @@ export default function HeroBlurMorph({ films }: { films: Film[] }) {
               {film.formatLabel}
             </p>
             <Link href={`/projects/${film.slug}`} className="group inline-block">
-              <h2 className="text-2xl md:text-4xl font-medium tracking-tight text-white transition-opacity group-hover:opacity-80">
+              <h2
+                className="max-w-xl text-4xl md:text-6xl font-medium leading-[1.05] tracking-tight text-white transition-opacity group-hover:opacity-80"
+                style={{ textWrap: "balance" }}
+              >
                 {film.title}
               </h2>
             </Link>
