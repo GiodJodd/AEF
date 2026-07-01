@@ -6,8 +6,12 @@ formatLabel: Feature Documentary
 logline: >-
   Inside the Central Prison of Douala in Cameroon, inmates-turned-artists build
   and run the first recording studio in an African prison.
-synopsis: |-
-  Jail Time Records is a documentary musical that follows recording artists emerging from one of the world's toughest settings. Inside the crammed alleyways of the Central Prison of Douala in Cameroon, the film immerses itself in the lives of the inmates-turned-artists that make up Jail Time Records, the first recording studio in an African prison.
+synopsis: >-
+  Jail Time Records is a documentary musical that follows recording artists
+  emerging from one of the world's toughest settings. Inside the crammed
+  alleyways of the Central Prison of Douala in Cameroon, the film immerses
+  itself in the lives of the inmates-turned-artists that make up Jail Time
+  Records, the first recording studio in an African prison.
 directors:
   - Dione Roach
   - Steve Happi
@@ -24,10 +28,18 @@ executiveProducers:
   - Gillian Brown
 partners:
   - Jail Time Production
-  - AEF productions
+  - Artists Equity
+cast: []
 genre:
   - Documentary
   - Music
-gradient: "linear-gradient(135deg, #1a0808 0%, #3a0f0f 40%, #5a1818 70%, #7a2818 100%)"
-accentColor: "#5a1818"
-coverAlt: Cover still from JAIL TIME RECORDS, a feature documentary directed by Dione Roach and Steve Happi.
+festivals: []
+pressLinks: []
+gradient: 'linear-gradient(135deg, #1a0808 0%, #3a0f0f 40%, #5a1818 70%, #7a2818 100%)'
+accentColor: '#5a1818'
+coverAlt: >-
+  Cover still from JAIL TIME RECORDS, a feature documentary directed by Dione
+  Roach and Steve Happi.
+coverMobile:
+  discriminant: false
+gallery: []
