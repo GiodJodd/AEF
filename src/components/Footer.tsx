@@ -5,11 +5,11 @@ import Image from "next/image";
 import { motion, useReducedMotion } from "framer-motion";
 import {
   CONTACT_EMAIL,
+  SITE_NAME,
   SOCIAL_LINKS,
   STUDIOS,
   formatStudioAddress,
 } from "@/lib/site";
-import { PROJECT_MEDIA } from "@/data/project-media";
 import { useSiteSettings } from "@/components/SiteSettingsContext";
 
 // Label a social URL from its host so the owner only maintains URLs in one
@@ -23,25 +23,61 @@ const SOCIAL_LABELS: Record<string, string> = {
   "imdb.com": "IMDb",
 };
 
-function socialLabel(url: string): string {
+function socialHost(url: string): string {
   try {
-    const host = new URL(url).hostname.replace(/^www\./, "");
-    return (
-      SOCIAL_LABELS[host] ??
-      host.split(".")[0].replace(/^./, (c) => c.toUpperCase())
-    );
+    return new URL(url).hostname.replace(/^www\./, "");
   } catch {
-    return "Link";
+    return "";
   }
 }
 
-// A single atmospheric still anchors the footer. Swap the slug to re-art-direct;
-// falls back to any available cover, or to a plain dark footer if none exist.
-const footerCover =
-  PROJECT_MEDIA["cuirdange"] ??
-  PROJECT_MEDIA["noia"] ??
-  Object.values(PROJECT_MEDIA)[0] ??
-  null;
+function socialLabel(url: string): string {
+  const host = socialHost(url);
+  if (!host) return "Link";
+  return (
+    SOCIAL_LABELS[host] ??
+    host.split(".")[0].replace(/^./, (c) => c.toUpperCase())
+  );
+}
+
+// Minimal line-style icons for the platforms we can render faithfully; any other
+// social falls back to its text label. Icons only ever appear for URLs the owner
+// actually set in the CMS — we never invent a link.
+function socialIcon(host: string) {
+  switch (host) {
+    case "instagram.com":
+      return (
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth={1.6}
+          className="h-5 w-5"
+          aria-hidden="true"
+        >
+          <rect x="2.5" y="2.5" width="19" height="19" rx="5.5" />
+          <circle cx="12" cy="12" r="4.2" />
+          <circle cx="17.5" cy="6.5" r="1.15" fill="currentColor" stroke="none" />
+        </svg>
+      );
+    case "youtube.com":
+      return (
+        <svg
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth={1.6}
+          className="h-5 w-5"
+          aria-hidden="true"
+        >
+          <rect x="2.5" y="5.5" width="19" height="13" rx="4" />
+          <path d="M10.5 9.2v5.6l4.8-2.8-4.8-2.8Z" fill="currentColor" stroke="none" />
+        </svg>
+      );
+    default:
+      return null;
+  }
+}
 
 export default function Footer({ minimal = false }: { minimal?: boolean }) {
   const reduce = useReducedMotion();
@@ -49,26 +85,29 @@ export default function Footer({ minimal = false }: { minimal?: boolean }) {
   const studios = settings?.studios?.length ? settings.studios : STUDIOS;
   const email = settings?.contactEmail || CONTACT_EMAIL;
   const social = settings?.social?.length ? settings.social : SOCIAL_LINKS;
+  const footerImage = settings?.footerImage ?? null;
+  const tagline = settings?.footerTagline?.trim() ?? "";
+  const copyrightName = settings?.copyrightName?.trim() || SITE_NAME;
 
   // Compact fixed bar for the Keystatic admin chrome — unchanged.
   if (minimal) {
     return (
       <footer className="fixed bottom-0 left-0 right-0 z-40 px-6 md:px-12 py-4 flex justify-between items-center text-xs tracking-wide text-[#444]">
         <span>AEF &middot; London &middot; Rome</span>
-        <span>&copy; 2026</span>
+        <span>&copy; {new Date().getFullYear()}</span>
       </footer>
     );
   }
 
   return (
     <footer className="relative flex min-h-[70vh] flex-col justify-end overflow-hidden bg-[#0a0a0a]">
-      {footerCover && (
+      {footerImage && (
         <Image
-          src={footerCover.cover.src}
+          src={footerImage.src}
           alt=""
           fill
           placeholder="blur"
-          blurDataURL={footerCover.cover.blurDataURL}
+          blurDataURL={footerImage.blurDataURL}
           sizes="100vw"
           className="object-cover"
         />
@@ -105,6 +144,12 @@ export default function Footer({ minimal = false }: { minimal?: boolean }) {
           </svg>
         </Link>
 
+        {tagline && (
+          <p className="mt-6 max-w-md text-sm leading-relaxed text-white/60">
+            {tagline}
+          </p>
+        )}
+
         <div className="mt-10 flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
           {/* Studios — listed in CMS order (London first) */}
           <div className="flex flex-col gap-5 sm:flex-row sm:gap-12">
@@ -124,19 +169,27 @@ export default function Footer({ minimal = false }: { minimal?: boolean }) {
             >
               {email}
             </a>
-            <div className="flex flex-wrap items-center gap-x-6 gap-y-1 text-xs tracking-[0.1em] text-white/45 lg:justify-end">
-              {social.map((url) => (
-                <a
-                  key={url}
-                  href={url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="transition-colors hover:text-white"
-                >
-                  {socialLabel(url)}
-                </a>
-              ))}
-              <span>&copy; 2026 AEF</span>
+            <div className="flex flex-wrap items-center gap-x-5 gap-y-1 text-xs tracking-[0.1em] text-white/45 lg:justify-end">
+              {social.map((url) => {
+                const label = socialLabel(url);
+                const icon = socialIcon(socialHost(url));
+                return (
+                  <a
+                    key={url}
+                    href={url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={label}
+                    title={label}
+                    className="inline-flex items-center transition-colors hover:text-white"
+                  >
+                    {icon ?? <span>{label}</span>}
+                  </a>
+                );
+              })}
+              <span>
+                &copy; {new Date().getFullYear()} {copyrightName}
+              </span>
             </div>
           </div>
         </div>

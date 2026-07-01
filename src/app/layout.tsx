@@ -4,7 +4,7 @@ import JsonLd from "@/components/JsonLd";
 import { organizationSchema, websiteSchema } from "@/lib/schema";
 import { SITE_URL, SITE_NAME, SITE_TITLE, SITE_DESCRIPTION } from "@/lib/site";
 import { satoshi } from "@/lib/fonts";
-import { getSiteSettings } from "@/lib/content";
+import { getSiteSettings, getFilmsWithMedia } from "@/lib/content";
 import { SiteSettingsProvider } from "@/components/SiteSettingsContext";
 
 export const metadata: Metadata = {
@@ -59,11 +59,20 @@ export default async function RootLayout({
   children: React.ReactNode;
 }) {
   const settings = await getSiteSettings();
+  // The footer is a client component, so resolve its image here: a CMS upload
+  // (FOOTER_MEDIA) wins; otherwise fall back to the first film's cover.
+  let footerImage = settings.footerImage;
+  if (!footerImage) {
+    const films = await getFilmsWithMedia();
+    footerImage = films[0]?.media?.cover ?? null;
+  }
   return (
     <html lang="en" className={satoshi.variable}>
       <body className="bg-[#0a0a0a] text-[#f5f5f5] antialiased">
         <JsonLd data={[organizationSchema(settings), websiteSchema()]} />
-        <SiteSettingsProvider value={settings}>{children}</SiteSettingsProvider>
+        <SiteSettingsProvider value={{ ...settings, footerImage }}>
+          {children}
+        </SiteSettingsProvider>
       </body>
     </html>
   );

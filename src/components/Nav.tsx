@@ -5,6 +5,7 @@ import { useState, useEffect, useCallback } from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import { CONTACT_EMAIL } from "@/lib/site";
+import { useSiteSettings } from "@/components/SiteSettingsContext";
 
 const links = [
   { href: "/projects", label: "Projects" },
@@ -18,6 +19,8 @@ export default function Nav() {
   const pathname = usePathname();
   const router = useRouter();
   const isHome = pathname === "/";
+  const settings = useSiteSettings();
+  const email = settings?.contactEmail || CONTACT_EMAIL;
 
   const handleLogoClick = useCallback((e: React.MouseEvent) => {
     e.preventDefault();
@@ -113,7 +116,7 @@ export default function Nav() {
 
         {/* Get in Touch — opens the visitor's mail client */}
         <a
-          href={`mailto:${CONTACT_EMAIL}`}
+          href={`mailto:${email}`}
           className="text-sm font-medium tracking-wide text-white/80 transition-colors hover:text-white"
         >
           Get in Touch
@@ -164,7 +167,7 @@ export default function Nav() {
               transition={{ delay: links.length * 0.05, type: "spring", stiffness: 200, damping: 20 }}
             >
               <a
-                href={`mailto:${CONTACT_EMAIL}`}
+                href={`mailto:${email}`}
                 onClick={() => setMenuOpen(false)}
                 className="text-3xl md:text-5xl font-medium tracking-tight text-white/70 hover:text-white transition-colors"
               >

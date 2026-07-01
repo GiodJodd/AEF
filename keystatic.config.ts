@@ -319,6 +319,23 @@ export default config({
         letterboxd: fields.url({ label: "Letterboxd URL (optional)" }),
         vimeo: fields.url({ label: "Vimeo URL (optional)" }),
         linkedin: fields.url({ label: "LinkedIn URL (optional)" }),
+        footerImage: fields.image({
+          label: "Footer image (optional)",
+          directory: "public/footer-src",
+          publicPath: "/footer-src",
+          description:
+            "Large still behind the footer. Optimized at build (WebP + blur-up). Leave empty to use the first film's cover.",
+        }),
+        footerTagline: fields.text({
+          label: "Footer tagline (optional)",
+          multiline: true,
+          description: "Short line shown in the footer. Leave blank to hide.",
+        }),
+        copyrightName: fields.text({
+          label: "Copyright name",
+          description:
+            "Shown as © <year> <name>; the year updates automatically. Defaults to AEF.",
+        }),
       },
     }),
 

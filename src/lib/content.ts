@@ -4,8 +4,8 @@
 // components; pass the returned plain objects down as props instead.
 import { createReader } from "@keystatic/core/reader";
 import keystaticConfig from "../../keystatic.config";
-import { PROJECT_MEDIA } from "@/data/project-media";
-import { CMS_MEDIA } from "@/data/cms-media.generated";
+import { PROJECT_MEDIA, type ImageMeta } from "@/data/project-media";
+import { CMS_MEDIA, FOOTER_MEDIA } from "@/data/cms-media.generated";
 import type { Film, ProjectFormat } from "./film";
 import type { Studio } from "@/lib/site";
 
@@ -127,6 +127,9 @@ export interface SiteSettings {
   foundingYear: string;
   foundingLocation: string;
   social: string[];
+  footerImage: ImageMeta | null;
+  footerTagline: string;
+  copyrightName: string;
 }
 
 export async function getSiteSettings(): Promise<SiteSettings> {
@@ -150,6 +153,9 @@ export async function getSiteSettings(): Promise<SiteSettings> {
     foundingYear: s?.foundingYear ?? "",
     foundingLocation: s?.foundingLocation ?? "",
     social,
+    footerImage: FOOTER_MEDIA,
+    footerTagline: s?.footerTagline ?? "",
+    copyrightName: s?.copyrightName ?? "",
   };
 }
 

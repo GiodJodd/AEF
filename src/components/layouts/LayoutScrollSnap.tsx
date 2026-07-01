@@ -8,6 +8,7 @@ import Footer from "@/components/Footer";
 import HeroSelector from "@/components/hero/HeroSelector";
 import type { Film } from "@/lib/film";
 import { CONTACT_EMAIL } from "@/lib/site";
+import { useSiteSettings } from "@/components/SiteSettingsContext";
 
 function FadeInSection({ children, className = "" }: { children: React.ReactNode; className?: string }) {
   const ref = useRef<HTMLDivElement>(null);
@@ -40,6 +41,8 @@ export default function LayoutScrollSnap({
   contactPrompt: string;
 }) {
   const heroFilms = films.filter((f) => f.media);
+  const settings = useSiteSettings();
+  const email = settings?.contactEmail || CONTACT_EMAIL;
   return (
     <div className="scroll-snap-container" style={{ position: "fixed", inset: 0, zIndex: 1 }}>
       {/* Section 1: Hero */}
@@ -129,7 +132,7 @@ export default function LayoutScrollSnap({
             {contactPrompt}
           </p>
           <a
-            href={`mailto:${CONTACT_EMAIL}`}
+            href={`mailto:${email}`}
             className="inline-block text-sm tracking-[0.1em] text-white/80 hover:text-white transition-colors bg-white/10 hover:bg-white/20 rounded-md px-8 py-3"
           >
             Get in Touch
